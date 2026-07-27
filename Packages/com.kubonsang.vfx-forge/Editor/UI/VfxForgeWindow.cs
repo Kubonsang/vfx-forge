@@ -66,6 +66,11 @@ namespace Kubonsang.VfxForge.Editor
                         previewSession.Restart();
                     }
 
+                    if (GUILayout.Button("Capture Frames"))
+                    {
+                        CaptureFrames();
+                    }
+
                     if (GUILayout.Button("Close Preview"))
                     {
                         ClosePreview();
@@ -166,6 +171,29 @@ namespace Kubonsang.VfxForge.Editor
 
             previewSession = open.Session;
             results.Add(VfxValidationResult.Pass("PREVIEW-PLAYBACK", open.Message));
+        }
+
+        private void CaptureFrames()
+        {
+            VfxRecipeParseResult parsed = ParseSelected();
+            if (!parsed.Success)
+            {
+                results.Add(VfxValidationResult.Error(ParseErrorCode(parsed), parsed.Error));
+                return;
+            }
+
+            string captureDirectory = Path.Combine(artifactDirectory, "capture");
+            VfxFrameCaptureResult capture =
+                VfxFrameCapture.Capture(previewSession, parsed.Recipe, captureDirectory);
+            if (!capture.Success)
+            {
+                results.Add(VfxValidationResult.Error(capture.ErrorCode, capture.Message));
+                return;
+            }
+
+            results.Add(VfxValidationResult.Pass(
+                "CAPTURE-WRITE",
+                $"Capture manifest written: {Path.GetFullPath(capture.ManifestPath)}"));
         }
 
         private void ClosePreview()

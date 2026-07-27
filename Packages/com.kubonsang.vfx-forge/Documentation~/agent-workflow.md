@@ -17,8 +17,10 @@
 7. Add generation metadata.
 8. Validate the generated Prefab.
 9. Save a report.
-10. Only later, preview and capture.
+10. Preview in an isolated Scene.
+11. Capture the requested frames and manifest.
 
 ## Review Rule
 
-A visual change requires a before/after capture once capture support exists. Until then, report only structural correctness, never visual quality.
+A visual change requires before/after captures and validation evidence. A structural
+capture fixture alone does not prove visual quality.

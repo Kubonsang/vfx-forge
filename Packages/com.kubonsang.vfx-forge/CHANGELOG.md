@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Added deterministic frame-time PNG capture for front, side, and top Preview views.
+- Added capture manifests, playback restoration, output collision protection, and cleanup.
+- Added Editor capture controls and render/encoding/failure-path EditMode coverage.
 - Added an isolated, pathless Preview Scene with generated-Prefab playback and cleanup.
 - Added a fixed Preview Camera rig and Editor Window controls for open, restart, and close.
 - Added tests for active Scene isolation, Prefab immutability, and temporary object removal.

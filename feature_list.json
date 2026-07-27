@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "project": "VFX Forge",
-  "current_task": "VF-008",
+  "current_task": "VF-009",
   "status_values": [
     "done",
     "in_progress",
@@ -255,7 +255,7 @@
     {
       "id": "VF-008",
       "title": "Frame capture",
-      "status": "todo",
+      "status": "done",
       "scope": [
         "Frame timing",
         "Front side top views",
@@ -266,7 +266,40 @@
         "All requested frames exist",
         "File names are deterministic",
         "Capture failure returns failure"
-      ]
+      ],
+      "verification": {
+        "unity": "6000.3.8f1",
+        "capture_tests": 8,
+        "requested_fixture_frames": 6,
+        "written_fixture_frames": 6,
+        "fixture_dimensions": "128x128",
+        "verified_views": [
+          "front",
+          "side",
+          "top"
+        ],
+        "verified_frame_times_seconds": [
+          0.0,
+          0.1
+        ],
+        "deterministic_file_names": true,
+        "existing_outputs_overwritten": false,
+        "failure_returns_failed_result": true,
+        "manifest": "UnityCompatibilityProject/Artifacts/vf-008-capture/capture-manifest.json",
+        "editmode_tests": {
+          "passed": 103,
+          "failed": 0,
+          "skipped": 0,
+          "artifact": "UnityCompatibilityProject/Artifacts/vf-008-editmode-results.xml"
+        },
+        "console": {
+          "errors": 0,
+          "warnings": 12,
+          "artifact": "UnityCompatibilityProject/Artifacts/vf-008-console.json"
+        },
+        "generated_assets_remaining": [],
+        "visual_quality": "not assessed; the compatibility fixture verifies structural rendering only"
+      }
     },
     {
       "id": "VF-009",

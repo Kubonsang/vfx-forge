@@ -20,6 +20,8 @@ namespace Kubonsang.VfxForge.Editor.Tests
         [TestCase(nameof(VisualEffect.SendEvent))]
         [TestCase(nameof(VisualEffect.Stop))]
         [TestCase(nameof(VisualEffect.Reinit))]
+        [TestCase(nameof(VisualEffect.Simulate))]
+        [TestCase(nameof(VisualEffect.pause))]
         [TestCase(nameof(VisualEffect.visualEffectAsset))]
         public void RequiredVisualEffectMember_Exists(string memberName)
         {

@@ -29,6 +29,16 @@ Preview orchestration belongs to the Editor assembly. Runtime playback remains i
 - `VfxPreviewSession.Dispose` closes the Preview Scene and removes all temporary objects.
 - The active Scene, its dirty state, and the generated Prefab asset remain unchanged.
 
+## Frame Capture Contract
+
+- Each requested time and view starts from a reinitialized Preview instance.
+- The Camera renders to a temporary `RenderTexture`; CPU-side PNG data is written only
+  after encoding succeeds.
+- Stable frame names use sorted time, canonical view order, and microsecond time values.
+- The manifest is written after every PNG and playback restoration succeeds.
+- Existing outputs are rejected before rendering.
+- Failed attempts remove the files they created and return a failed result.
+
 ## Prefab Compiler Contract
 
 The compiler validates the Recipe and the complete Template Catalog before creating
@@ -51,6 +61,6 @@ Overwrite policies are:
 
 ## Deliberate Gaps
 
-Frame capture, profiler metrics, and graph composition are intentionally left for later
-tasks. Preview playback reports event dispatch, not rendered visual quality. Do not hide
-these gaps with fake success values.
+Contact sheets, profiler metrics, and graph composition are intentionally left for later
+tasks. The compatibility capture fixture proves structural rendering, not VFX visual
+quality. Do not hide these gaps with fake success values.

@@ -17,6 +17,8 @@ Generated-Prefab rules and report severity behavior are documented in
 [`Documentation~/validation-pipeline.md`](Documentation~/validation-pipeline.md).
 Preview Scene isolation, playback, and cleanup are documented in
 [`Preview~/README.md`](Preview~/README.md).
+Deterministic PNG and manifest output are documented in
+[`Documentation~/frame-capture.md`](Documentation~/frame-capture.md).
 
 ## Current Capabilities
 
@@ -25,13 +27,13 @@ Preview Scene isolation, playback, and cleanup are documented in
 - Validated Template Catalog registration and Property Binding inspection
 - Safe independent Prefab compilation with generated-only overwrite protection
 - Isolated generated-Prefab Preview Scene with camera, playback, and cleanup
-- Validation rule pipeline draft
+- Deterministic frame-time and front/side/top PNG capture with manifest output
+- Validation rule pipeline
 - Editor Window
 - BatchMode entry point draft
 
 ## Not Yet Implemented
 
-- Frame-accurate capture
 - Contact Sheet generation
 - Runtime particle count measurement
 - GPU/CPU profiler integration

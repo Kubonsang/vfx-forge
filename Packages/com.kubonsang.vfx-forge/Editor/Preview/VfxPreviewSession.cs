@@ -7,6 +7,13 @@ using UnityEngine.VFX;
 
 namespace Kubonsang.VfxForge.Editor
 {
+    public enum VfxPreviewView
+    {
+        Front,
+        Side,
+        Top
+    }
+
     public sealed class VfxPreviewOpenResult
     {
         public bool Success;
@@ -97,6 +104,7 @@ namespace Kubonsang.VfxForge.Editor
         public int Restart()
         {
             ThrowIfDisposed();
+            SetEffectsPaused(false);
             player.StopAndReinitialize();
             int playedEffectCount = player.PlayAll();
             IsPlaying = playedEffectCount > 0;
@@ -106,8 +114,68 @@ namespace Kubonsang.VfxForge.Editor
         public void Stop()
         {
             ThrowIfDisposed();
+            SetEffectsPaused(false);
             player.StopAndReinitialize();
             IsPlaying = false;
+        }
+
+        public void SimulateTo(float timeSeconds)
+        {
+            ThrowIfDisposed();
+            if (float.IsNaN(timeSeconds)
+                || float.IsInfinity(timeSeconds)
+                || timeSeconds < 0f)
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(timeSeconds),
+                    "Preview time must be finite and non-negative.");
+            }
+
+            Restart();
+            foreach (VisualEffect effect in GetEffects())
+            {
+                if (effect == null)
+                {
+                    continue;
+                }
+
+                effect.pause = false;
+                if (timeSeconds > 0f)
+                {
+                    effect.Simulate(timeSeconds, 1);
+                }
+                effect.pause = true;
+            }
+
+            IsPlaying = false;
+        }
+
+        public void SetCameraView(VfxPreviewView view)
+        {
+            ThrowIfDisposed();
+            Vector3 target = previewInstance.transform.position + Vector3.up;
+            Vector3 position;
+            Vector3 up = Vector3.up;
+
+            switch (view)
+            {
+                case VfxPreviewView.Front:
+                    position = target + new Vector3(0f, 0.5f, -5f);
+                    break;
+                case VfxPreviewView.Side:
+                    position = target + new Vector3(5f, 0.5f, 0f);
+                    break;
+                case VfxPreviewView.Top:
+                    position = target + new Vector3(0f, 5f, 0f);
+                    up = Vector3.forward;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(view), view, "Unsupported view.");
+            }
+
+            previewCamera.transform.position = position;
+            previewCamera.transform.rotation =
+                Quaternion.LookRotation(target - position, up);
         }
 
         public void Dispose()
@@ -176,6 +244,23 @@ namespace Kubonsang.VfxForge.Editor
             previewCamera.fieldOfView = 45f;
             previewCamera.nearClipPlane = 0.01f;
             previewCamera.farClipPlane = 1000f;
+            SetCameraView(VfxPreviewView.Front);
+        }
+
+        private VisualEffect[] GetEffects()
+        {
+            return previewInstance.GetComponentsInChildren<VisualEffect>(true);
+        }
+
+        private void SetEffectsPaused(bool paused)
+        {
+            foreach (VisualEffect effect in GetEffects())
+            {
+                if (effect != null)
+                {
+                    effect.pause = paused;
+                }
+            }
         }
 
         private void ThrowIfDisposed()
