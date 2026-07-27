@@ -1,0 +1,189 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kubonsang.dev/schemas/vfx-forge-recipe-1.0.schema.json",
+  "title": "VFX Forge Recipe",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "id",
+    "template",
+    "outputPath",
+    "timing",
+    "budget"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9_-]{2,63}$"
+    },
+    "displayName": {
+      "type": "string"
+    },
+    "template": {
+      "type": "string",
+      "minLength": 1
+    },
+    "styleProfile": {
+      "type": "string"
+    },
+    "intent": {
+      "type": "string"
+    },
+    "outputPath": {
+      "type": "string",
+      "pattern": "^Assets/.+\\.prefab$"
+    },
+    "anchor": {
+      "type": "string"
+    },
+    "seed": {
+      "type": "integer"
+    },
+    "timing": {
+      "type": "object",
+      "required": [
+        "duration"
+      ],
+      "properties": {
+        "duration": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "anticipation": {
+          "type": "number",
+          "minimum": 0
+        },
+        "impact": {
+          "type": "number",
+          "minimum": 0
+        },
+        "sustain": {
+          "type": "number",
+          "minimum": 0
+        },
+        "decay": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    },
+    "shape": {
+      "type": "object",
+      "properties": {
+        "radius": {
+          "type": "number",
+          "minimum": 0
+        },
+        "directionality": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "spreadAngle": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 360
+        }
+      }
+    },
+    "style": {
+      "type": "object",
+      "properties": {
+        "primaryColor": {
+          "type": "string",
+          "pattern": "^#[0-9A-Fa-f]{6}([0-9A-Fa-f]{2})?$"
+        },
+        "secondaryColor": {
+          "type": "string",
+          "pattern": "^#[0-9A-Fa-f]{6}([0-9A-Fa-f]{2})?$"
+        },
+        "emissionIntensity": {
+          "type": "number",
+          "minimum": 0
+        },
+        "sharpness": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "distortionStrength": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    },
+    "layers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "budget": {
+      "type": "object",
+      "required": [
+        "maxParticles",
+        "maxDuration"
+      ],
+      "properties": {
+        "maxParticles": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "maxDuration": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "maxBoundsRadius": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "allowDistortion": {
+          "type": "boolean"
+        },
+        "allowLight": {
+          "type": "boolean"
+        }
+      }
+    },
+    "capture": {
+      "type": "object",
+      "properties": {
+        "duration": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        },
+        "frameTimes": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "minimum": 0
+          }
+        },
+        "views": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "front",
+              "side",
+              "top"
+            ]
+          },
+          "uniqueItems": true
+        },
+        "width": {
+          "type": "integer",
+          "minimum": 64
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 64
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

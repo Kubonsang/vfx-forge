@@ -1,0 +1,24 @@
+{
+  "name": "com.kubonsang.vfx-forge",
+  "version": "0.1.0",
+  "displayName": "VFX Forge",
+  "description": "Template-first VFX authoring, validation, and agent workflow starter for Unity 6.",
+  "unity": "6000.0",
+  "author": {
+    "name": "Kubonsang"
+  },
+  "keywords": [
+    "vfx",
+    "visual effect graph",
+    "editor tooling",
+    "agent",
+    "validation"
+  ],
+  "samples": [
+    {
+      "displayName": "Basic Recipe",
+      "description": "A starter JSON recipe and setup notes.",
+      "path": "Samples~/BasicRecipe"
+    }
+  ]
+}

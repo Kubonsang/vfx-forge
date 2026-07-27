@@ -1,0 +1,63 @@
+{
+  "schemaVersion": "1.0",
+  "id": "sample_arcane_impact",
+  "displayName": "Sample Arcane Impact",
+  "template": "impact_heavy",
+  "styleProfile": "default",
+  "intent": "Sample heavy magical hit confirmation",
+  "outputPath": "Assets/VFXForge/Generated/SampleArcaneImpact.prefab",
+  "anchor": "HitPoint",
+  "seed": 1024,
+  "timing": {
+    "duration": 0.65,
+    "anticipation": 0.05,
+    "impact": 0.12,
+    "sustain": 0.18,
+    "decay": 0.3
+  },
+  "shape": {
+    "radius": 1.4,
+    "directionality": 0.65,
+    "spreadAngle": 55.0
+  },
+  "style": {
+    "primaryColor": "#9E65FFFF",
+    "secondaryColor": "#D7C5FFFF",
+    "emissionIntensity": 3.5,
+    "sharpness": 0.7,
+    "distortionStrength": 0.15
+  },
+  "layers": [
+    "core_flash",
+    "radial_streak",
+    "spark",
+    "smoke",
+    "ground_ring"
+  ],
+  "budget": {
+    "maxParticles": 450,
+    "maxDuration": 0.8,
+    "maxBoundsRadius": 3.0,
+    "allowDistortion": true,
+    "allowLight": false
+  },
+  "capture": {
+    "duration": 1.0,
+    "frameTimes": [
+      0.0,
+      0.05,
+      0.1,
+      0.2,
+      0.4,
+      0.7,
+      1.0
+    ],
+    "views": [
+      "front",
+      "side",
+      "top"
+    ],
+    "width": 1024,
+    "height": 1024
+  }
+}

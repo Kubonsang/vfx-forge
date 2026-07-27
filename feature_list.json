@@ -1,0 +1,206 @@
+{
+  "schema_version": "1.0",
+  "project": "VFX Forge",
+  "current_task": "VF-003",
+  "status_values": [
+    "done",
+    "in_progress",
+    "todo",
+    "blocked"
+  ],
+  "global_definition_of_done": [
+    "Unity Console error count is zero",
+    "Relevant tests pass",
+    "Original template assets remain unchanged",
+    "Generated or changed artifacts are listed",
+    "Known limitations are documented"
+  ],
+  "tasks": [
+    {
+      "id": "VF-001",
+      "title": "Package skeleton",
+      "status": "done",
+      "scope": [
+        "UPM package",
+        "asmdef",
+        "docs",
+        "starter tests"
+      ],
+      "acceptance": [
+        "Package files exist",
+        "Runtime and Editor assemblies are separated"
+      ]
+    },
+    {
+      "id": "VF-002",
+      "title": "Verify Unity 6 API compatibility",
+      "status": "done",
+      "scope": [
+        "Compile package in target project",
+        "Fix assembly references",
+        "Confirm VFX Graph API names"
+      ],
+      "acceptance": [
+        "Package compiles in target project",
+        "No Unity Console errors",
+        "API deviations are documented"
+      ],
+      "verification": {
+        "unity": "6000.3.8f1",
+        "urp": "17.3.0",
+        "visual_effect_graph": "17.3.0",
+        "test_framework": "1.6.0",
+        "editmode_tests": {
+          "passed": 20,
+          "failed": 0,
+          "skipped": 0,
+          "artifact": "UnityCompatibilityProject/Artifacts/vf-002-editmode-results.xml"
+        },
+        "console": {
+          "errors": 0,
+          "artifact": "UnityCompatibilityProject/Artifacts/vf-002-console.json"
+        },
+        "api_deviations": []
+      }
+    },
+    {
+      "id": "VF-003",
+      "title": "Recipe contract hardening",
+      "status": "todo",
+      "scope": [
+        "Schema validation",
+        "Defaults",
+        "Path safety",
+        "Error codes"
+      ],
+      "acceptance": [
+        "Valid sample parses",
+        "Invalid samples fail deterministically",
+        "Tests cover required fields"
+      ]
+    },
+    {
+      "id": "VF-004",
+      "title": "Template catalog workflow",
+      "status": "todo",
+      "scope": [
+        "Catalog editor validation",
+        "Duplicate detection",
+        "Binding inspection"
+      ],
+      "acceptance": [
+        "Invalid entries are rejected",
+        "Five template IDs can be registered"
+      ]
+    },
+    {
+      "id": "VF-005",
+      "title": "Prefab compiler",
+      "status": "todo",
+      "scope": [
+        "Duplicate template",
+        "Apply bindings",
+        "Metadata",
+        "Safe overwrite"
+      ],
+      "acceptance": [
+        "Recipe creates prefab",
+        "Original prefab hash is unchanged",
+        "Non-generated asset is never overwritten"
+      ]
+    },
+    {
+      "id": "VF-006",
+      "title": "Validation pipeline",
+      "status": "todo",
+      "scope": [
+        "Rule runner",
+        "Missing assets",
+        "Property binding",
+        "Duration",
+        "Layers",
+        "Light policy"
+      ],
+      "acceptance": [
+        "Report status follows severity rules",
+        "Failures include rule IDs"
+      ]
+    },
+    {
+      "id": "VF-007",
+      "title": "Preview scene",
+      "status": "todo",
+      "scope": [
+        "Preview scene bootstrap",
+        "Camera rig",
+        "Playback",
+        "Cleanup"
+      ],
+      "acceptance": [
+        "Generated prefab plays",
+        "Scene changes are not persisted",
+        "Temporary instances are removed"
+      ]
+    },
+    {
+      "id": "VF-008",
+      "title": "Frame capture",
+      "status": "todo",
+      "scope": [
+        "Frame timing",
+        "Front side top views",
+        "PNG output",
+        "Manifest"
+      ],
+      "acceptance": [
+        "All requested frames exist",
+        "File names are deterministic",
+        "Capture failure returns failure"
+      ]
+    },
+    {
+      "id": "VF-009",
+      "title": "Editor window completion",
+      "status": "todo",
+      "scope": [
+        "Run All",
+        "Progress state",
+        "Result navigation"
+      ],
+      "acceptance": [
+        "User can run pipeline without command line",
+        "Failed stages stop destructive steps"
+      ]
+    },
+    {
+      "id": "VF-010",
+      "title": "BatchMode contract",
+      "status": "todo",
+      "scope": [
+        "Arguments",
+        "Exit codes",
+        "One-line JSON",
+        "Artifact path"
+      ],
+      "acceptance": [
+        "External agent can invoke command",
+        "Exit code matches failure stage"
+      ]
+    },
+    {
+      "id": "VF-011",
+      "title": "Integration fixture",
+      "status": "todo",
+      "scope": [
+        "Five recipes",
+        "Template fixture",
+        "End-to-end tests"
+      ],
+      "acceptance": [
+        "Three valid recipes pass",
+        "Two invalid recipes fail correctly",
+        "Original templates remain unchanged"
+      ]
+    }
+  ]
+}
