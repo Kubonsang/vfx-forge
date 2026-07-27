@@ -12,6 +12,9 @@ Editor UI must delegate parsing, compilation, validation, and reporting to separ
 Preview orchestration belongs to the Editor assembly. Runtime playback remains in
 `VfxPlayer`, which has no `UnityEditor` dependency.
 
+`VfxForgePipelineRunner` owns Run All ordering and failure gates. `VfxForgeWindow`
+observes progress and exposes result navigation without implementing pipeline logic.
+
 ## Asset Safety Boundary
 
 - Template assets are read-only inputs.
@@ -38,6 +41,14 @@ Preview orchestration belongs to the Editor assembly. Runtime playback remains i
 - The manifest is written after every PNG and playback restoration succeeds.
 - Existing outputs are rejected before rendering.
 - Failed attempts remove the files they created and return a failed result.
+
+## Run All Contract
+
+- Input validation completes before Prefab compilation.
+- Every failed stage prevents subsequent Compile, Preview, or Capture operations.
+- Failure reports are evidence output and do not resume the generation pipeline.
+- Preview sessions are disposed on both Capture completion and exceptions.
+- The run result preserves generated Prefab, report, and capture paths for UI navigation.
 
 ## Prefab Compiler Contract
 

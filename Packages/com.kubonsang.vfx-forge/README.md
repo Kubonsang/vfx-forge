@@ -19,6 +19,8 @@ Preview Scene isolation, playback, and cleanup are documented in
 [`Preview~/README.md`](Preview~/README.md).
 Deterministic PNG and manifest output are documented in
 [`Documentation~/frame-capture.md`](Documentation~/frame-capture.md).
+The Run All workflow, failure gates, progress, and result navigation are documented in
+[`Documentation~/editor-window.md`](Documentation~/editor-window.md).
 
 ## Current Capabilities
 
@@ -29,7 +31,7 @@ Deterministic PNG and manifest output are documented in
 - Isolated generated-Prefab Preview Scene with camera, playback, and cleanup
 - Deterministic frame-time and front/side/top PNG capture with manifest output
 - Validation rule pipeline
-- Editor Window
+- Editor Window with Run All, progress state, and result navigation
 - BatchMode entry point draft
 
 ## Not Yet Implemented

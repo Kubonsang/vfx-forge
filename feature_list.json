@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "project": "VFX Forge",
-  "current_task": "VF-009",
+  "current_task": "VF-010",
   "status_values": [
     "done",
     "in_progress",
@@ -304,7 +304,7 @@
     {
       "id": "VF-009",
       "title": "Editor window completion",
-      "status": "todo",
+      "status": "done",
       "scope": [
         "Run All",
         "Progress state",
@@ -313,7 +313,46 @@
       "acceptance": [
         "User can run pipeline without command line",
         "Failed stages stop destructive steps"
-      ]
+      ],
+      "verification": {
+        "unity": "6000.3.8f1",
+        "pipeline_tests": 6,
+        "run_all_without_command_line": true,
+        "ordered_stages": [
+          "ParseRecipe",
+          "ValidateInputs",
+          "CompilePrefab",
+          "ValidatePrefab",
+          "OpenPreview",
+          "CaptureFrames",
+          "WriteReport"
+        ],
+        "failure_gates_verified": [
+          "ValidateInputs stops CompilePrefab, OpenPreview, and CaptureFrames",
+          "CompilePrefab stops ValidatePrefab, OpenPreview, and CaptureFrames",
+          "ValidatePrefab stops OpenPreview and CaptureFrames",
+          "OpenPreview stops CaptureFrames"
+        ],
+        "progress_state_verified": true,
+        "result_navigation_paths_verified": [
+          "generated Prefab",
+          "validation report",
+          "capture manifest"
+        ],
+        "editmode_tests": {
+          "passed": 109,
+          "failed": 0,
+          "skipped": 0,
+          "artifact": "UnityCompatibilityProject/Artifacts/vf-009-editmode-results.xml"
+        },
+        "console": {
+          "errors": 0,
+          "warnings": 12,
+          "artifact": "UnityCompatibilityProject/Artifacts/vf-009-console.json"
+        },
+        "generated_assets_remaining": [],
+        "ui_visual_quality": "not assessed; behavior and compilation were verified"
+      }
     },
     {
       "id": "VF-010",

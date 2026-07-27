@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Added the Editor Window Run All workflow with ordered stage progress and failure gates.
+- Added generated Prefab, validation report, and capture manifest result navigation.
+- Added end-to-end Editor pipeline tests for success and downstream-stage suppression.
 - Added deterministic frame-time PNG capture for front, side, and top Preview views.
 - Added capture manifests, playback restoration, output collision protection, and cleanup.
 - Added Editor capture controls and render/encoding/failure-path EditMode coverage.

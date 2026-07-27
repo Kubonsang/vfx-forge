@@ -15,6 +15,11 @@ namespace Kubonsang.VfxForge.Editor
         private GameObject generatedPrefab;
         private string previewPlayEventName = "OnPlay";
         private VfxPreviewSession previewSession;
+        private VfxForgePipelineRunResult lastRun;
+        private VfxForgePipelineStage pipelineStage = VfxForgePipelineStage.Idle;
+        private float pipelineProgress;
+        private string pipelineMessage = "Ready.";
+        private bool pipelineRunning;
 
         [MenuItem("Tools/VFX Forge/Open Window")]
         public static void Open()
@@ -29,18 +34,35 @@ namespace Kubonsang.VfxForge.Editor
             templateCatalog = (VfxTemplateCatalog)EditorGUILayout.ObjectField("Template Catalog", templateCatalog, typeof(VfxTemplateCatalog), false);
             artifactDirectory = EditorGUILayout.TextField("Artifact Directory", artifactDirectory);
 
-            using (new EditorGUILayout.HorizontalScope())
+            using (new EditorGUI.DisabledScope(pipelineRunning))
             {
-                if (GUILayout.Button("Validate Recipe"))
+                if (GUILayout.Button("Run All", GUILayout.Height(28f)))
                 {
-                    ValidateRecipe();
+                    RunAll();
                 }
 
-                if (GUILayout.Button("Compile"))
+                using (new EditorGUILayout.HorizontalScope())
                 {
-                    CompileRecipe();
+                    if (GUILayout.Button("Validate Recipe"))
+                    {
+                        ValidateRecipe();
+                    }
+
+                    if (GUILayout.Button("Compile"))
+                    {
+                        CompileRecipe();
+                    }
                 }
             }
+
+            Rect progressRect = GUILayoutUtility.GetRect(
+                1f,
+                18f,
+                GUILayout.ExpandWidth(true));
+            EditorGUI.ProgressBar(
+                progressRect,
+                pipelineProgress,
+                $"{pipelineStage}: {pipelineMessage}");
 
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("Preview", EditorStyles.boldLabel);
@@ -52,31 +74,36 @@ namespace Kubonsang.VfxForge.Editor
             previewPlayEventName =
                 EditorGUILayout.TextField("Play Event", previewPlayEventName);
 
-            using (new EditorGUILayout.HorizontalScope())
+            using (new EditorGUI.DisabledScope(pipelineRunning))
             {
-                if (GUILayout.Button("Open Preview"))
+                using (new EditorGUILayout.HorizontalScope())
                 {
-                    OpenPreview();
-                }
-
-                using (new EditorGUI.DisabledScope(previewSession == null))
-                {
-                    if (GUILayout.Button("Restart"))
+                    if (GUILayout.Button("Open Preview"))
                     {
-                        previewSession.Restart();
+                        OpenPreview();
                     }
 
-                    if (GUILayout.Button("Capture Frames"))
+                    using (new EditorGUI.DisabledScope(previewSession == null))
                     {
-                        CaptureFrames();
-                    }
+                        if (GUILayout.Button("Restart"))
+                        {
+                            previewSession.Restart();
+                        }
 
-                    if (GUILayout.Button("Close Preview"))
-                    {
-                        ClosePreview();
+                        if (GUILayout.Button("Capture Frames"))
+                        {
+                            CaptureFrames();
+                        }
+
+                        if (GUILayout.Button("Close Preview"))
+                        {
+                            ClosePreview();
+                        }
                     }
                 }
             }
+
+            DrawResultNavigation();
 
             EditorGUILayout.Space();
             scroll = EditorGUILayout.BeginScrollView(scroll);
@@ -99,6 +126,114 @@ namespace Kubonsang.VfxForge.Editor
         private void OnDisable()
         {
             ClosePreview();
+            EditorUtility.ClearProgressBar();
+        }
+
+        private void RunAll()
+        {
+            ClosePreview();
+            results.Clear();
+            pipelineRunning = true;
+            pipelineProgress = 0f;
+            pipelineMessage = "Starting.";
+
+            try
+            {
+                var request = new VfxForgePipelineRequest
+                {
+                    RecipeJson = recipeAsset != null ? recipeAsset.text : string.Empty,
+                    RecipeAssetPath =
+                        recipeAsset != null ? AssetDatabase.GetAssetPath(recipeAsset) : string.Empty,
+                    TemplateCatalog = templateCatalog,
+                    ArtifactDirectory = artifactDirectory
+                };
+                var runner = new VfxForgePipelineRunner();
+                lastRun = runner.Run(request, UpdatePipelineProgress);
+
+                results.AddRange(lastRun.Results);
+                generatedPrefab = lastRun.Prefab;
+                if (lastRun.Recipe != null
+                    && templateCatalog != null
+                    && templateCatalog.TryGet(
+                        lastRun.Recipe.template,
+                        out VfxTemplateEntry template))
+                {
+                    previewPlayEventName = template.playEventName;
+                }
+            }
+            finally
+            {
+                pipelineRunning = false;
+                EditorUtility.ClearProgressBar();
+                Repaint();
+            }
+        }
+
+        private void UpdatePipelineProgress(VfxForgePipelineProgress progress)
+        {
+            pipelineStage = progress.Stage;
+            pipelineProgress = progress.NormalizedProgress;
+            pipelineMessage = progress.Message;
+            EditorUtility.DisplayProgressBar(
+                "VFX Forge — Run All",
+                progress.Message,
+                progress.NormalizedProgress);
+            Repaint();
+        }
+
+        private void DrawResultNavigation()
+        {
+            if (lastRun == null)
+            {
+                return;
+            }
+
+            EditorGUILayout.Space();
+            EditorGUILayout.LabelField("Last Run", EditorStyles.boldLabel);
+            using (new EditorGUILayout.HorizontalScope())
+            {
+                using (new EditorGUI.DisabledScope(lastRun.Prefab == null))
+                {
+                    if (GUILayout.Button("Select Prefab"))
+                    {
+                        Selection.activeObject = lastRun.Prefab;
+                        EditorGUIUtility.PingObject(lastRun.Prefab);
+                    }
+                }
+
+                using (new EditorGUI.DisabledScope(
+                    string.IsNullOrWhiteSpace(lastRun.ReportPath)))
+                {
+                    if (GUILayout.Button("Reveal Report"))
+                    {
+                        RevealResult(lastRun.ReportPath, "UI-REPORT-PATH");
+                    }
+                }
+
+                using (new EditorGUI.DisabledScope(
+                    string.IsNullOrWhiteSpace(lastRun.CaptureManifestPath)))
+                {
+                    if (GUILayout.Button("Reveal Capture"))
+                    {
+                        RevealResult(
+                            lastRun.CaptureManifestPath,
+                            "UI-CAPTURE-PATH");
+                    }
+                }
+            }
+        }
+
+        private void RevealResult(string path, string errorCode)
+        {
+            if (string.IsNullOrWhiteSpace(path) || !File.Exists(path))
+            {
+                results.Add(VfxValidationResult.Error(
+                    errorCode,
+                    $"Result file does not exist: {path}"));
+                return;
+            }
+
+            EditorUtility.RevealInFinder(Path.GetFullPath(path));
         }
 
         private void ValidateRecipe()
