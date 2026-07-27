@@ -63,7 +63,7 @@ namespace Kubonsang.VfxForge.Editor
             VfxRecipeParseResult parsed = ParseSelected();
             if (!parsed.Success)
             {
-                results.Add(VfxValidationResult.Error("UI-PARSE", parsed.Error));
+                results.Add(VfxValidationResult.Error(ParseErrorCode(parsed), parsed.Error));
                 return;
             }
 
@@ -76,7 +76,7 @@ namespace Kubonsang.VfxForge.Editor
             VfxRecipeParseResult parsed = ParseSelected();
             if (!parsed.Success)
             {
-                results.Add(VfxValidationResult.Error("UI-PARSE", parsed.Error));
+                results.Add(VfxValidationResult.Error(ParseErrorCode(parsed), parsed.Error));
                 return;
             }
 
@@ -102,8 +102,20 @@ namespace Kubonsang.VfxForge.Editor
         private VfxRecipeParseResult ParseSelected()
         {
             return recipeAsset == null
-                ? new VfxRecipeParseResult { Success = false, Error = "Recipe JSON is not selected." }
+                ? new VfxRecipeParseResult
+                {
+                    Success = false,
+                    ErrorCode = "UI-RECIPE-NOT-SELECTED",
+                    Error = "Recipe JSON is not selected."
+                }
                 : VfxRecipeParser.ParseJson(recipeAsset.text);
+        }
+
+        private static string ParseErrorCode(VfxRecipeParseResult result)
+        {
+            return string.IsNullOrWhiteSpace(result.ErrorCode)
+                ? "UI-PARSE"
+                : result.ErrorCode;
         }
     }
 }

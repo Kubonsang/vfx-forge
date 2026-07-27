@@ -13,34 +13,40 @@
   ],
   "properties": {
     "schemaVersion": {
-      "const": "1.0"
+      "const": "1.0",
+      "default": "1.0"
     },
     "id": {
       "type": "string",
       "pattern": "^[a-z0-9][a-z0-9_-]{2,63}$"
     },
     "displayName": {
-      "type": "string"
+      "type": "string",
+      "default": ""
     },
     "template": {
       "type": "string",
       "minLength": 1
     },
     "styleProfile": {
-      "type": "string"
+      "type": "string",
+      "default": ""
     },
     "intent": {
-      "type": "string"
+      "type": "string",
+      "default": ""
     },
     "outputPath": {
       "type": "string",
-      "pattern": "^Assets/.+\\.prefab$"
+      "pattern": "^Assets[\\\\/](?!\\.\\.(?:[\\\\/]|$))(?!.*[\\\\/]\\.\\.(?:[\\\\/]|$))(?!.*[\\\\/]{2})[^:]+\\.prefab$"
     },
     "anchor": {
-      "type": "string"
+      "type": "string",
+      "default": "HitPoint"
     },
     "seed": {
-      "type": "integer"
+      "type": "integer",
+      "default": 1
     },
     "timing": {
       "type": "object",
@@ -54,71 +60,90 @@
         },
         "anticipation": {
           "type": "number",
-          "minimum": 0
+          "minimum": 0,
+          "default": 0
         },
         "impact": {
           "type": "number",
-          "minimum": 0
+          "minimum": 0,
+          "default": 0.1
         },
         "sustain": {
           "type": "number",
-          "minimum": 0
+          "minimum": 0,
+          "default": 0.1
         },
         "decay": {
           "type": "number",
-          "minimum": 0
+          "minimum": 0,
+          "default": 0.3
         }
-      }
+      },
+      "additionalProperties": false
     },
     "shape": {
       "type": "object",
+      "default": {},
       "properties": {
         "radius": {
           "type": "number",
-          "minimum": 0
+          "minimum": 0,
+          "default": 1
         },
         "directionality": {
           "type": "number",
           "minimum": 0,
-          "maximum": 1
+          "maximum": 1,
+          "default": 0
         },
         "spreadAngle": {
           "type": "number",
           "minimum": 0,
-          "maximum": 360
+          "maximum": 360,
+          "default": 45
         }
-      }
+      },
+      "additionalProperties": false
     },
     "style": {
       "type": "object",
+      "default": {},
       "properties": {
         "primaryColor": {
           "type": "string",
-          "pattern": "^#[0-9A-Fa-f]{6}([0-9A-Fa-f]{2})?$"
+          "pattern": "^#[0-9A-Fa-f]{6}([0-9A-Fa-f]{2})?$",
+          "default": "#FFFFFFFF"
         },
         "secondaryColor": {
           "type": "string",
-          "pattern": "^#[0-9A-Fa-f]{6}([0-9A-Fa-f]{2})?$"
+          "pattern": "^#[0-9A-Fa-f]{6}([0-9A-Fa-f]{2})?$",
+          "default": "#FFFFFFFF"
         },
         "emissionIntensity": {
           "type": "number",
-          "minimum": 0
+          "minimum": 0,
+          "default": 1
         },
         "sharpness": {
           "type": "number",
           "minimum": 0,
-          "maximum": 1
+          "maximum": 1,
+          "default": 0.5
         },
         "distortionStrength": {
           "type": "number",
-          "minimum": 0
+          "minimum": 0,
+          "default": 0
         }
-      }
+      },
+      "additionalProperties": false
     },
     "layers": {
       "type": "array",
+      "default": [],
       "items": {
-        "type": "string"
+        "type": "string",
+        "minLength": 1
       },
       "uniqueItems": true
     },
@@ -139,25 +164,38 @@
         },
         "maxBoundsRadius": {
           "type": "number",
-          "exclusiveMinimum": 0
+          "exclusiveMinimum": 0,
+          "default": 5
         },
         "allowDistortion": {
-          "type": "boolean"
+          "type": "boolean",
+          "default": false
         },
         "allowLight": {
-          "type": "boolean"
+          "type": "boolean",
+          "default": false
         }
-      }
+      },
+      "additionalProperties": false
     },
     "capture": {
       "type": "object",
+      "default": {},
       "properties": {
         "duration": {
           "type": "number",
-          "exclusiveMinimum": 0
+          "exclusiveMinimum": 0,
+          "default": 1
         },
         "frameTimes": {
           "type": "array",
+          "default": [
+            0,
+            0.1,
+            0.2,
+            0.5,
+            1
+          ],
           "items": {
             "type": "number",
             "minimum": 0
@@ -165,6 +203,9 @@
         },
         "views": {
           "type": "array",
+          "default": [
+            "front"
+          ],
           "items": {
             "enum": [
               "front",
@@ -176,13 +217,16 @@
         },
         "width": {
           "type": "integer",
-          "minimum": 64
+          "minimum": 64,
+          "default": 1024
         },
         "height": {
           "type": "integer",
-          "minimum": 64
+          "minimum": 64,
+          "default": 1024
         }
-      }
+      },
+      "additionalProperties": false
     }
   },
   "additionalProperties": false

@@ -100,7 +100,7 @@ namespace Kubonsang.VfxForge.Editor
 
         private static string ResolveOutputPath(string requestedPath, VfxOverwritePolicy policy)
         {
-            if (string.IsNullOrWhiteSpace(requestedPath) || !requestedPath.StartsWith("Assets/", StringComparison.Ordinal))
+            if (!VfxRecipePath.TryNormalizePrefabAssetPath(requestedPath, out requestedPath))
             {
                 return string.Empty;
             }
