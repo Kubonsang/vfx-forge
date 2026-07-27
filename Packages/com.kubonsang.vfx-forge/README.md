@@ -13,11 +13,13 @@ The verified Unity 6 package matrix and compatibility test procedure are documen
 [`Documentation~/unity-6-compatibility.md`](Documentation~/unity-6-compatibility.md).
 The Recipe 1.0 required fields, defaults, path rules, and stable error codes are documented
 in [`Documentation~/recipe-contract.md`](Documentation~/recipe-contract.md).
+Generated-Prefab rules and report severity behavior are documented in
+[`Documentation~/validation-pipeline.md`](Documentation~/validation-pipeline.md).
 
 ## Current Capabilities
 
 - JSON Recipe parsing and normalization
-- Basic semantic validation
+- Deterministic generated-Prefab validation pipeline and severity-based reports
 - Validated Template Catalog registration and Property Binding inspection
 - Safe independent Prefab compilation with generated-only overwrite protection
 - Validation rule pipeline draft

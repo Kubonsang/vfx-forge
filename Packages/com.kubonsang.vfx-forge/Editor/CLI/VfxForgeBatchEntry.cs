@@ -47,8 +47,21 @@ namespace Kubonsang.VfxForge.Editor
                     return;
                 }
 
+                results.Clear();
                 VfxCompileResult compile = VfxRecipeCompiler.Compile(parsed.Recipe, recipePath, catalog);
                 results.AddRange(compile.Results);
+                if (compile.Success
+                    && catalog.TryGet(parsed.Recipe.template, out VfxTemplateEntry template))
+                {
+                    results.AddRange(VfxValidationPipeline.Run(new VfxValidationContext
+                    {
+                        Recipe = parsed.Recipe,
+                        Prefab = compile.Prefab,
+                        Template = template,
+                        AssetPath = compile.PrefabPath
+                    }));
+                }
+
                 reportPath = VfxReportWriter.Write(ToAbsoluteProjectPath(artifactPath), parsed.Recipe, compile.PrefabPath, results);
                 status = VfxReportWriter.ResolveStatus(results);
                 exitCode = compile.Success && status != "failed" ? 0 : 4;

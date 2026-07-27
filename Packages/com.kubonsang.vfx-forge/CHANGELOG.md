@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Added the default generated-Prefab validation pipeline and Property Binding rule.
+- Hardened rule execution against exceptions, null results, empty IDs, and duplicate IDs.
+- Connected generated-Prefab validation and severity-based reports to Editor and BatchMode flows.
 - Added independent Template Prefab duplication, Recipe preflight validation, and Metadata integration tests.
 - Added generated-only overwrite protection and unique-path preservation for occupied user assets.
 - Added atomic Template Catalog registration, duplicate detection, and Inspector validation.

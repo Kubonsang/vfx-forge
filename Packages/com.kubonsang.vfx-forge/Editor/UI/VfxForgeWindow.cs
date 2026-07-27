@@ -93,8 +93,21 @@ namespace Kubonsang.VfxForge.Editor
             }
 
             string recipePath = AssetDatabase.GetAssetPath(recipeAsset);
+            results.Clear();
             VfxCompileResult compile = VfxRecipeCompiler.Compile(parsed.Recipe, recipePath, templateCatalog);
             results.AddRange(compile.Results);
+            if (compile.Success
+                && templateCatalog.TryGet(parsed.Recipe.template, out VfxTemplateEntry template))
+            {
+                results.AddRange(VfxValidationPipeline.Run(new VfxValidationContext
+                {
+                    Recipe = parsed.Recipe,
+                    Prefab = compile.Prefab,
+                    Template = template,
+                    AssetPath = compile.PrefabPath
+                }));
+            }
+
             string reportPath = VfxReportWriter.Write(artifactDirectory, parsed.Recipe, compile.PrefabPath, results);
             Debug.Log($"[VFXForge] Report written: {Path.GetFullPath(reportPath)}");
         }

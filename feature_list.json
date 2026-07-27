@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "project": "VFX Forge",
-  "current_task": "VF-006",
+  "current_task": "VF-007",
   "status_values": [
     "done",
     "in_progress",
@@ -169,7 +169,7 @@
     {
       "id": "VF-006",
       "title": "Validation pipeline",
-      "status": "todo",
+      "status": "done",
       "scope": [
         "Rule runner",
         "Missing assets",
@@ -181,7 +181,37 @@
       "acceptance": [
         "Report status follows severity rules",
         "Failures include rule IDs"
-      ]
+      ],
+      "verification": {
+        "unity": "6000.3.8f1",
+        "default_rule_ids": [
+          "VAL-001",
+          "VAL-002",
+          "VAL-003",
+          "VAL-006",
+          "VAL-008"
+        ],
+        "pipeline_tests": 17,
+        "report_statuses_verified": [
+          "passed",
+          "warning",
+          "failed"
+        ],
+        "failures_have_rule_ids": true,
+        "editmode_tests": {
+          "passed": 85,
+          "failed": 0,
+          "skipped": 0,
+          "artifact": "UnityCompatibilityProject/Artifacts/vf-006-editmode-results.xml"
+        },
+        "console": {
+          "errors": 0,
+          "warnings": 12,
+          "artifact": "UnityCompatibilityProject/Artifacts/vf-006-console.json"
+        },
+        "generated_assets_remaining": [],
+        "capture": "not applicable; no visual asset was changed"
+      }
     },
     {
       "id": "VF-007",
