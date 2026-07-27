@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "project": "VFX Forge",
-  "current_task": "VF-010",
+  "current_task": "VF-011",
   "status_values": [
     "done",
     "in_progress",
@@ -357,7 +357,7 @@
     {
       "id": "VF-010",
       "title": "BatchMode contract",
-      "status": "todo",
+      "status": "done",
       "scope": [
         "Arguments",
         "Exit codes",
@@ -367,7 +367,66 @@
       "acceptance": [
         "External agent can invoke command",
         "Exit code matches failure stage"
-      ]
+      ],
+      "verification": {
+        "unity": "6000.3.8f1",
+        "required_arguments": [
+          "-recipe",
+          "-templateCatalog",
+          "-artifactPath"
+        ],
+        "exit_codes": {
+          "success": 0,
+          "arguments": 10,
+          "parse_recipe": 20,
+          "validate_inputs": 30,
+          "compile_prefab": 40,
+          "validate_prefab": 50,
+          "open_preview": 60,
+          "capture_frames": 70,
+          "write_report": 80,
+          "unexpected": 90
+        },
+        "one_line_json": {
+          "schema_version": "1.0",
+          "tool": "VFXForge",
+          "physical_lines": 1,
+          "artifact": "UnityCompatibilityProject/Artifacts/vf-010-execute-final.log"
+        },
+        "external_invocations": [
+          {
+            "case": "missing arguments",
+            "exit_code": 10,
+            "failed_stage": "Arguments",
+            "artifact": "UnityCompatibilityProject/Artifacts/vf-010-execute-final.log"
+          },
+          {
+            "case": "missing Recipe file",
+            "exit_code": 20,
+            "failed_stage": "ParseRecipe",
+            "artifact_path_normalized": true,
+            "artifact": "UnityCompatibilityProject/Artifacts/vf-010-execute-parse.log"
+          }
+        ],
+        "batch_contract_tests": {
+          "passed": 14,
+          "failed": 0,
+          "artifact": "UnityCompatibilityProject/Artifacts/vf-010-batch-contract-results.xml"
+        },
+        "editmode_tests": {
+          "passed": 123,
+          "failed": 0,
+          "skipped": 0,
+          "artifact": "UnityCompatibilityProject/Artifacts/vf-010-editmode-results.xml"
+        },
+        "console": {
+          "errors": 0,
+          "warnings": 12,
+          "artifact": "UnityCompatibilityProject/Artifacts/vf-010-console.json"
+        },
+        "generated_assets_remaining": [],
+        "valid_end_to_end_fixture": "deferred to VF-011 Integration fixture"
+      }
     },
     {
       "id": "VF-011",

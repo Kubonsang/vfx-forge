@@ -6,130 +6,336 @@ using UnityEngine;
 
 namespace Kubonsang.VfxForge.Editor
 {
+    public enum VfxForgeBatchExitCode
+    {
+        Success = 0,
+        Arguments = 10,
+        ParseRecipe = 20,
+        ValidateInputs = 30,
+        CompilePrefab = 40,
+        ValidatePrefab = 50,
+        OpenPreview = 60,
+        CaptureFrames = 70,
+        WriteReport = 80,
+        Unexpected = 90
+    }
+
+    [Serializable]
+    public sealed class VfxForgeBatchResult
+    {
+        public string schemaVersion = "1.0";
+        public string tool = "VFXForge";
+        public string status = "failed";
+        public int exitCode = (int)VfxForgeBatchExitCode.Unexpected;
+        public string failedStage = string.Empty;
+        public string recipeId = string.Empty;
+        public string artifactPath = string.Empty;
+        public string reportPath = string.Empty;
+        public string generatedPrefab = string.Empty;
+        public string captureManifest = string.Empty;
+        public string message = string.Empty;
+
+        public string ToJson()
+        {
+            return JsonUtility.ToJson(this, false);
+        }
+    }
+
+    public class VfxForgeBatchCommand
+    {
+        private const string RecipeArgument = "-recipe";
+        private const string CatalogArgument = "-templateCatalog";
+        private const string ArtifactArgument = "-artifactPath";
+
+        private static readonly string[] RequiredArguments =
+        {
+            RecipeArgument,
+            CatalogArgument,
+            ArtifactArgument
+        };
+
+        public VfxForgeBatchResult Execute(string[] rawArguments)
+        {
+            string artifactPath = string.Empty;
+            try
+            {
+                if (!TryParseArguments(
+                    rawArguments,
+                    out Dictionary<string, string> arguments,
+                    out string argumentError))
+                {
+                    return Failure(
+                        VfxForgeBatchExitCode.Arguments,
+                        "Arguments",
+                        argumentError);
+                }
+
+                string recipePath;
+                string catalogPath;
+                try
+                {
+                    recipePath = ToAbsolutePath(arguments[RecipeArgument]);
+                    artifactPath = ToAbsolutePath(arguments[ArtifactArgument]);
+                    catalogPath = ToProjectAssetPath(arguments[CatalogArgument]);
+                }
+                catch (Exception exception)
+                {
+                    return Failure(
+                        VfxForgeBatchExitCode.Arguments,
+                        "Arguments",
+                        $"Argument path could not be resolved: {exception.Message}");
+                }
+
+                if (string.IsNullOrWhiteSpace(catalogPath))
+                {
+                    return Failure(
+                        VfxForgeBatchExitCode.Arguments,
+                        "Arguments",
+                        "Template Catalog must be an asset inside the project Assets directory.",
+                        artifactPath);
+                }
+
+                string recipeJson;
+                try
+                {
+                    recipeJson = File.ReadAllText(recipePath);
+                }
+                catch (Exception)
+                {
+                    return Failure(
+                        VfxForgeBatchExitCode.ParseRecipe,
+                        VfxForgePipelineStage.ParseRecipe.ToString(),
+                        $"Recipe file could not be read: {recipePath}",
+                        artifactPath);
+                }
+
+                VfxTemplateCatalog catalog = LoadCatalog(catalogPath);
+                if (catalog == null)
+                {
+                    return Failure(
+                        VfxForgeBatchExitCode.ValidateInputs,
+                        VfxForgePipelineStage.ValidateInputs.ToString(),
+                        $"Template Catalog could not be loaded: {catalogPath}",
+                        artifactPath);
+                }
+
+                VfxForgePipelineRunResult pipelineResult = RunPipeline(
+                    new VfxForgePipelineRequest
+                    {
+                        RecipeJson = recipeJson,
+                        RecipeAssetPath = arguments[RecipeArgument],
+                        TemplateCatalog = catalog,
+                        ArtifactDirectory = artifactPath
+                    });
+                return FromPipelineResult(pipelineResult, artifactPath);
+            }
+            catch (Exception exception)
+            {
+                return Failure(
+                    VfxForgeBatchExitCode.Unexpected,
+                    "Unexpected",
+                    exception.Message,
+                    artifactPath);
+            }
+        }
+
+        public static VfxForgeBatchExitCode MapExitCode(
+            VfxForgePipelineRunResult pipelineResult)
+        {
+            if (pipelineResult == null)
+            {
+                return VfxForgeBatchExitCode.Unexpected;
+            }
+
+            if (pipelineResult.Success)
+            {
+                return VfxForgeBatchExitCode.Success;
+            }
+
+            switch (pipelineResult.FailedStage)
+            {
+                case VfxForgePipelineStage.ParseRecipe:
+                    return VfxForgeBatchExitCode.ParseRecipe;
+                case VfxForgePipelineStage.ValidateInputs:
+                    return VfxForgeBatchExitCode.ValidateInputs;
+                case VfxForgePipelineStage.CompilePrefab:
+                    return VfxForgeBatchExitCode.CompilePrefab;
+                case VfxForgePipelineStage.ValidatePrefab:
+                    return VfxForgeBatchExitCode.ValidatePrefab;
+                case VfxForgePipelineStage.OpenPreview:
+                    return VfxForgeBatchExitCode.OpenPreview;
+                case VfxForgePipelineStage.CaptureFrames:
+                    return VfxForgeBatchExitCode.CaptureFrames;
+                case VfxForgePipelineStage.WriteReport:
+                    return VfxForgeBatchExitCode.WriteReport;
+                default:
+                    return VfxForgeBatchExitCode.Unexpected;
+            }
+        }
+
+        protected virtual VfxTemplateCatalog LoadCatalog(string assetPath)
+        {
+            return AssetDatabase.LoadAssetAtPath<VfxTemplateCatalog>(assetPath);
+        }
+
+        protected virtual VfxForgePipelineRunResult RunPipeline(
+            VfxForgePipelineRequest request)
+        {
+            return new VfxForgePipelineRunner().Run(request);
+        }
+
+        private static VfxForgeBatchResult FromPipelineResult(
+            VfxForgePipelineRunResult pipelineResult,
+            string artifactPath)
+        {
+            if (pipelineResult == null)
+            {
+                return Failure(
+                    VfxForgeBatchExitCode.Unexpected,
+                    "Unexpected",
+                    "Pipeline returned no result.",
+                    artifactPath);
+            }
+
+            VfxForgeBatchExitCode exitCode = MapExitCode(pipelineResult);
+            return new VfxForgeBatchResult
+            {
+                status = pipelineResult.Success
+                    ? VfxReportWriter.ResolveStatus(pipelineResult.Results)
+                    : "failed",
+                exitCode = (int)exitCode,
+                failedStage = pipelineResult.Success
+                    ? string.Empty
+                    : exitCode == VfxForgeBatchExitCode.Unexpected
+                        ? "Unexpected"
+                        : pipelineResult.FailedStage.ToString(),
+                recipeId = pipelineResult.Recipe?.id ?? string.Empty,
+                artifactPath = artifactPath,
+                reportPath = pipelineResult.ReportPath,
+                generatedPrefab = pipelineResult.PrefabPath,
+                captureManifest = pipelineResult.CaptureManifestPath,
+                message = pipelineResult.Message
+            };
+        }
+
+        private static VfxForgeBatchResult Failure(
+            VfxForgeBatchExitCode exitCode,
+            string failedStage,
+            string message,
+            string artifactPath = "")
+        {
+            return new VfxForgeBatchResult
+            {
+                exitCode = (int)exitCode,
+                failedStage = failedStage ?? string.Empty,
+                artifactPath = artifactPath ?? string.Empty,
+                message = message ?? string.Empty
+            };
+        }
+
+        private static bool TryParseArguments(
+            string[] rawArguments,
+            out Dictionary<string, string> arguments,
+            out string error)
+        {
+            arguments = new Dictionary<string, string>(StringComparer.Ordinal);
+            error = string.Empty;
+            if (rawArguments == null)
+            {
+                error = RequiredArgumentMessage();
+                return false;
+            }
+
+            for (int index = 0; index < rawArguments.Length; index++)
+            {
+                string token = rawArguments[index];
+                if (!IsRequiredArgument(token))
+                {
+                    continue;
+                }
+
+                if (arguments.ContainsKey(token))
+                {
+                    error = $"Duplicate argument: {token}";
+                    return false;
+                }
+
+                if (index + 1 >= rawArguments.Length
+                    || string.IsNullOrWhiteSpace(rawArguments[index + 1])
+                    || rawArguments[index + 1].StartsWith("-", StringComparison.Ordinal))
+                {
+                    error = $"Argument requires a value: {token}";
+                    return false;
+                }
+
+                arguments.Add(token, rawArguments[++index]);
+            }
+
+            foreach (string required in RequiredArguments)
+            {
+                if (!arguments.ContainsKey(required))
+                {
+                    error = RequiredArgumentMessage();
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private static bool IsRequiredArgument(string value)
+        {
+            foreach (string required in RequiredArguments)
+            {
+                if (string.Equals(value, required, StringComparison.Ordinal))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private static string RequiredArgumentMessage()
+        {
+            return "Required arguments: -recipe, -templateCatalog, and -artifactPath.";
+        }
+
+        private static string ToAbsolutePath(string path)
+        {
+            string projectRoot = Path.GetDirectoryName(Application.dataPath);
+            return Path.GetFullPath(
+                Path.IsPathRooted(path)
+                    ? path
+                    : Path.Combine(projectRoot, path));
+        }
+
+        private static string ToProjectAssetPath(string path)
+        {
+            string assetsRoot = Path.GetFullPath(Application.dataPath)
+                .TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+            string candidate = Path.GetFullPath(
+                Path.IsPathRooted(path)
+                    ? path
+                    : Path.Combine(Path.GetDirectoryName(assetsRoot), path));
+            string prefix = assetsRoot + Path.DirectorySeparatorChar;
+            if (!candidate.StartsWith(prefix, StringComparison.OrdinalIgnoreCase))
+            {
+                return string.Empty;
+            }
+
+            return $"Assets/{candidate.Substring(prefix.Length).Replace('\\', '/')}";
+        }
+    }
+
     public static class VfxForgeBatchEntry
     {
         public static void Run()
         {
-            int exitCode = 9;
-            string recipeId = string.Empty;
-            string reportPath = string.Empty;
-            string status = "failed";
-
-            try
-            {
-                Dictionary<string, string> args = ParseArgs(Environment.GetCommandLineArgs());
-                if (!args.TryGetValue("-recipe", out string recipePath) || !args.TryGetValue("-artifactPath", out string artifactPath))
-                {
-                    Exit(1, status, recipeId, reportPath, "Required arguments: -recipe and -artifactPath");
-                    return;
-                }
-
-                VfxRecipeParseResult parsed = VfxRecipeParser.ParseFile(ToAbsoluteProjectPath(recipePath));
-                if (!parsed.Success)
-                {
-                    Exit(1, status, recipeId, reportPath, parsed.Error);
-                    return;
-                }
-
-                recipeId = parsed.Recipe.id;
-                List<VfxValidationResult> results = VfxRecipeValidator.Validate(parsed.Recipe);
-                if (VfxRecipeValidator.HasErrors(results))
-                {
-                    reportPath = VfxReportWriter.Write(ToAbsoluteProjectPath(artifactPath), parsed.Recipe, string.Empty, results);
-                    Exit(2, "failed", recipeId, reportPath, "Recipe validation failed.");
-                    return;
-                }
-
-                VfxTemplateCatalog catalog = ResolveCatalog(args);
-                if (catalog == null)
-                {
-                    Exit(3, status, recipeId, reportPath, "Template Catalog not found.");
-                    return;
-                }
-
-                results.Clear();
-                VfxCompileResult compile = VfxRecipeCompiler.Compile(parsed.Recipe, recipePath, catalog);
-                results.AddRange(compile.Results);
-                if (compile.Success
-                    && catalog.TryGet(parsed.Recipe.template, out VfxTemplateEntry template))
-                {
-                    results.AddRange(VfxValidationPipeline.Run(new VfxValidationContext
-                    {
-                        Recipe = parsed.Recipe,
-                        Prefab = compile.Prefab,
-                        Template = template,
-                        AssetPath = compile.PrefabPath
-                    }));
-                }
-
-                reportPath = VfxReportWriter.Write(ToAbsoluteProjectPath(artifactPath), parsed.Recipe, compile.PrefabPath, results);
-                status = VfxReportWriter.ResolveStatus(results);
-                exitCode = compile.Success && status != "failed" ? 0 : 4;
-                Exit(exitCode, status, recipeId, reportPath, compile.Success ? "Compile finished." : "Compile failed.");
-            }
-            catch (Exception exception)
-            {
-                Exit(exitCode, status, recipeId, reportPath, exception.ToString());
-            }
-        }
-
-        private static VfxTemplateCatalog ResolveCatalog(IReadOnlyDictionary<string, string> args)
-        {
-            if (args.TryGetValue("-templateCatalog", out string explicitPath))
-            {
-                return AssetDatabase.LoadAssetAtPath<VfxTemplateCatalog>(explicitPath);
-            }
-
-            string[] guids = AssetDatabase.FindAssets("t:VfxTemplateCatalog");
-            return guids.Length == 1
-                ? AssetDatabase.LoadAssetAtPath<VfxTemplateCatalog>(AssetDatabase.GUIDToAssetPath(guids[0]))
-                : null;
-        }
-
-        private static Dictionary<string, string> ParseArgs(string[] raw)
-        {
-            var parsed = new Dictionary<string, string>(StringComparer.Ordinal);
-            for (int index = 0; index < raw.Length - 1; index++)
-            {
-                if (raw[index].StartsWith("-", StringComparison.Ordinal))
-                {
-                    parsed[raw[index]] = raw[index + 1];
-                }
-            }
-            return parsed;
-        }
-
-        private static string ToAbsoluteProjectPath(string path)
-        {
-            if (Path.IsPathRooted(path))
-            {
-                return path;
-            }
-            return Path.GetFullPath(Path.Combine(Directory.GetCurrentDirectory(), path));
-        }
-
-        private static void Exit(int code, string status, string recipeId, string reportPath, string message)
-        {
-            var line = new BatchResult
-            {
-                status = status,
-                exitCode = code,
-                recipeId = recipeId,
-                reportPath = reportPath,
-                message = message
-            };
-            Debug.Log($"[VFXForge] {JsonUtility.ToJson(line)}");
-            EditorApplication.Exit(code);
-        }
-
-        [Serializable]
-        private sealed class BatchResult
-        {
-            public string status = "failed";
-            public int exitCode;
-            public string recipeId = string.Empty;
-            public string reportPath = string.Empty;
-            public string message = string.Empty;
+            VfxForgeBatchResult result =
+                new VfxForgeBatchCommand().Execute(Environment.GetCommandLineArgs());
+            Console.Out.WriteLine(result.ToJson());
+            Console.Out.Flush();
+            EditorApplication.Exit(result.exitCode);
         }
     }
 }

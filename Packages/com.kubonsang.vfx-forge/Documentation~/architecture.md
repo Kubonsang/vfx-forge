@@ -14,6 +14,8 @@ Preview orchestration belongs to the Editor assembly. Runtime playback remains i
 
 `VfxForgePipelineRunner` owns Run All ordering and failure gates. `VfxForgeWindow`
 observes progress and exposes result navigation without implementing pipeline logic.
+`VfxForgeBatchCommand` adapts the same runner to validated command-line arguments,
+stable stage-specific exit codes, and one compact JSON result line.
 
 ## Asset Safety Boundary
 
@@ -49,6 +51,7 @@ observes progress and exposes result navigation without implementing pipeline lo
 - Failure reports are evidence output and do not resume the generation pipeline.
 - Preview sessions are disposed on both Capture completion and exceptions.
 - The run result preserves generated Prefab, report, and capture paths for UI navigation.
+- Editor and BatchMode entry points share this ordering and failure contract.
 
 ## Prefab Compiler Contract
 

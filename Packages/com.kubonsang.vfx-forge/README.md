@@ -21,6 +21,8 @@ Deterministic PNG and manifest output are documented in
 [`Documentation~/frame-capture.md`](Documentation~/frame-capture.md).
 The Run All workflow, failure gates, progress, and result navigation are documented in
 [`Documentation~/editor-window.md`](Documentation~/editor-window.md).
+The external command arguments, result JSON, Artifact layout, and exit codes are
+documented in [`Documentation~/batchmode.md`](Documentation~/batchmode.md).
 
 ## Current Capabilities
 
@@ -32,7 +34,7 @@ The Run All workflow, failure gates, progress, and result navigation are documen
 - Deterministic frame-time and front/side/top PNG capture with manifest output
 - Validation rule pipeline
 - Editor Window with Run All, progress state, and result navigation
-- BatchMode entry point draft
+- BatchMode entry point with stable arguments, JSON result, Artifact path, and exit codes
 
 ## Not Yet Implemented
 

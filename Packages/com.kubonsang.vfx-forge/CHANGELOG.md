@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Hardened the BatchMode entry point with required arguments and project-relative path resolution.
+- Added one-line JSON results and stable exit codes for every pipeline failure stage.
+- Added BatchMode contract tests and external `-executeMethod` invocation documentation.
 - Added the Editor Window Run All workflow with ordered stage progress and failure gates.
 - Added generated Prefab, validation report, and capture manifest result navigation.
 - Added end-to-end Editor pipeline tests for success and downstream-stage suppression.
