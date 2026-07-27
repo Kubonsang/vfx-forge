@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "1.0",
+  "id": "fixture_valid_top",
+  "displayName": "Fixture Valid Top",
+  "template": "fixture_impact",
+  "outputPath": "Assets/__VfxForgeIntegrationFixture/Generated/ValidTop.prefab",
+  "seed": 303,
+  "timing": {
+    "duration": 0.2,
+    "anticipation": 0.05,
+    "impact": 0.05,
+    "sustain": 0.05,
+    "decay": 0.05
+  },
+  "shape": {
+    "radius": 1.25,
+    "directionality": 1.0,
+    "spreadAngle": 90.0
+  },
+  "style": {
+    "primaryColor": "#AA66FFFF",
+    "secondaryColor": "#E6CCFFFF",
+    "emissionIntensity": 2.0,
+    "sharpness": 0.8,
+    "distortionStrength": 0.0
+  },
+  "layers": [
+    "core"
+  ],
+  "budget": {
+    "maxParticles": 200,
+    "maxDuration": 0.3,
+    "maxBoundsRadius": 3.0,
+    "allowDistortion": false,
+    "allowLight": false
+  },
+  "capture": {
+    "duration": 0.1,
+    "frameTimes": [
+      0.1
+    ],
+    "views": [
+      "top"
+    ],
+    "width": 64,
+    "height": 64
+  }
+}

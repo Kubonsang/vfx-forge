@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "1.0",
+  "id": "fixture_valid_front",
+  "displayName": "Fixture Valid Front",
+  "template": "fixture_impact",
+  "outputPath": "Assets/__VfxForgeIntegrationFixture/Generated/ValidFront.prefab",
+  "seed": 101,
+  "timing": {
+    "duration": 0.1,
+    "impact": 0.05,
+    "decay": 0.05
+  },
+  "shape": {
+    "radius": 0.75,
+    "directionality": 0.0,
+    "spreadAngle": 45.0
+  },
+  "style": {
+    "primaryColor": "#44AAFFFF",
+    "secondaryColor": "#FFFFFFFF",
+    "emissionIntensity": 1.0,
+    "sharpness": 0.5,
+    "distortionStrength": 0.0
+  },
+  "layers": [
+    "core"
+  ],
+  "budget": {
+    "maxParticles": 100,
+    "maxDuration": 0.2,
+    "maxBoundsRadius": 3.0,
+    "allowDistortion": false,
+    "allowLight": false
+  },
+  "capture": {
+    "duration": 0.1,
+    "frameTimes": [
+      0.0
+    ],
+    "views": [
+      "front"
+    ],
+    "width": 64,
+    "height": 64
+  }
+}

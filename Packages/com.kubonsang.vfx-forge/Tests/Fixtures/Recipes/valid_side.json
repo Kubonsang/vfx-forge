@@ -1,0 +1,47 @@
+{
+  "schemaVersion": "1.0",
+  "id": "fixture_valid_side",
+  "displayName": "Fixture Valid Side",
+  "template": "fixture_impact",
+  "outputPath": "Assets/__VfxForgeIntegrationFixture/Generated/ValidSide.prefab",
+  "seed": 202,
+  "timing": {
+    "duration": 0.15,
+    "impact": 0.05,
+    "sustain": 0.05,
+    "decay": 0.05
+  },
+  "shape": {
+    "radius": 1.0,
+    "directionality": 0.5,
+    "spreadAngle": 60.0
+  },
+  "style": {
+    "primaryColor": "#FFAA44FF",
+    "secondaryColor": "#FFF0CCFF",
+    "emissionIntensity": 1.5,
+    "sharpness": 0.65,
+    "distortionStrength": 0.0
+  },
+  "layers": [
+    "core"
+  ],
+  "budget": {
+    "maxParticles": 150,
+    "maxDuration": 0.25,
+    "maxBoundsRadius": 3.0,
+    "allowDistortion": false,
+    "allowLight": false
+  },
+  "capture": {
+    "duration": 0.1,
+    "frameTimes": [
+      0.05
+    ],
+    "views": [
+      "side"
+    ],
+    "width": 64,
+    "height": 64
+  }
+}

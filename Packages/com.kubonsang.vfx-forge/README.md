@@ -23,6 +23,8 @@ The Run All workflow, failure gates, progress, and result navigation are documen
 [`Documentation~/editor-window.md`](Documentation~/editor-window.md).
 The external command arguments, result JSON, Artifact layout, and exit codes are
 documented in [`Documentation~/batchmode.md`](Documentation~/batchmode.md).
+The five-Recipe end-to-end fixture and Template immutability checks are documented in
+[`Documentation~/integration-fixture.md`](Documentation~/integration-fixture.md).
 
 ## Current Capabilities
 
@@ -35,6 +37,7 @@ documented in [`Documentation~/batchmode.md`](Documentation~/batchmode.md).
 - Validation rule pipeline
 - Editor Window with Run All, progress state, and result navigation
 - BatchMode entry point with stable arguments, JSON result, Artifact path, and exit codes
+- Five-Recipe Batch integration fixture with Template and VFX asset immutability checks
 
 ## Not Yet Implemented
 

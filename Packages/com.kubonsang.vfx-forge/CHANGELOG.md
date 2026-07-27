@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Added three valid and two invalid versioned Recipe integration fixtures.
+- Added full Batch pipeline coverage through Prefab generation, Preview, Capture, and reports.
+- Added Template, Catalog, and referenced VFX asset immutability assertions.
 - Hardened the BatchMode entry point with required arguments and project-relative path resolution.
 - Added one-line JSON results and stable exit codes for every pipeline failure stage.
 - Added BatchMode contract tests and external `-executeMethod` invocation documentation.

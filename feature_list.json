@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "project": "VFX Forge",
-  "current_task": "VF-011",
+  "current_task": null,
   "status_values": [
     "done",
     "in_progress",
@@ -431,7 +431,7 @@
     {
       "id": "VF-011",
       "title": "Integration fixture",
-      "status": "todo",
+      "status": "done",
       "scope": [
         "Five recipes",
         "Template fixture",
@@ -441,7 +441,71 @@
         "Three valid recipes pass",
         "Two invalid recipes fail correctly",
         "Original templates remain unchanged"
-      ]
+      ],
+      "verification": {
+        "unity": "6000.3.8f1",
+        "recipe_fixtures": {
+          "valid": [
+            "valid_front.json",
+            "valid_side.json",
+            "valid_top.json"
+          ],
+          "invalid": [
+            "invalid_contract.json",
+            "invalid_template.json"
+          ]
+        },
+        "valid_results": {
+          "passed": 3,
+          "exit_code": 0,
+          "artifacts_verified": [
+            "generated Prefab",
+            "validation.json",
+            "PNG frame",
+            "capture-manifest.json"
+          ]
+        },
+        "invalid_results": [
+          {
+            "recipe": "invalid_contract.json",
+            "exit_code": 20,
+            "failed_stage": "ParseRecipe",
+            "generated_asset": false
+          },
+          {
+            "recipe": "invalid_template.json",
+            "exit_code": 30,
+            "failed_stage": "ValidateInputs",
+            "generated_asset": false,
+            "failure_report": true
+          }
+        ],
+        "template_immutability_verified": [
+          "Template Prefab SHA-256",
+          "Template dependency hash",
+          "read-only VFX asset dependency hash",
+          "Template Catalog JSON",
+          "Template has no VfxMetadata"
+        ],
+        "integration_tests": {
+          "passed": 6,
+          "failed": 0,
+          "artifact": "UnityCompatibilityProject/Artifacts/vf-011-integration-results.xml"
+        },
+        "editmode_tests": {
+          "passed": 129,
+          "failed": 0,
+          "skipped": 0,
+          "artifact": "UnityCompatibilityProject/Artifacts/vf-011-editmode-results.xml"
+        },
+        "console": {
+          "errors": 0,
+          "warnings": 12,
+          "artifact": "UnityCompatibilityProject/Artifacts/vf-011-console.json"
+        },
+        "generated_assets_remaining": [],
+        "visual_quality": "not assessed; structural rendering and pipeline behavior were verified"
+      }
     }
   ]
 }

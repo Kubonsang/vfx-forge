@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "1.0",
+  "id": "fixture_invalid_template",
+  "displayName": "Fixture Invalid Template",
+  "template": "missing_fixture_template",
+  "outputPath": "Assets/__VfxForgeIntegrationFixture/Generated/InvalidTemplate.prefab",
+  "timing": {
+    "duration": 0.1
+  },
+  "budget": {
+    "maxParticles": 100,
+    "maxDuration": 0.2,
+    "maxBoundsRadius": 3.0
+  },
+  "capture": {
+    "duration": 0.1,
+    "frameTimes": [
+      0.0
+    ],
+    "views": [
+      "front"
+    ],
+    "width": 64,
+    "height": 64
+  }
+}

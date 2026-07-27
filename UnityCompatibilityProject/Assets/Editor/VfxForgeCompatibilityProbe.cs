@@ -9,7 +9,7 @@ using UnityEngine.VFX;
 
 public static class VfxForgeCompatibilityProbe
 {
-    private const string ArtifactPath = "Artifacts/vf-010-console.json";
+    private const string ArtifactPath = "Artifacts/vf-011-console.json";
     private const string CaptureArtifactDirectory = "Artifacts/vf-008-capture";
     private const string CaptureAssetRoot = "Assets/__VfxForgeCaptureProbe";
 

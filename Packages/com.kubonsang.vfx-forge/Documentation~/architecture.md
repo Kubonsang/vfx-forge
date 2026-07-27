@@ -53,6 +53,15 @@ stable stage-specific exit codes, and one compact JSON result line.
 - The run result preserves generated Prefab, report, and capture paths for UI navigation.
 - Editor and BatchMode entry points share this ordering and failure contract.
 
+## Integration Fixture Contract
+
+- Three valid and two invalid versioned Recipes exercise the Batch command.
+- Template Prefab and Catalog assets are created through Unity Editor APIs and removed
+  after each case.
+- The fixture references, but never edits, the VFX Graph package's Minimal System asset.
+- Template file, dependency, VFX asset, and Catalog snapshots must match after every run.
+- Successful cases prove structural rendering and Artifact generation, not visual quality.
+
 ## Prefab Compiler Contract
 
 The compiler validates the Recipe and the complete Template Catalog before creating
