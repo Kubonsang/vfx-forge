@@ -36,6 +36,12 @@ namespace Kubonsang.VfxForge.Editor
                 return result;
             }
 
+            result.Results.AddRange(VfxTemplateCatalogValidator.Validate(catalog));
+            if (VfxRecipeValidator.HasErrors(result.Results))
+            {
+                return result;
+            }
+
             if (!catalog.TryGet(recipe.template, out VfxTemplateEntry template) || template.prefab == null)
             {
                 result.Results.Add(VfxValidationResult.Error("COMPILE-TEMPLATE", $"Template not found: {recipe.template}"));

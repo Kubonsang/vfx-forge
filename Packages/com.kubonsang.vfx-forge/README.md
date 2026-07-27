@@ -11,12 +11,14 @@ Template-first VFX authoring starter for Unity 6.
 
 The verified Unity 6 package matrix and compatibility test procedure are documented in
 [`Documentation~/unity-6-compatibility.md`](Documentation~/unity-6-compatibility.md).
+The Recipe 1.0 required fields, defaults, path rules, and stable error codes are documented
+in [`Documentation~/recipe-contract.md`](Documentation~/recipe-contract.md).
 
 ## Current Capabilities
 
 - JSON Recipe parsing and normalization
 - Basic semantic validation
-- Template Catalog and Property Binding model
+- Validated Template Catalog registration and Property Binding inspection
 - Safe Prefab compilation draft
 - Validation rule pipeline draft
 - Editor Window

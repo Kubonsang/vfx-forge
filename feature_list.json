@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "project": "VFX Forge",
-  "current_task": "VF-003",
+  "current_task": "VF-005",
   "status_values": [
     "done",
     "in_progress",
@@ -66,7 +66,7 @@
     {
       "id": "VF-003",
       "title": "Recipe contract hardening",
-      "status": "todo",
+      "status": "done",
       "scope": [
         "Schema validation",
         "Defaults",
@@ -77,12 +77,29 @@
         "Valid sample parses",
         "Invalid samples fail deterministically",
         "Tests cover required fields"
-      ]
+      ],
+      "verification": {
+        "unity": "6000.3.8f1",
+        "schema": "Packages/com.kubonsang.vfx-forge/Schemas/vfx-recipe-1.0.schema.json",
+        "contract_documentation": "Packages/com.kubonsang.vfx-forge/Documentation~/recipe-contract.md",
+        "editmode_tests": {
+          "passed": 48,
+          "failed": 0,
+          "skipped": 0,
+          "artifact": "UnityCompatibilityProject/Artifacts/vf-003-editmode-results.xml"
+        },
+        "console": {
+          "errors": 0,
+          "warnings": 12,
+          "artifact": "UnityCompatibilityProject/Artifacts/vf-003-console.json"
+        },
+        "original_template_assets_changed": false
+      }
     },
     {
       "id": "VF-004",
       "title": "Template catalog workflow",
-      "status": "todo",
+      "status": "done",
       "scope": [
         "Catalog editor validation",
         "Duplicate detection",
@@ -91,7 +108,26 @@
       "acceptance": [
         "Invalid entries are rejected",
         "Five template IDs can be registered"
-      ]
+      ],
+      "verification": {
+        "unity": "6000.3.8f1",
+        "catalog_tests": 13,
+        "five_template_ids_registered": true,
+        "invalid_catalog_blocks_compilation": true,
+        "editmode_tests": {
+          "passed": 61,
+          "failed": 0,
+          "skipped": 0,
+          "artifact": "UnityCompatibilityProject/Artifacts/vf-004-editmode-results.xml"
+        },
+        "console": {
+          "errors": 0,
+          "warnings": 12,
+          "artifact": "UnityCompatibilityProject/Artifacts/vf-004-console.json"
+        },
+        "original_template_assets_changed": false,
+        "generated_assets_remaining": []
+      }
     },
     {
       "id": "VF-005",

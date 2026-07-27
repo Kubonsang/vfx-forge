@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- Added atomic Template Catalog registration, duplicate detection, and Inspector validation.
+- Added Recipe path/type, component target, and exposed-property inspection for Property Bindings.
+- Blocked Prefab compilation when the selected Template Catalog is invalid.
+- Hardened Recipe 1.0 parsing with required-field, unknown-field, duplicate-field, and type checks.
+- Preserved optional defaults during JSON deserialization and aligned them with the JSON Schema.
+- Added traversal-safe Prefab output path validation and stable parser error codes.
 - Verified Unity 6000.3.8f1 compatibility with URP and Visual Effect Graph 17.3.0.
 - Added EditMode coverage for the Visual Effect Graph runtime API used by VFX Forge.
 - Added a minimal compatibility host project with deterministic package versions.

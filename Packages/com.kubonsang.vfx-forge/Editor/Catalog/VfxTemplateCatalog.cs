@@ -9,6 +9,25 @@ namespace Kubonsang.VfxForge.Editor
     {
         public List<VfxTemplateEntry> templates = new List<VfxTemplateEntry>();
 
+        public bool TryRegister(
+            VfxTemplateEntry candidate,
+            out List<VfxValidationResult> validationResults)
+        {
+            validationResults = VfxTemplateCatalogValidator.ValidateRegistration(this, candidate);
+            if (VfxRecipeValidator.HasErrors(validationResults))
+            {
+                return false;
+            }
+
+            if (templates == null)
+            {
+                templates = new List<VfxTemplateEntry>();
+            }
+
+            templates.Add(candidate);
+            return true;
+        }
+
         public bool TryGet(string id, out VfxTemplateEntry entry)
         {
             entry = null;

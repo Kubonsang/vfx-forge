@@ -4,6 +4,36 @@ namespace Kubonsang.VfxForge.Editor
 {
     public static class VfxRecipeValueResolver
     {
+        public static bool TryGetPropertyType(string path, out VfxPropertyType propertyType)
+        {
+            switch (path)
+            {
+                case "seed":
+                    propertyType = VfxPropertyType.Int;
+                    return true;
+                case "timing.duration":
+                case "timing.anticipation":
+                case "timing.impact":
+                case "timing.sustain":
+                case "timing.decay":
+                case "shape.radius":
+                case "shape.directionality":
+                case "shape.spreadAngle":
+                case "style.emissionIntensity":
+                case "style.sharpness":
+                case "style.distortionStrength":
+                    propertyType = VfxPropertyType.Float;
+                    return true;
+                case "style.primaryColor":
+                case "style.secondaryColor":
+                    propertyType = VfxPropertyType.Color;
+                    return true;
+                default:
+                    propertyType = default;
+                    return false;
+            }
+        }
+
         public static bool TryResolve(VfxRecipe recipe, string path, out object value)
         {
             value = null;
