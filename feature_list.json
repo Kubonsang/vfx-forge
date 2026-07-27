@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "project": "VFX Forge",
-  "current_task": "VF-005",
+  "current_task": "VF-006",
   "status_values": [
     "done",
     "in_progress",
@@ -132,7 +132,7 @@
     {
       "id": "VF-005",
       "title": "Prefab compiler",
-      "status": "todo",
+      "status": "done",
       "scope": [
         "Duplicate template",
         "Apply bindings",
@@ -143,7 +143,28 @@
         "Recipe creates prefab",
         "Original prefab hash is unchanged",
         "Non-generated asset is never overwritten"
-      ]
+      ],
+      "verification": {
+        "unity": "6000.3.8f1",
+        "compiler_tests": 7,
+        "recipe_creates_independent_prefab": true,
+        "metadata_written": true,
+        "original_template_hash_unchanged": true,
+        "non_generated_asset_overwritten": false,
+        "editmode_tests": {
+          "passed": 68,
+          "failed": 0,
+          "skipped": 0,
+          "artifact": "UnityCompatibilityProject/Artifacts/vf-005-editmode-results.xml"
+        },
+        "console": {
+          "errors": 0,
+          "warnings": 12,
+          "artifact": "UnityCompatibilityProject/Artifacts/vf-005-console.json"
+        },
+        "generated_assets_remaining": [],
+        "capture": "not applicable; no visual asset was changed"
+      }
     },
     {
       "id": "VF-006",

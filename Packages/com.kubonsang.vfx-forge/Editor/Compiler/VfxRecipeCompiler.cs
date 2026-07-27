@@ -36,6 +36,12 @@ namespace Kubonsang.VfxForge.Editor
                 return result;
             }
 
+            result.Results.AddRange(VfxRecipeValidator.Validate(recipe));
+            if (VfxRecipeValidator.HasErrors(result.Results))
+            {
+                return result;
+            }
+
             result.Results.AddRange(VfxTemplateCatalogValidator.Validate(catalog));
             if (VfxRecipeValidator.HasErrors(result.Results))
             {
@@ -55,7 +61,6 @@ namespace Kubonsang.VfxForge.Editor
                 return result;
             }
 
-            EnsureAssetFolder(Path.GetDirectoryName(outputPath)?.Replace('\\', '/'));
             GameObject instance = null;
             try
             {
@@ -64,6 +69,14 @@ namespace Kubonsang.VfxForge.Editor
                 {
                     result.Results.Add(VfxValidationResult.Error("COMPILE-INSTANTIATE", "Template prefab could not be instantiated."));
                     return result;
+                }
+
+                if (PrefabUtility.IsPartOfPrefabInstance(instance))
+                {
+                    PrefabUtility.UnpackPrefabInstance(
+                        instance,
+                        PrefabUnpackMode.Completely,
+                        InteractionMode.AutomatedAction);
                 }
 
                 instance.name = string.IsNullOrWhiteSpace(recipe.displayName) ? recipe.id : recipe.displayName;
@@ -80,6 +93,7 @@ namespace Kubonsang.VfxForge.Editor
                     return result;
                 }
 
+                EnsureAssetFolder(Path.GetDirectoryName(outputPath)?.Replace('\\', '/'));
                 GameObject saved = PrefabUtility.SaveAsPrefabAsset(instance, outputPath);
                 if (saved == null)
                 {

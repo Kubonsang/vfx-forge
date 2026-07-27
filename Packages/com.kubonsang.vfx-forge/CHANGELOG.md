@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Added independent Template Prefab duplication, Recipe preflight validation, and Metadata integration tests.
+- Added generated-only overwrite protection and unique-path preservation for occupied user assets.
 - Added atomic Template Catalog registration, duplicate detection, and Inspector validation.
 - Added Recipe path/type, component target, and exposed-property inspection for Property Bindings.
 - Blocked Prefab compilation when the selected Template Catalog is invalid.

@@ -19,7 +19,7 @@ in [`Documentation~/recipe-contract.md`](Documentation~/recipe-contract.md).
 - JSON Recipe parsing and normalization
 - Basic semantic validation
 - Validated Template Catalog registration and Property Binding inspection
-- Safe Prefab compilation draft
+- Safe independent Prefab compilation with generated-only overwrite protection
 - Validation rule pipeline draft
 - Editor Window
 - BatchMode entry point draft
