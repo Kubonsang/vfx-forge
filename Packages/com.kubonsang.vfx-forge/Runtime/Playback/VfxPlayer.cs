@@ -9,6 +9,14 @@ namespace Kubonsang.VfxForge
         [SerializeField] private VisualEffect[] effects = System.Array.Empty<VisualEffect>();
         [SerializeField] private string playEventName = "OnPlay";
 
+        public string PlayEventName => playEventName;
+
+        public void Configure(string eventName)
+        {
+            playEventName = string.IsNullOrWhiteSpace(eventName) ? "OnPlay" : eventName.Trim();
+            CacheEffects();
+        }
+
         public void CacheEffects()
         {
             effects = GetComponentsInChildren<VisualEffect>(true);
@@ -31,7 +39,13 @@ namespace Kubonsang.VfxForge
 
         public void Play()
         {
+            PlayAll();
+        }
+
+        public int PlayAll()
+        {
             EnsureEffects();
+            int playedEffectCount = 0;
             foreach (VisualEffect effect in effects)
             {
                 if (effect == null)
@@ -40,7 +54,10 @@ namespace Kubonsang.VfxForge
                 }
 
                 effect.SendEvent(playEventName);
+                playedEffectCount++;
             }
+
+            return playedEffectCount;
         }
 
         private void EnsureEffects()

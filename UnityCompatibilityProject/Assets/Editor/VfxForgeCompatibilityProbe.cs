@@ -6,7 +6,7 @@ using UnityEngine;
 
 public static class VfxForgeCompatibilityProbe
 {
-    private const string ArtifactPath = "Artifacts/vf-006-console.json";
+    private const string ArtifactPath = "Artifacts/vf-007-console.json";
 
     public static void CaptureConsoleCounts()
     {

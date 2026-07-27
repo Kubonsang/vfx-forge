@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "project": "VFX Forge",
-  "current_task": "VF-007",
+  "current_task": "VF-008",
   "status_values": [
     "done",
     "in_progress",
@@ -216,7 +216,7 @@
     {
       "id": "VF-007",
       "title": "Preview scene",
-      "status": "todo",
+      "status": "done",
       "scope": [
         "Preview scene bootstrap",
         "Camera rig",
@@ -227,7 +227,30 @@
         "Generated prefab plays",
         "Scene changes are not persisted",
         "Temporary instances are removed"
-      ]
+      ],
+      "verification": {
+        "unity": "6000.3.8f1",
+        "preview_session_tests": 8,
+        "generated_prefab_playback_event_dispatched": true,
+        "isolated_pathless_preview_scene": true,
+        "active_scene_and_dirty_state_unchanged": true,
+        "generated_prefab_hash_unchanged": true,
+        "temporary_instances_removed": true,
+        "camera_rig_created": true,
+        "editmode_tests": {
+          "passed": 93,
+          "failed": 0,
+          "skipped": 0,
+          "artifact": "UnityCompatibilityProject/Artifacts/vf-007-editmode-results.xml"
+        },
+        "console": {
+          "errors": 0,
+          "warnings": 12,
+          "artifact": "UnityCompatibilityProject/Artifacts/vf-007-console.json"
+        },
+        "generated_assets_remaining": [],
+        "capture": "not applicable; rendered frame capture is VF-008 scope"
+      }
     },
     {
       "id": "VF-008",

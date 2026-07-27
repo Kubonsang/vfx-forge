@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Added an isolated, pathless Preview Scene with generated-Prefab playback and cleanup.
+- Added a fixed Preview Camera rig and Editor Window controls for open, restart, and close.
+- Added tests for active Scene isolation, Prefab immutability, and temporary object removal.
 - Added the default generated-Prefab validation pipeline and Property Binding rule.
 - Hardened rule execution against exceptions, null results, empty IDs, and duplicate IDs.
 - Connected generated-Prefab validation and severity-based reports to Editor and BatchMode flows.

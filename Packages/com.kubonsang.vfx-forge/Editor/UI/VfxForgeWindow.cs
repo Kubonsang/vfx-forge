@@ -12,6 +12,9 @@ namespace Kubonsang.VfxForge.Editor
         private string artifactDirectory = "Artifacts/VFXForge/manual-run";
         private Vector2 scroll;
         private readonly List<VfxValidationResult> results = new List<VfxValidationResult>();
+        private GameObject generatedPrefab;
+        private string previewPlayEventName = "OnPlay";
+        private VfxPreviewSession previewSession;
 
         [MenuItem("Tools/VFX Forge/Open Window")]
         public static void Open()
@@ -40,6 +43,37 @@ namespace Kubonsang.VfxForge.Editor
             }
 
             EditorGUILayout.Space();
+            EditorGUILayout.LabelField("Preview", EditorStyles.boldLabel);
+            generatedPrefab = (GameObject)EditorGUILayout.ObjectField(
+                "Generated Prefab",
+                generatedPrefab,
+                typeof(GameObject),
+                false);
+            previewPlayEventName =
+                EditorGUILayout.TextField("Play Event", previewPlayEventName);
+
+            using (new EditorGUILayout.HorizontalScope())
+            {
+                if (GUILayout.Button("Open Preview"))
+                {
+                    OpenPreview();
+                }
+
+                using (new EditorGUI.DisabledScope(previewSession == null))
+                {
+                    if (GUILayout.Button("Restart"))
+                    {
+                        previewSession.Restart();
+                    }
+
+                    if (GUILayout.Button("Close Preview"))
+                    {
+                        ClosePreview();
+                    }
+                }
+            }
+
+            EditorGUILayout.Space();
             scroll = EditorGUILayout.BeginScrollView(scroll);
             foreach (VfxValidationResult result in results)
             {
@@ -55,6 +89,11 @@ namespace Kubonsang.VfxForge.Editor
                 EditorGUILayout.HelpBox($"[{result.ruleId}] {result.message}", type);
             }
             EditorGUILayout.EndScrollView();
+        }
+
+        private void OnDisable()
+        {
+            ClosePreview();
         }
 
         private void ValidateRecipe()
@@ -99,6 +138,8 @@ namespace Kubonsang.VfxForge.Editor
             if (compile.Success
                 && templateCatalog.TryGet(parsed.Recipe.template, out VfxTemplateEntry template))
             {
+                generatedPrefab = compile.Prefab;
+                previewPlayEventName = template.playEventName;
                 results.AddRange(VfxValidationPipeline.Run(new VfxValidationContext
                 {
                     Recipe = parsed.Recipe,
@@ -110,6 +151,27 @@ namespace Kubonsang.VfxForge.Editor
 
             string reportPath = VfxReportWriter.Write(artifactDirectory, parsed.Recipe, compile.PrefabPath, results);
             Debug.Log($"[VFXForge] Report written: {Path.GetFullPath(reportPath)}");
+        }
+
+        private void OpenPreview()
+        {
+            ClosePreview();
+            VfxPreviewOpenResult open =
+                VfxPreviewSession.Open(generatedPrefab, previewPlayEventName);
+            if (!open.Success)
+            {
+                results.Add(VfxValidationResult.Error(open.ErrorCode, open.Message));
+                return;
+            }
+
+            previewSession = open.Session;
+            results.Add(VfxValidationResult.Pass("PREVIEW-PLAYBACK", open.Message));
+        }
+
+        private void ClosePreview()
+        {
+            previewSession?.Dispose();
+            previewSession = null;
         }
 
         private VfxRecipeParseResult ParseSelected()

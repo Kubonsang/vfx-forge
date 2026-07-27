@@ -9,12 +9,25 @@ Runtime Data <- Editor Recipe/Catalog <- Compiler/Validation <- UI/CLI
 Runtime code must not reference `UnityEditor`.
 Editor UI must delegate parsing, compilation, validation, and reporting to separate classes.
 
+Preview orchestration belongs to the Editor assembly. Runtime playback remains in
+`VfxPlayer`, which has no `UnityEditor` dependency.
+
 ## Asset Safety Boundary
 
 - Template assets are read-only inputs.
 - Generated Prefabs must include `VfxMetadata`.
 - `OverwriteGeneratedOnly` may overwrite only Prefabs containing `VfxMetadata`.
 - Temporary instances are destroyed in `finally` blocks.
+
+## Preview Scene Contract
+
+- Preview accepts only a persistent Prefab asset containing `VfxMetadata`.
+- The Prefab must contain at least one `VisualEffect`.
+- `EditorSceneManager.NewPreviewScene` creates an isolated, pathless Scene.
+- The generated Prefab is instantiated only inside that Scene.
+- A fixed, disabled Camera is created for later explicit frame rendering.
+- `VfxPreviewSession.Dispose` closes the Preview Scene and removes all temporary objects.
+- The active Scene, its dirty state, and the generated Prefab asset remain unchanged.
 
 ## Prefab Compiler Contract
 
@@ -38,4 +51,6 @@ Overwrite policies are:
 
 ## Deliberate Gaps
 
-Preview, capture, profiler metrics, and graph composition are intentionally left for later tasks. Do not hide these gaps with fake success values.
+Frame capture, profiler metrics, and graph composition are intentionally left for later
+tasks. Preview playback reports event dispatch, not rendered visual quality. Do not hide
+these gaps with fake success values.

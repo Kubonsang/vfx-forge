@@ -15,6 +15,8 @@ The Recipe 1.0 required fields, defaults, path rules, and stable error codes are
 in [`Documentation~/recipe-contract.md`](Documentation~/recipe-contract.md).
 Generated-Prefab rules and report severity behavior are documented in
 [`Documentation~/validation-pipeline.md`](Documentation~/validation-pipeline.md).
+Preview Scene isolation, playback, and cleanup are documented in
+[`Preview~/README.md`](Preview~/README.md).
 
 ## Current Capabilities
 
@@ -22,13 +24,13 @@ Generated-Prefab rules and report severity behavior are documented in
 - Deterministic generated-Prefab validation pipeline and severity-based reports
 - Validated Template Catalog registration and Property Binding inspection
 - Safe independent Prefab compilation with generated-only overwrite protection
+- Isolated generated-Prefab Preview Scene with camera, playback, and cleanup
 - Validation rule pipeline draft
 - Editor Window
 - BatchMode entry point draft
 
 ## Not Yet Implemented
 
-- Preview Scene playback orchestration
 - Frame-accurate capture
 - Contact Sheet generation
 - Runtime particle count measurement
