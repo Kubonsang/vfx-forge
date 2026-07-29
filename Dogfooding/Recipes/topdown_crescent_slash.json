@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "1.0",
+  "id": "topdown_crescent_slash",
+  "displayName": "Top Down Crescent Sword Slash",
+  "template": "topdown_crescent_slash",
+  "styleProfile": "",
+  "intent": "A top-down readable crescent sword slash that travels forward along +Z",
+  "outputPath": "Assets/VFXForge/Dogfood/TopDownSwordSlash/Generated/TopDownCrescentSlash.prefab",
+  "anchor": "Caster",
+  "seed": 240729,
+  "timing": {
+    "duration": 0.55,
+    "anticipation": 0.0,
+    "impact": 0.08,
+    "sustain": 0.17,
+    "decay": 0.3
+  },
+  "shape": {
+    "radius": 1.72,
+    "directionality": 1.0,
+    "spreadAngle": 224.0
+  },
+  "style": {
+    "primaryColor": "#0A61FFFF",
+    "secondaryColor": "#C7F5FFFF",
+    "emissionIntensity": 4.0,
+    "sharpness": 0.85,
+    "distortionStrength": 0.0
+  },
+  "layers": [
+    "slash_core",
+    "slash_glow"
+  ],
+  "budget": {
+    "maxParticles": 128,
+    "maxDuration": 0.6,
+    "maxBoundsRadius": 3.0,
+    "allowDistortion": false,
+    "allowLight": false
+  },
+  "capture": {
+    "duration": 0.55,
+    "frameTimes": [0.0, 0.1, 0.28, 0.5],
+    "views": ["top"],
+    "width": 512,
+    "height": 512
+  }
+}

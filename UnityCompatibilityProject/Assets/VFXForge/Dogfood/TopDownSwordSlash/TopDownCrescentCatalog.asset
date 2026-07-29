@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2852dc2c7a13b29662129f93b2c31e7, type: 3}
+  m_Name: TopDownCrescentCatalog
+  m_EditorClassIdentifier: VFXForge.Editor::Kubonsang.VfxForge.Editor.VfxTemplateCatalog
+  templates:
+  - id: topdown_crescent_slash
+    prefab: {fileID: 276949224699973804, guid: 4c9a6fb32f75a4628a002fb1de34f225, type: 3}
+    playEventName: OnPlay
+    supportedLayers:
+    - slash_core
+    - slash_glow
+    bindings: []
