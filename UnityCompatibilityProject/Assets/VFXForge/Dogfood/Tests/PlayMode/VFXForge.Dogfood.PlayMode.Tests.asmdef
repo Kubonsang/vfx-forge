@@ -1,0 +1,20 @@
+{
+  "name": "VFXForge.Dogfood.PlayMode.Tests",
+  "rootNamespace": "VfxForge.Dogfood.Tests",
+  "references": [
+    "VFXForge.Dogfood.Runtime",
+    "Unity.VisualEffectGraph.Runtime"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": false,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false,
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
+}

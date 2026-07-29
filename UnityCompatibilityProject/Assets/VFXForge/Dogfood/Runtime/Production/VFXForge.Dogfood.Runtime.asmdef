@@ -1,0 +1,18 @@
+{
+  "name": "VFXForge.Dogfood.Runtime",
+  "rootNamespace": "VfxForge.Dogfood",
+  "references": [
+    "VFXForge.Runtime",
+    "Unity.VisualEffectGraph.Runtime",
+    "Unity.InputSystem"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

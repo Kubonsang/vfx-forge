@@ -1,0 +1,51 @@
+{
+  "schemaVersion": "1.0",
+  "id": "production_crescent_slash_variant",
+  "displayName": "Production Crescent Slash Variant",
+  "template": "production_crescent_slash_v1",
+  "styleProfile": "",
+  "intent": "Binding verification variant for the production crescent slash",
+  "outputPath": "Assets/VFXForge/Dogfood/ProductionCrescentSlash/Generated/ProductionCrescentSlashVariant.prefab",
+  "anchor": "Caster",
+  "seed": 120730,
+  "timing": {
+    "duration": 0.46,
+    "anticipation": 0.0,
+    "impact": 0.06,
+    "sustain": 0.20,
+    "decay": 0.20
+  },
+  "shape": {
+    "radius": 1.35,
+    "directionality": 0.86,
+    "spreadAngle": 118.0
+  },
+  "style": {
+    "primaryColor": "#8B5CFFFF",
+    "secondaryColor": "#FFFFFFFF",
+    "emissionIntensity": 4.2,
+    "sharpness": 0.68,
+    "distortionStrength": 0.0
+  },
+  "layers": [
+    "slash_core",
+    "slash_glow",
+    "leading_sparks",
+    "trailing_wisps",
+    "dissipate_burst"
+  ],
+  "budget": {
+    "maxParticles": 64,
+    "maxDuration": 0.6,
+    "maxBoundsRadius": 4.0,
+    "allowDistortion": false,
+    "allowLight": false
+  },
+  "capture": {
+    "duration": 0.46,
+    "frameTimes": [0.02, 0.08, 0.18, 0.30, 0.43],
+    "views": ["top"],
+    "width": 512,
+    "height": 512
+  }
+}

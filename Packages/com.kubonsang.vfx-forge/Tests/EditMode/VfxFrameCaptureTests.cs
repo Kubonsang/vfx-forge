@@ -68,6 +68,7 @@ namespace Kubonsang.VfxForge.Editor.Tests
             {
                 AssertPng(framePath, 64, 64);
             }
+            AssertContainsForeground(result.FramePaths[0], 0.01f);
 
             VfxCaptureManifest manifest = JsonUtility.FromJson<VfxCaptureManifest>(
                 File.ReadAllText(result.ManifestPath));
@@ -303,6 +304,42 @@ namespace Kubonsang.VfxForge.Editor.Tests
                 Assert.That(ImageConversion.LoadImage(texture, bytes), Is.True);
                 Assert.That(texture.width, Is.EqualTo(expectedWidth));
                 Assert.That(texture.height, Is.EqualTo(expectedHeight));
+            }
+            finally
+            {
+                UnityEngine.Object.DestroyImmediate(texture);
+            }
+        }
+
+        private static void AssertContainsForeground(
+            string path,
+            float minimumRatio)
+        {
+            byte[] bytes = File.ReadAllBytes(path);
+            var texture = new Texture2D(2, 2);
+            try
+            {
+                Assert.That(ImageConversion.LoadImage(texture, bytes), Is.True);
+                Color32[] pixels = texture.GetPixels32();
+                Color32 background = pixels[0];
+                int foregroundPixels = 0;
+                foreach (Color32 pixel in pixels)
+                {
+                    int difference =
+                        Math.Abs(pixel.r - background.r)
+                        + Math.Abs(pixel.g - background.g)
+                        + Math.Abs(pixel.b - background.b);
+                    if (difference > 12)
+                    {
+                        foregroundPixels++;
+                    }
+                }
+
+                float ratio = (float)foregroundPixels / pixels.Length;
+                Assert.That(
+                    ratio,
+                    Is.GreaterThanOrEqualTo(minimumRatio),
+                    $"Expected at least {minimumRatio:P0} foreground pixels in {path}, got {ratio:P2}.");
             }
             finally
             {

@@ -11,5 +11,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/VFXForge/Dogfood/TopDownSwordSlash/Demo/TopDownSwordSlashDemo.unity
     guid: 49d35dc09565d4e77a3fa46fa9b00b73
+  - enabled: 1
+    path: Assets/VFXForge/Dogfood/ProductionCrescentSlash/Demo/ProductionCrescentDemo.unity
+    guid: 8cbaaf17a2c5f4a2394859cb6697e523
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

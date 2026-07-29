@@ -53,11 +53,26 @@ namespace Kubonsang.VfxForge.Editor.Tests
             Assert.That(openSession.PreviewInstance.scene, Is.EqualTo(openSession.PreviewScene));
             Assert.That(openSession.PreviewCamera, Is.Not.Null);
             Assert.That(openSession.PreviewCamera.enabled, Is.False);
+            Assert.That(openSession.PreviewCamera.scene, Is.EqualTo(openSession.PreviewScene));
             Assert.That(openSession.PreviewCamera.gameObject.name, Is.EqualTo(VfxPreviewSession.CameraName));
             Assert.That(openSession.IsPlaying, Is.True);
             Assert.That(
                 openSession.PreviewInstance.GetComponent<VfxPlayer>().PlayEventName,
                 Is.EqualTo("OnPreviewPlay"));
+        }
+
+        [Test]
+        public void Open_PreviewCameraUsesDeterministicPreviewRenderingSettings()
+        {
+            VfxPreviewOpenResult result = VfxPreviewSession.Open(generatedPrefab);
+            openSession = result.Session;
+
+            Assert.That(result.Success, Is.True, result.Message);
+            Assert.That(openSession.PreviewCamera.cameraType, Is.EqualTo(CameraType.Preview));
+            Assert.That(
+                openSession.PreviewCamera.renderingPath,
+                Is.EqualTo(RenderingPath.Forward));
+            Assert.That(openSession.PreviewCamera.useOcclusionCulling, Is.False);
         }
 
         [Test]

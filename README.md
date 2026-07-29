@@ -31,7 +31,24 @@ Asset은 읽기 전용 입력으로 취급하며, 생성된 결과와 검증 근
 | Unity Test Framework | 1.6.0 |
 
 패키지의 최소 Unity 버전은 `6000.0`입니다. 현재 검증 기준에서는 EditMode 테스트
-129개가 통과했고 Unity Console Error는 0개입니다.
+132개와 VF-012 PlayMode 테스트 1개가 통과했고 Unity Console Error는 0개입니다.
+
+## Production Crescent Slash 데모
+
+`UnityCompatibilityProject`를 Unity에서 연 뒤
+`Tools > VFX Forge > Dogfood > Open VF-012 Gameplay Demo`를 실행하면 탑다운
+16:9 데모를 직접 확인할 수 있습니다. 검격은 1.1초마다 명·중·암 지면에서 자동
+발사되며 Space 키로 즉시 다시 발사할 수 있습니다.
+
+- Demo Scene:
+  `Assets/VFXForge/Dogfood/ProductionCrescentSlash/Demo/ProductionCrescentDemo.unity`
+- Primary / Variant Recipe:
+  `Dogfooding/Recipes/production_crescent_slash.json`,
+  `production_crescent_slash_variant.json`
+- Dogfooding record:
+  `Dogfooding/DF-003-production-crescent-slash.md`
+- Gameplay captures:
+  `Dogfooding/Evidence/VF-012/`
 
 ## 설치
 

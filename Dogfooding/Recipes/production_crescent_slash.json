@@ -1,0 +1,51 @@
+{
+  "schemaVersion": "1.0",
+  "id": "production_crescent_slash",
+  "displayName": "Production Crescent Slash",
+  "template": "production_crescent_slash_v1",
+  "styleProfile": "",
+  "intent": "A top-down readable anime sword wave with a tapered crescent, energetic trail, and soft dissipation",
+  "outputPath": "Assets/VFXForge/Dogfood/ProductionCrescentSlash/Generated/ProductionCrescentSlash.prefab",
+  "anchor": "Caster",
+  "seed": 120729,
+  "timing": {
+    "duration": 0.52,
+    "anticipation": 0.0,
+    "impact": 0.08,
+    "sustain": 0.24,
+    "decay": 0.20
+  },
+  "shape": {
+    "radius": 1.65,
+    "directionality": 1.0,
+    "spreadAngle": 140.0
+  },
+  "style": {
+    "primaryColor": "#12D9FFFF",
+    "secondaryColor": "#E9FFFFFF",
+    "emissionIntensity": 5.5,
+    "sharpness": 0.82,
+    "distortionStrength": 0.0
+  },
+  "layers": [
+    "slash_core",
+    "slash_glow",
+    "leading_sparks",
+    "trailing_wisps",
+    "dissipate_burst"
+  ],
+  "budget": {
+    "maxParticles": 64,
+    "maxDuration": 0.6,
+    "maxBoundsRadius": 4.0,
+    "allowDistortion": false,
+    "allowLight": false
+  },
+  "capture": {
+    "duration": 0.52,
+    "frameTimes": [0.02, 0.08, 0.18, 0.32, 0.48],
+    "views": ["top"],
+    "width": 512,
+    "height": 512
+  }
+}

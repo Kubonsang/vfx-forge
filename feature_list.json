@@ -506,6 +506,75 @@
         "generated_assets_remaining": [],
         "visual_quality": "not assessed; structural rendering and pipeline behavior were verified"
       }
+    },
+    {
+      "id": "VF-012",
+      "title": "Production Crescent Slash Template V1",
+      "status": "done",
+      "scope": [
+        "Project-owned production VFX Graph and VFX-compatible Shader Graph",
+        "Top-down anime-style travelling crescent slash",
+        "Twelve required Recipe Property Bindings",
+        "Gameplay-context demo and visual evidence"
+      ],
+      "acceptance": [
+        "VisualEffect is enabled and all twelve bindings apply",
+        "Generated variants have different VisualEffect overrides",
+        "Original Template and Graph hashes remain unchanged",
+        "Requested top-view captures contain at least one percent foreground pixels",
+        "Relevant tests pass and Unity Console errors are zero"
+      ],
+      "verification": {
+        "unity": "6000.3.8f1",
+        "urp": "17.3.0",
+        "vfx_graph": "17.3.0",
+        "test_framework": "1.6.0",
+        "required_bindings": 12,
+        "graph_particle_capacity": 64,
+        "particle_system_capacity_total": 54,
+        "dynamic_lights": 0,
+        "distortion": false,
+        "primary_pipeline": {
+          "status": "passed",
+          "exit_code": 0,
+          "artifact": "UnityCompatibilityProject/Artifacts/dogfood/VF-012-production-final-v7"
+        },
+        "variant_pipeline": {
+          "status": "passed",
+          "exit_code": 0,
+          "artifact": "UnityCompatibilityProject/Artifacts/dogfood/VF-012-variant-final",
+          "distinct_overrides": 11
+        },
+        "source_hashes_after_both_compiles": {
+          "template_prefab_sha256": "3d8a74b7c90c3745bd3342b73d565aaea638ccfa466878527b560565f1b8f698",
+          "vfx_graph_sha256": "127d762f566a8f774378d4539e958fce5cbd6140d184047d3f888289bc8a1ec4",
+          "shader_graph_sha256": "774d59976bb90fed2aa66d594e6bd8735a2422ffbd82ac65aae4e0924cef7ac7"
+        },
+        "preview_foreground_ratios": {
+          "0.02": 0.0122,
+          "0.08": 0.0320,
+          "0.18": 0.0353,
+          "0.32": 0.0442,
+          "0.48": 0.0335
+        },
+        "editmode_tests": {
+          "passed": 132,
+          "failed": 0,
+          "artifact": "UnityCompatibilityProject/Artifacts/vf-012-editmode-final.xml"
+        },
+        "playmode_tests": {
+          "passed": 1,
+          "failed": 0,
+          "artifact": "UnityCompatibilityProject/Artifacts/vf-012-playmode.xml"
+        },
+        "console": {
+          "errors": 0,
+          "artifact": "UnityCompatibilityProject/Artifacts/vf-012-console-final.log"
+        },
+        "gameplay_evidence": "Dogfooding/Evidence/VF-012",
+        "dogfooding_record": "Dogfooding/DF-003-production-crescent-slash.md",
+        "next_task_candidate": "VF-013 generic binding and visual quality gates"
+      }
     }
   ]
 }

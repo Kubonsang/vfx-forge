@@ -1,4 +1,5 @@
 using System;
+using System.Reflection;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -107,6 +108,7 @@ namespace Kubonsang.VfxForge.Editor
             SetEffectsPaused(false);
             player.StopAndReinitialize();
             int playedEffectCount = player.PlayAll();
+            EvaluateCustomPreviewTime(0f);
             IsPlaying = playedEffectCount > 0;
             return playedEffectCount;
         }
@@ -146,6 +148,8 @@ namespace Kubonsang.VfxForge.Editor
                 }
                 effect.pause = true;
             }
+
+            EvaluateCustomPreviewTime(timeSeconds);
 
             IsPlaying = false;
         }
@@ -239,6 +243,10 @@ namespace Kubonsang.VfxForge.Editor
 
             previewCamera = cameraObject.AddComponent<Camera>();
             previewCamera.enabled = false;
+            previewCamera.cameraType = CameraType.Preview;
+            previewCamera.renderingPath = RenderingPath.Forward;
+            previewCamera.useOcclusionCulling = false;
+            previewCamera.scene = previewScene;
             previewCamera.clearFlags = CameraClearFlags.SolidColor;
             previewCamera.backgroundColor = new Color(0.12f, 0.12f, 0.12f, 1f);
             previewCamera.fieldOfView = 45f;
@@ -250,6 +258,31 @@ namespace Kubonsang.VfxForge.Editor
         private VisualEffect[] GetEffects()
         {
             return previewInstance.GetComponentsInChildren<VisualEffect>(true);
+        }
+
+        private void EvaluateCustomPreviewTime(float timeSeconds)
+        {
+            const BindingFlags Flags =
+                BindingFlags.Instance
+                | BindingFlags.Public
+                | BindingFlags.NonPublic;
+
+            foreach (MonoBehaviour behaviour in
+                previewInstance.GetComponentsInChildren<MonoBehaviour>(true))
+            {
+                if (behaviour == null)
+                {
+                    continue;
+                }
+
+                MethodInfo method = behaviour.GetType().GetMethod(
+                    "EvaluatePreviewTime",
+                    Flags,
+                    null,
+                    new[] { typeof(float) },
+                    null);
+                method?.Invoke(behaviour, new object[] { timeSeconds });
+            }
         }
 
         private void SetEffectsPaused(bool paused)

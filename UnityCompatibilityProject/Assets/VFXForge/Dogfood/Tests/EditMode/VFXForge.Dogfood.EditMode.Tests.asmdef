@@ -1,0 +1,23 @@
+{
+  "name": "VFXForge.Dogfood.EditMode.Tests",
+  "rootNamespace": "VfxForge.Dogfood.Tests",
+  "references": [
+    "VFXForge.Runtime",
+    "VFXForge.Editor",
+    "Unity.VisualEffectGraph.Runtime"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": false,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false,
+  "optionalUnityReferences": [
+    "TestAssemblies"
+  ]
+}
