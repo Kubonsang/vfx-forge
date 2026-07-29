@@ -1,0 +1,55 @@
+{
+  "schemaVersion": "1.0",
+  "id": "sword_slash_basic",
+  "displayName": "Basic Sword Slash",
+  "template": "sword_slash_basic_v8",
+  "styleProfile": "",
+  "intent": "A readable blue-white crescent slash projectile that travels forward",
+  "outputPath": "Assets/VFXForge/Dogfood/SwordSlash/Generated/SwordSlashBasicV8.prefab",
+  "anchor": "Caster",
+  "seed": 240719,
+  "timing": {
+    "duration": 0.45,
+    "anticipation": 0.0,
+    "impact": 0.08,
+    "sustain": 0.12,
+    "decay": 0.25
+  },
+  "shape": {
+    "radius": 1.6,
+    "directionality": 1.0,
+    "spreadAngle": 144.0
+  },
+  "style": {
+    "primaryColor": "#42C8FFFF",
+    "secondaryColor": "#E8FCFFFF",
+    "emissionIntensity": 4.5,
+    "sharpness": 0.8,
+    "distortionStrength": 0.0
+  },
+  "layers": [
+    "slash_core",
+    "burst_particles"
+  ],
+  "budget": {
+    "maxParticles": 128,
+    "maxDuration": 0.5,
+    "maxBoundsRadius": 2.5,
+    "allowDistortion": false,
+    "allowLight": false
+  },
+  "capture": {
+    "duration": 0.45,
+    "frameTimes": [
+      0.0,
+      0.08,
+      0.2,
+      0.4
+    ],
+    "views": [
+      "front"
+    ],
+    "width": 512,
+    "height": 512
+  }
+}
