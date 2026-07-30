@@ -1,0 +1,51 @@
+{
+  "schemaVersion": "1.0",
+  "id": "giant_shield_deployment_variant",
+  "displayName": "Giant Shield Deployment Amber Variant",
+  "template": "giant_shield_deployment_v1",
+  "styleProfile": "",
+  "intent": "A compact amber binding variant for giant shield contract verification",
+  "outputPath": "Assets/VFXForge/Dogfood/GiantShield/Generated/GiantShieldDeploymentVariant.prefab",
+  "anchor": "Caster",
+  "seed": 130731,
+  "timing": {
+    "duration": 1.55,
+    "anticipation": 0.0,
+    "impact": 0.24,
+    "sustain": 0.95,
+    "decay": 0.36
+  },
+  "shape": {
+    "radius": 2.7,
+    "directionality": 0.92,
+    "spreadAngle": 100.0
+  },
+  "style": {
+    "primaryColor": "#FFB32DFF",
+    "secondaryColor": "#FFF6D2FF",
+    "emissionIntensity": 5.4,
+    "sharpness": 0.70,
+    "distortionStrength": 0.0
+  },
+  "layers": [
+    "shield_field",
+    "shield_rim",
+    "anchor_burst",
+    "edge_motes",
+    "dissolve_shards"
+  ],
+  "budget": {
+    "maxParticles": 128,
+    "maxDuration": 2.0,
+    "maxBoundsRadius": 5.5,
+    "allowDistortion": false,
+    "allowLight": false
+  },
+  "capture": {
+    "duration": 1.55,
+    "frameTimes": [0.10, 0.22, 0.40, 0.75, 1.18, 1.45],
+    "views": ["front"],
+    "width": 512,
+    "height": 512
+  }
+}

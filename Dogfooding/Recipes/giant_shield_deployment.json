@@ -1,0 +1,51 @@
+{
+  "schemaVersion": "1.0",
+  "id": "giant_shield_deployment",
+  "displayName": "Giant Shield Deployment",
+  "template": "giant_shield_deployment_v1",
+  "styleProfile": "",
+  "intent": "A colossal curved magical shield that unfolds in front of the caster and holds a readable defensive silhouette",
+  "outputPath": "Assets/VFXForge/Dogfood/GiantShield/Generated/GiantShieldDeployment.prefab",
+  "anchor": "Caster",
+  "seed": 130730,
+  "timing": {
+    "duration": 1.8,
+    "anticipation": 0.0,
+    "impact": 0.32,
+    "sustain": 1.08,
+    "decay": 0.40
+  },
+  "shape": {
+    "radius": 3.2,
+    "directionality": 1.0,
+    "spreadAngle": 120.0
+  },
+  "style": {
+    "primaryColor": "#16D9FFFF",
+    "secondaryColor": "#F4FFFFFF",
+    "emissionIntensity": 6.5,
+    "sharpness": 0.78,
+    "distortionStrength": 0.0
+  },
+  "layers": [
+    "shield_field",
+    "shield_rim",
+    "anchor_burst",
+    "edge_motes",
+    "dissolve_shards"
+  ],
+  "budget": {
+    "maxParticles": 128,
+    "maxDuration": 2.0,
+    "maxBoundsRadius": 5.5,
+    "allowDistortion": false,
+    "allowLight": false
+  },
+  "capture": {
+    "duration": 1.8,
+    "frameTimes": [0.12, 0.28, 0.48, 0.90, 1.35, 1.70],
+    "views": ["front"],
+    "width": 512,
+    "height": 512
+  }
+}

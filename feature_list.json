@@ -573,7 +573,73 @@
         },
         "gameplay_evidence": "Dogfooding/Evidence/VF-012",
         "dogfooding_record": "Dogfooding/DF-003-production-crescent-slash.md",
-        "next_task_candidate": "VF-013 generic binding and visual quality gates"
+        "next_task_candidate": "VF-014 generic binding and visual quality gates"
+      }
+    },
+    {
+      "id": "VF-013",
+      "title": "Giant Shield Deployment Template V1",
+      "status": "done",
+      "scope": [
+        "Project-owned curved shield VFX Graph and transparent emissive Shader Graph",
+        "Five-panel giant defensive wall deployment",
+        "Anchor burst, edge motes, and dissolve shards",
+        "Primary and variant Recipe bindings",
+        "Third-person and top-down gameplay demo evidence"
+      ],
+      "acceptance": [
+        "Shield reads as a giant defensive wall rather than a flat UI panel",
+        "Five panels deploy from center without a hard pop",
+        "VisualEffect is enabled and all twelve Recipe bindings apply",
+        "Primary and variant Prefabs have distinct overrides",
+        "Preview and gameplay captures contain visible foreground content",
+        "EditMode and PlayMode tests pass with zero Unity Console errors"
+      ],
+      "verification": {
+        "unity": "6000.3.8f1",
+        "urp": "17.3.0",
+        "vfx_graph": "17.3.0",
+        "test_framework": "1.6.0",
+        "required_bindings": 12,
+        "graph_particle_capacity": 64,
+        "particle_system_capacity_total": 96,
+        "dynamic_lights": 0,
+        "distortion": false,
+        "primary_pipeline": {
+          "status": "passed",
+          "exit_code": 0,
+          "artifact": "UnityCompatibilityProject/Artifacts/dogfood/VF-013-primary"
+        },
+        "variant_pipeline": {
+          "status": "passed",
+          "exit_code": 0,
+          "artifact": "UnityCompatibilityProject/Artifacts/dogfood/VF-013-variant",
+          "distinct_overrides": 12
+        },
+        "source_hashes_after_both_compiles": {
+          "template_prefab_sha256": "68b55667d11b44df03a85acd592d18cb2a7228347e419e29590d0887f09b2223",
+          "vfx_graph_sha256": "28e4de4762c59186c059f07afd0eb74899fc2425877e772ec0e9d6db9b62810a"
+        },
+        "preview_foreground_ratio_minimum": 0.0349,
+        "preview_frames_checked": 12,
+        "gameplay_frames_checked": 12,
+        "editmode_tests": {
+          "passed": 134,
+          "failed": 0,
+          "artifact": "/tmp/vf013-editmode.xml"
+        },
+        "playmode_tests": {
+          "passed": 2,
+          "failed": 0,
+          "artifact": "/tmp/vf013-playmode.xml"
+        },
+        "console": {
+          "errors": 0,
+          "artifact": "/tmp/vf013-all-gate.log"
+        },
+        "gameplay_evidence": "Dogfooding/Evidence/VF-013",
+        "dogfooding_record": "Dogfooding/DF-004-giant-shield-deployment.md",
+        "next_task_candidate": "VF-014 generic binding and visual quality gates"
       }
     }
   ]

@@ -1,0 +1,85 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2852dc2c7a13b29662129f93b2c31e7, type: 3}
+  m_Name: GiantShieldCatalog
+  m_EditorClassIdentifier: VFXForge.Editor::Kubonsang.VfxForge.Editor.VfxTemplateCatalog
+  templates:
+  - id: giant_shield_deployment_v1
+    prefab: {fileID: 3934672612387605224, guid: 22d265be7d774486d9bf21083b8f1bf5, type: 3}
+    playEventName: OnPlay
+    supportedLayers:
+    - shield_field
+    - shield_rim
+    - anchor_burst
+    - edge_motes
+    - dissolve_shards
+    bindings:
+    - recipePath: seed
+      exposedPropertyName: RandomSeed
+      propertyType: 1
+      required: 1
+      componentIndex: 0
+    - recipePath: timing.duration
+      exposedPropertyName: Duration
+      propertyType: 0
+      required: 1
+      componentIndex: 0
+    - recipePath: timing.impact
+      exposedPropertyName: ImpactTime
+      propertyType: 0
+      required: 1
+      componentIndex: 0
+    - recipePath: timing.sustain
+      exposedPropertyName: SustainTime
+      propertyType: 0
+      required: 1
+      componentIndex: 0
+    - recipePath: timing.decay
+      exposedPropertyName: DecayTime
+      propertyType: 0
+      required: 1
+      componentIndex: 0
+    - recipePath: shape.radius
+      exposedPropertyName: Radius
+      propertyType: 0
+      required: 1
+      componentIndex: 0
+    - recipePath: shape.spreadAngle
+      exposedPropertyName: SpreadAngle
+      propertyType: 0
+      required: 1
+      componentIndex: 0
+    - recipePath: shape.directionality
+      exposedPropertyName: Directionality
+      propertyType: 0
+      required: 1
+      componentIndex: 0
+    - recipePath: style.primaryColor
+      exposedPropertyName: PrimaryColor
+      propertyType: 6
+      required: 1
+      componentIndex: 0
+    - recipePath: style.secondaryColor
+      exposedPropertyName: SecondaryColor
+      propertyType: 6
+      required: 1
+      componentIndex: 0
+    - recipePath: style.emissionIntensity
+      exposedPropertyName: EmissionIntensity
+      propertyType: 0
+      required: 1
+      componentIndex: 0
+    - recipePath: style.sharpness
+      exposedPropertyName: Sharpness
+      propertyType: 0
+      required: 1
+      componentIndex: 0
