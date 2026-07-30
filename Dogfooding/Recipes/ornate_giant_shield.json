@@ -1,0 +1,52 @@
+{
+  "schemaVersion": "1.0",
+  "id": "ornate_giant_shield",
+  "displayName": "Ornate Top-Down Giant Shield",
+  "template": "ornate_giant_shield_v2",
+  "styleProfile": "",
+  "intent": "A shadered ceremonial shield whose wings and crests create a rich four-direction silhouette in top-down gameplay",
+  "outputPath": "Assets/VFXForge/Dogfood/OrnateGiantShield/Generated/OrnateGiantShield.prefab",
+  "anchor": "Caster",
+  "seed": 140730,
+  "timing": {
+    "duration": 2.0,
+    "anticipation": 0.0,
+    "impact": 0.38,
+    "sustain": 1.15,
+    "decay": 0.47
+  },
+  "shape": {
+    "radius": 3.4,
+    "directionality": 1.0,
+    "spreadAngle": 135.0
+  },
+  "style": {
+    "primaryColor": "#18DFFFFF",
+    "secondaryColor": "#F7FCFFFF",
+    "emissionIntensity": 5.2,
+    "sharpness": 0.84,
+    "distortionStrength": 0.0
+  },
+  "layers": [
+    "shield_field",
+    "platinum_rim",
+    "side_wings",
+    "front_spire",
+    "rear_crest",
+    "rune_ring"
+  ],
+  "budget": {
+    "maxParticles": 64,
+    "maxDuration": 2.2,
+    "maxBoundsRadius": 6.0,
+    "allowDistortion": false,
+    "allowLight": false
+  },
+  "capture": {
+    "duration": 2.0,
+    "frameTimes": [0.12, 0.30, 0.55, 0.95, 1.48, 1.78],
+    "views": ["top"],
+    "width": 512,
+    "height": 512
+  }
+}

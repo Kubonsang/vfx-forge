@@ -14,7 +14,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.VFX;
 using VfxForge.Dogfood;
 
-public static class VfxForgeGiantShieldDogfood
+public static partial class VfxForgeGiantShieldDogfood
 {
     private const string Root = "Assets/VFXForge/Dogfood/GiantShield";
     private const string AuthoringRoot = Root + "/Authoring";

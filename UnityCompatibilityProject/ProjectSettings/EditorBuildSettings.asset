@@ -17,5 +17,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/VFXForge/Dogfood/GiantShield/Demo/GiantShieldDemo.unity
     guid: f1c0bfc075ee243979c22160516a6d54
+  - enabled: 1
+    path: Assets/VFXForge/Dogfood/OrnateGiantShield/Demo/OrnateGiantShieldDemo.unity
+    guid: fae3e56d4c6934843b9d455941aa782e
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

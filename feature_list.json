@@ -573,7 +573,7 @@
         },
         "gameplay_evidence": "Dogfooding/Evidence/VF-012",
         "dogfooding_record": "Dogfooding/DF-003-production-crescent-slash.md",
-        "next_task_candidate": "VF-014 generic binding and visual quality gates"
+        "next_task_candidate": "VF-015 generic binding and visual quality gates"
       }
     },
     {
@@ -639,7 +639,77 @@
         },
         "gameplay_evidence": "Dogfooding/Evidence/VF-013",
         "dogfooding_record": "Dogfooding/DF-004-giant-shield-deployment.md",
-        "next_task_candidate": "VF-014 generic binding and visual quality gates"
+        "next_task_candidate": "VF-015 generic binding and visual quality gates"
+      }
+    },
+    {
+      "id": "VF-014",
+      "title": "Ornate Top-Down Giant Shield V2",
+      "status": "done",
+      "scope": [
+        "Preserve VF-013 and create a new project-owned V2 Template",
+        "Top-down silhouette with shadered side wings, front spire, rear crest, and rune ring",
+        "Remove ParticleSystem anchor, mote, and shard layers",
+        "Primary and variant Recipe bindings",
+        "Top-down gameplay demo and capture evidence"
+      ],
+      "acceptance": [
+        "Top-down view clearly shows decoration extending left, right, front, and rear",
+        "Every visible ornament uses the dedicated transparent emissive shader",
+        "Generated Prefab contains no ParticleSystem or dynamic Light",
+        "VisualEffect is enabled and all twelve Recipe bindings apply",
+        "Primary and variant Prefabs have distinct overrides",
+        "Preview and gameplay captures contain visible foreground content",
+        "EditMode and PlayMode tests pass with zero Unity Console errors"
+      ],
+      "verification": {
+        "unity": "6000.3.8f1",
+        "urp": "17.3.0",
+        "vfx_graph": "17.3.0",
+        "test_framework": "1.6.0",
+        "required_bindings": 12,
+        "graph_particle_capacity": 64,
+        "particle_system_count": 0,
+        "mesh_renderer_count": 15,
+        "shadered_ornament_count": 5,
+        "dynamic_lights": 0,
+        "distortion": false,
+        "primary_pipeline": {
+          "status": "passed",
+          "exit_code": 0,
+          "artifact": "UnityCompatibilityProject/Artifacts/dogfood/VF-014-primary-final"
+        },
+        "variant_pipeline": {
+          "status": "passed",
+          "exit_code": 0,
+          "artifact": "UnityCompatibilityProject/Artifacts/dogfood/VF-014-variant-final",
+          "distinct_overrides": 12
+        },
+        "source_hashes_after_both_compiles": {
+          "template_prefab_sha256": "df9ac776f6f469916d9a816b1fe7ce8111c2991a1e05a8aa2dc2068481b1eb12",
+          "vfx_graph_sha256": "0fcbdb2bf27af99ee0476cdee3facf96f41a20524e3716bf83c91413386c53c2"
+        },
+        "preview_foreground_ratio_minimum": 0.0165,
+        "preview_frames_checked": 12,
+        "gameplay_frames_checked": 12,
+        "editmode_tests": {
+          "passed": 136,
+          "failed": 0,
+          "artifact": "/tmp/vf014-editmode.xml"
+        },
+        "playmode_tests": {
+          "passed": 3,
+          "failed": 0,
+          "artifact": "/tmp/vf014-playmode.xml"
+        },
+        "console": {
+          "errors": 0,
+          "warnings": 12,
+          "artifact": "UnityCompatibilityProject/Artifacts/vf-014-console.json"
+        },
+        "gameplay_evidence": "Dogfooding/Evidence/VF-014",
+        "dogfooding_record": "Dogfooding/DF-005-ornate-topdown-giant-shield.md",
+        "next_task_candidate": "VF-015 generic binding and visual quality gates"
       }
     }
   ]

@@ -1,0 +1,52 @@
+{
+  "schemaVersion": "1.0",
+  "id": "ornate_giant_shield_variant",
+  "displayName": "Ornate Violet Giant Shield",
+  "template": "ornate_giant_shield_v2",
+  "styleProfile": "",
+  "intent": "A compact violet recipe variant for ornate shield binding verification",
+  "outputPath": "Assets/VFXForge/Dogfood/OrnateGiantShield/Generated/OrnateGiantShieldVariant.prefab",
+  "anchor": "Caster",
+  "seed": 140731,
+  "timing": {
+    "duration": 1.72,
+    "anticipation": 0.0,
+    "impact": 0.30,
+    "sustain": 1.02,
+    "decay": 0.40
+  },
+  "shape": {
+    "radius": 3.0,
+    "directionality": 0.94,
+    "spreadAngle": 118.0
+  },
+  "style": {
+    "primaryColor": "#8B5CFFFF",
+    "secondaryColor": "#F2E9FFFF",
+    "emissionIntensity": 4.6,
+    "sharpness": 0.76,
+    "distortionStrength": 0.0
+  },
+  "layers": [
+    "shield_field",
+    "platinum_rim",
+    "side_wings",
+    "front_spire",
+    "rear_crest",
+    "rune_ring"
+  ],
+  "budget": {
+    "maxParticles": 64,
+    "maxDuration": 2.2,
+    "maxBoundsRadius": 6.0,
+    "allowDistortion": false,
+    "allowLight": false
+  },
+  "capture": {
+    "duration": 1.72,
+    "frameTimes": [0.10, 0.24, 0.46, 0.82, 1.28, 1.48],
+    "views": ["top"],
+    "width": 512,
+    "height": 512
+  }
+}
