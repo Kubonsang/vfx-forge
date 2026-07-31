@@ -935,7 +935,7 @@
       "id": "VF-019",
       "title": "Holy Aegis Shield V3 / DF-006",
       "status": "in_progress",
-      "phase": "production_review_required",
+      "phase": "production_review_rejected",
       "scope": [
         "Preserve VF-013 and rejected VF-014 assets",
         "Create a 2.6 meter circular shield plate tilted 35 degrees toward the ground",
@@ -984,7 +984,14 @@
         },
         "primary_technical_status": "passed",
         "variant_technical_status": "passed",
-        "human_review": "review_required",
+        "human_review": "rejected",
+        "reviewer": "Project owner",
+        "review_time_utc": "2026-07-31T06:48:48Z",
+        "rejection_reason": "Readable as a shield skill, but rendering, ornament finish, and timing feel like an older handheld-era effect and do not meet the production bar for a modern indie game.",
+        "failed_visual_criteria": [
+          "shader_pattern_finish",
+          "timing_polish"
+        ],
         "production_ready": false
       }
     }

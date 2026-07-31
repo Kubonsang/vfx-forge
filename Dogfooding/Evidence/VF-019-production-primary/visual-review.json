@@ -1,17 +1,17 @@
 {
     "schemaVersion": "visual-review-1.0",
-    "status": "review_required",
+    "status": "rejected",
     "generatedPrefabDependencyHash": "4de8512d3b837638951cdd482ef69b99",
     "captureManifestSha256": "b15321ae618d4acde2f42d6349917c1edafe0e7c54f31b010dc213f10ea1a998",
     "contactSheetSha256": "f7c3568793868acd4eff5c628c05581d312625f8168a04b453a6b0cfad93d02c",
-    "reviewer": "",
-    "reviewTimeUtc": "",
+    "reviewer": "Project owner",
+    "reviewTimeUtc": "2026-07-31T06:48:48Z",
     "criteria": {
-        "meaningClear": false,
-        "silhouetteClear": false,
+        "meaningClear": true,
+        "silhouetteClear": true,
         "shaderPatternFinish": false,
         "timingPolish": false,
-        "gameplayReadability": false
+        "gameplayReadability": true
     },
-    "rejectionReason": ""
+    "rejectionReason": "The shield is readable, but the overall rendering, ornament finish, and motion polish feel comparable to an older handheld-era Zelda effect. It does not meet the production quality bar for a modern indie game."
 }

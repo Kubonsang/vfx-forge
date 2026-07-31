@@ -1,17 +1,17 @@
 {
     "schemaVersion": "visual-review-1.0",
-    "status": "review_required",
+    "status": "rejected",
     "generatedPrefabDependencyHash": "81dfb327a6f79ab6ec4b3ef1353406f7",
     "captureManifestSha256": "0dfe0008066ea5576fbf1e552280a6006604ffc38d6337413417a906e09b2396",
     "contactSheetSha256": "a93ee8353e13663de893ffbfef94407d1988f55b2f460bded04d0ae918150b1d",
-    "reviewer": "",
-    "reviewTimeUtc": "",
+    "reviewer": "Project owner",
+    "reviewTimeUtc": "2026-07-31T06:48:48Z",
     "criteria": {
-        "meaningClear": false,
-        "silhouetteClear": false,
+        "meaningClear": true,
+        "silhouetteClear": true,
         "shaderPatternFinish": false,
         "timingPolish": false,
-        "gameplayReadability": false
+        "gameplayReadability": true
     },
-    "rejectionReason": ""
+    "rejectionReason": "The color variant remains readable, but it inherits the same older handheld-era rendering, ornament finish, and motion quality. It does not meet the production quality bar for a modern indie game."
 }

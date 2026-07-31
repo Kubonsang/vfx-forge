@@ -6,7 +6,7 @@
 - Task ID: `VF-019`
 - Date: `2026-07-31`
 - Operator: Codex
-- Current phase: `production_review_required`
+- Current phase: `production_review_rejected`
 - Unity / URP / VFX Graph / Test Framework:
   `6000.3.8f1` / `17.3.0` / `17.3.0` / `1.6.0`
 
@@ -155,14 +155,27 @@ Production 반복 진행을 승인했다. 이는 최종 품질 승인이 아니�
 
 ## Human Production Review
 
-- Status: `review_required`.
+- Status: `rejected`.
+- Reviewer: project owner.
+- Review time: `2026-07-31T06:48:48Z`.
 - 자동화와 Codex는 `accepted`를 기록하지 않았다.
-- 현재 Contact Sheet에서 자동 검증할 수 없는 잔여 위험:
-  - 네 방향 대칭 때문에 장식이 여전히 방패 장식보다 나침반/UI
-    실루엣으로 읽힐 수 있다.
-  - 중앙 검 문장이 원하는 기사 문장으로 충분히 읽히는지는 사용자
-    판정이 필요하다.
-  - gameplay zoom에서 효과 크기가 캐릭터를 과도하게 가리는지 사용자
-    판정이 필요하다.
+- 사용자 판정:
+  - 방패 스킬이라는 의미와 기본 가독성은 전달된다.
+  - 렌더링, 장식 마감, 시간 연출은 과거 휴대용 게임 시대의 효과처럼
+    보인다.
+  - 해당 시대의 품질을 목표로 한다면 합격할 수 있으나, 현대 인디
+    게임의 실사용 품질 기준으로는 불합격이다.
+- 실패한 육안 항목:
+  - Shader / pattern finish
+  - timing polish
+- 추가 진단:
+  - 평면 Mesh의 겹침과 단순 alpha/emission 변화만으로 구성돼 재질의
+    깊이와 광학적 계층이 부족하다.
+  - 금색 장식이 금속 구조가 아니라 밝은 평면 도형으로 보인다.
+  - 에메랄드 면 내부의 에너지 흐름이 반복적인 동심원에 가까워 현대적
+    VFX의 비정형 흐름과 세부 시간차가 없다.
+  - 네 장식과 중앙 문장이 완성된 조형물보다 확대된 아이콘처럼 보인다.
 
-VF-019는 사용자 최종 승인 전까지 `done` 또는 production-ready가 아니다.
+VF-019는 `done` 또는 production-ready가 아니다. 현재 V3 결과를 보존하고,
+후속 재설계는 단순 색·emission 조정이 아니라 geometry depth, material
+response, layered temporal choreography를 다시 설계해야 한다.

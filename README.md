@@ -73,8 +73,9 @@ Asset은 읽기 전용 입력으로 취급하며, 생성된 결과와 검증 근
 - Variant Contact Sheet:
   `Dogfooding/Evidence/VF-019-production-variant/review/contact-sheet.png`
 
-두 결과의 자동 검증은 통과했지만 `quality.requireHumanReview=true`이므로
-사용자 승인 전에는 production-ready가 아닙니다.
+두 결과의 자동 검증은 통과했지만 Human Production Review에서 현대 인디
+게임의 실사용 품질 기준 미달로 반려됐습니다. 현재 V3는 production-ready가
+아니며 실패 근거로 보존합니다.
 
 ## 설치
 
