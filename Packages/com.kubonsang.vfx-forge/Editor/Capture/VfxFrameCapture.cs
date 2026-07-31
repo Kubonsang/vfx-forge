@@ -15,12 +15,16 @@ namespace Kubonsang.VfxForge.Editor
         public string fileName = string.Empty;
         public int width;
         public int height;
+        public float foregroundRatio;
+        public float borderForegroundRatio;
+        public Vector3 boundsCenter;
+        public Vector3 boundsSize;
     }
 
     [Serializable]
     public sealed class VfxCaptureManifest
     {
-        public string schemaVersion = "1.0";
+        public string schemaVersion = "1.1";
         public string recipeId = string.Empty;
         public string status = "failed";
         public float durationSeconds;
@@ -95,9 +99,19 @@ namespace Kubonsang.VfxForge.Editor
                     $"Capture output already exists: {ManifestFileName}");
             }
 
+            bool resumePlayback = session.IsPlaying;
+            if (!session.TryPrepareCaptureFraming(
+                recipe.capture.frameTimes,
+                1.15f,
+                (float)recipe.capture.width / recipe.capture.height,
+                out string framingError))
+            {
+                TryRestorePlayback(session, resumePlayback);
+                return Failure("VAL-004", framingError);
+            }
+
             bool directoryCreated = false;
             var createdPaths = new List<string>();
-            bool resumePlayback = session.IsPlaying;
 
             try
             {
@@ -120,13 +134,32 @@ namespace Kubonsang.VfxForge.Editor
                     session.SimulateTo(frame.timeSeconds);
                     session.SetCameraView(ParseView(frame.view));
 
-                    byte[] png = RenderPng(
+                    VfxRenderedFrame rendered = RenderFrame(
                         session.PreviewCamera,
                         frame.width,
                         frame.height);
+                    VfxCaptureContentMetrics metrics =
+                        VfxCaptureContentGate.Measure(
+                            rendered.Pixels,
+                            frame.width,
+                            frame.height,
+                            session.PreviewCamera.backgroundColor);
+                    frame.foregroundRatio = metrics.ForegroundRatio;
+                    frame.borderForegroundRatio =
+                        metrics.BorderForegroundRatio;
+                    frame.boundsCenter = session.CaptureBounds.center;
+                    frame.boundsSize = session.CaptureBounds.size;
+
+                    VfxValidationResult quality =
+                        VfxCaptureContentGate.Evaluate(recipe, frame);
+                    if (!quality.passed)
+                    {
+                        throw new VfxCaptureContentException(quality.message);
+                    }
+
                     string framePath = Path.Combine(outputDirectory, frame.fileName);
                     createdPaths.Add(framePath);
-                    File.WriteAllBytes(framePath, png);
+                    File.WriteAllBytes(framePath, rendered.Png);
                 }
 
                 RestorePlayback(session, resumePlayback);
@@ -166,7 +199,11 @@ namespace Kubonsang.VfxForge.Editor
                     failures.Add($"Artifact cleanup also failed: {cleanupError}");
                 }
                 string message = string.Join(" ", failures);
-                return Failure("CAPTURE-FAILED", message);
+                return Failure(
+                    exception is VfxCaptureContentException
+                        ? "VAL-007"
+                        : "CAPTURE-FAILED",
+                    message);
             }
         }
 
@@ -296,7 +333,10 @@ namespace Kubonsang.VfxForge.Editor
             return true;
         }
 
-        private static byte[] RenderPng(Camera camera, int width, int height)
+        private static VfxRenderedFrame RenderFrame(
+            Camera camera,
+            int width,
+            int height)
         {
             RenderTexture previousActive = RenderTexture.active;
             RenderTexture previousTarget = camera.targetTexture;
@@ -319,13 +359,18 @@ namespace Kubonsang.VfxForge.Editor
                 texture.ReadPixels(new Rect(0f, 0f, width, height), 0, 0, false);
                 texture.Apply(false, false);
 
+                Color32[] pixels = texture.GetPixels32();
                 byte[] png = texture.EncodeToPNG();
                 if (png == null || png.Length < 8)
                 {
                     throw new InvalidOperationException("Camera render did not produce PNG data.");
                 }
 
-                return png;
+                return new VfxRenderedFrame
+                {
+                    Png = png,
+                    Pixels = pixels
+                };
             }
             finally
             {
@@ -469,6 +514,138 @@ namespace Kubonsang.VfxForge.Editor
                 ErrorCode = errorCode,
                 Message = message
             };
+        }
+
+        private sealed class VfxRenderedFrame
+        {
+            public byte[] Png = Array.Empty<byte>();
+            public Color32[] Pixels = Array.Empty<Color32>();
+        }
+
+        private sealed class VfxCaptureContentException : Exception
+        {
+            public VfxCaptureContentException(string message)
+                : base(message)
+            {
+            }
+        }
+    }
+
+    public readonly struct VfxCaptureContentMetrics
+    {
+        public readonly float ForegroundRatio;
+        public readonly float BorderForegroundRatio;
+
+        public VfxCaptureContentMetrics(
+            float foregroundRatio,
+            float borderForegroundRatio)
+        {
+            ForegroundRatio = foregroundRatio;
+            BorderForegroundRatio = borderForegroundRatio;
+        }
+    }
+
+    public static class VfxCaptureContentGate
+    {
+        public const string RuleId = "VAL-007";
+
+        public static VfxCaptureContentMetrics Measure(
+            Color32[] pixels,
+            int width,
+            int height)
+        {
+            Color32 background =
+                pixels != null && pixels.Length > 0
+                    ? pixels[0]
+                    : new Color32();
+            return Measure(pixels, width, height, background);
+        }
+
+        public static VfxCaptureContentMetrics Measure(
+            Color32[] pixels,
+            int width,
+            int height,
+            Color32 background)
+        {
+            if (pixels == null
+                || pixels.Length != width * height
+                || pixels.Length == 0)
+            {
+                return new VfxCaptureContentMetrics(0f, 1f);
+            }
+
+            int borderSize = Mathf.Max(
+                1,
+                Mathf.CeilToInt(Mathf.Min(width, height) * 0.02f));
+            int foreground = 0;
+            int borderForeground = 0;
+            int borderPixels = 0;
+            for (int index = 0; index < pixels.Length; index++)
+            {
+                int x = index % width;
+                int y = index / width;
+                bool isBorder =
+                    x < borderSize
+                    || x >= width - borderSize
+                    || y < borderSize
+                    || y >= height - borderSize;
+                if (isBorder)
+                {
+                    borderPixels++;
+                }
+
+                Color32 pixel = pixels[index];
+                int difference =
+                    Math.Abs(pixel.r - background.r)
+                    + Math.Abs(pixel.g - background.g)
+                    + Math.Abs(pixel.b - background.b);
+                if (difference <= 12)
+                {
+                    continue;
+                }
+
+                foreground++;
+                if (isBorder)
+                {
+                    borderForeground++;
+                }
+            }
+
+            float total = pixels.Length;
+            return new VfxCaptureContentMetrics(
+                foreground / total,
+                borderPixels > 0
+                    ? borderForeground / (float)borderPixels
+                    : 1f);
+        }
+
+        public static VfxValidationResult Evaluate(
+            VfxRecipe recipe,
+            VfxCapturedFrame frame)
+        {
+            float minimum = recipe?.quality?.minimumForegroundRatio ?? 0.01f;
+            float maximum =
+                recipe?.quality?.maximumBorderForegroundRatio ?? 0.005f;
+            if (frame.foregroundRatio < minimum)
+            {
+                return VfxValidationResult.Error(
+                    RuleId,
+                    $"Capture foreground ratio is below {minimum:P2}: "
+                    + $"{frame.fileName}={frame.foregroundRatio:P2}.");
+            }
+
+            if (frame.borderForegroundRatio > maximum)
+            {
+                return VfxValidationResult.Error(
+                    RuleId,
+                    $"Capture border foreground ratio exceeds {maximum:P2}: "
+                    + $"{frame.fileName}={frame.borderForegroundRatio:P2}.");
+            }
+
+            return VfxValidationResult.Pass(
+                RuleId,
+                $"Capture content passed: foreground={frame.foregroundRatio:P2}, "
+                + $"border={frame.borderForegroundRatio:P2}.");
         }
     }
 }

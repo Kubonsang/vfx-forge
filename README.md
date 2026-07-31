@@ -15,9 +15,10 @@ Asset은 읽기 전용 입력으로 취급하며, 생성된 결과와 검증 근
 - VFX·Transform·Material·Mesh·Adapter 대상 typed Binding
 - 원본과 연결되지 않은 독립 Prefab 생성
 - `VfxMetadata` 기반의 생성 Asset 전용 덮어쓰기 보호
-- 생성 Prefab 검증과 심각도 기반 `validation.json`
-- 격리된 Preview Scene과 재생 제어
-- 지정 시점·정면·측면·상단 PNG 캡처 및 Manifest
+- 생성 Prefab의 bounds·capacity 검증과 심각도 기반 `validation.json`
+- 명시적 시간 평가 계약을 갖춘 격리 Preview Scene
+- 고정 bounds framing을 사용하는 정면·측면·상단 PNG 캡처
+- foreground·border·bounds 지표를 기록하는 Capture Manifest 1.1
 - Editor Window의 `Run All`과 단계별 실패 차단
 - 자동화용 BatchMode 인수, 한 줄 JSON 결과, 단계별 종료 코드
 - 3개 성공·2개 실패 Recipe를 사용하는 종단 간 통합 fixture
@@ -32,7 +33,7 @@ Asset은 읽기 전용 입력으로 취급하며, 생성된 결과와 검증 근
 | Unity Test Framework | 1.6.0 |
 
 패키지의 최소 Unity 버전은 `6000.0`입니다. 현재 검증 기준에서는 EditMode 테스트
-142개와 기존 Dogfooding PlayMode 테스트가 통과했고 Unity Console Error는 0개입니다.
+148개와 기존 Dogfooding PlayMode 테스트가 통과했고 Unity Console Error는 0개입니다.
 
 ## Production Crescent Slash 데모
 
@@ -188,6 +189,8 @@ Entry point가 계약에 정의된 코드로 Unity를 종료하므로 `-quit`을
 - 기본 정책은 `VfxMetadata`가 있는 기존 생성 Prefab만 교체할 수 있습니다.
 - Template Catalog에 등록한 Binding만 적용합니다.
 - Preview는 활성 Scene과 분리된 임시 Scene에서 실행됩니다.
+- 요청 시점 전체의 Renderer bounds로 구도를 고정하며 빈 프레임과 clipping을
+  `VAL-007`로 차단합니다.
 - 실패를 Warning으로 낮추거나 후속 단계를 계속 실행하지 않습니다.
 - 시각 품질은 Capture와 Validation 근거 없이는 주장하지 않습니다.
 
@@ -242,7 +245,7 @@ SHA-256, dependency hash, 참조 VFX Asset hash, Catalog JSON도 실행 전후 �
 
 ## 현재 제한사항
 
-- Contact Sheet 생성은 아직 지원하지 않습니다.
+- Gameplay Review Context와 Contact Sheet 생성은 아직 지원하지 않습니다.
 - Runtime particle count 측정은 아직 지원하지 않습니다.
 - GPU/CPU Profiler 연동은 아직 지원하지 않습니다.
 - 통합 fixture의 Capture는 구조적 렌더링 근거이며 VFX 시각 품질 평가가 아닙니다.

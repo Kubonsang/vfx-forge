@@ -7,12 +7,16 @@
 
 - Frame times are sorted ascending.
 - Views use the stable order `front`, `side`, then `top`.
+- All requested times are pre-simulated and finite active Renderer bounds are combined.
+- One fixed framing is used for every frame: top is orthographic, front/side are
+  perspective, and the default bounds padding is 15 percent.
 - Every view is simulated independently from time zero.
 - Capture dimensions are limited to 64–8192 pixels per axis.
 - A plan may contain at most 4096 output frames.
 - The Preview playback state is restored after capture.
 - Existing PNG files and `capture-manifest.json` are never overwritten.
 - A render, write, or playback-restore exception returns `CAPTURE-FAILED`.
+- A blank, low-foreground, or border-clipped frame returns `VAL-007`.
 - Files created by the failed attempt are removed. Cleanup failures are included in the
   returned error message.
 
@@ -30,8 +34,15 @@ Example:
 arcane_impact_f004_side_t00100000.png
 ```
 
-The capture directory also contains `capture-manifest.json`. It records the Recipe ID,
-status, duration, dimensions, and an ordered entry for every PNG.
+The capture directory also contains `capture-manifest.json`. Manifest 1.1 records the
+Recipe ID, status, duration, dimensions, and an ordered entry for every PNG. Each frame
+also records its foreground ratio, outer-border foreground ratio, and the fixed union
+bounds used for framing. Existing 1.0 readers can continue reading the original basic
+frame fields because the 1.1 additions are optional trailing data.
+
+Foreground is measured against the rendered background color. Defaults require at least
+1 percent foreground and at most 0.5 percent foreground in the outer two-percent pixel
+band. Recipe 1.1 can tighten these thresholds through `quality`.
 
 ## Editor Workflow
 

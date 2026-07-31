@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- Added deterministic capture-time bounds prepass and fixed orthographic/perspective
+  framing with 15 percent padding.
+- Added `IVfxPreviewTimeEvaluable` with a deprecated Recipe 1.0 reflection fallback.
+- Added finite bounds, actual Recipe 1.1 particle-capacity, empty-frame, and clipping
+  quality gates (`VAL-004`, `VAL-005`, and `VAL-007`).
+- Extended capture manifests to 1.1 with per-frame foreground, border, and bounds data.
 - Added backward-compatible Recipe 1.1 parsing and validation.
 - Added typed Transform, Material PropertyBlock, Mesh allowlist, and explicit
   Adapter binding targets without arbitrary reflection.

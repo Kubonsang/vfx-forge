@@ -7,6 +7,8 @@
 | `VAL-001` | Missing assets | Missing script, VisualEffect component/asset, or Renderer material |
 | `VAL-002` | Property Binding | Unresolved Recipe value, invalid component target, or missing/wrong exposed property |
 | `VAL-003` | Duration budget | Recipe duration exceeds the effective Recipe/Profile budget |
+| `VAL-004` | Finite bounds | Mesh or Skinned Mesh bounds contain non-finite values or exceed `maxBoundsRadius` |
+| `VAL-005` | Particle capacity | Recipe 1.1 VFX Graph and ParticleSystem capacity exceeds the effective particle budget |
 | `VAL-006` | Layer support | A requested semantic layer is unsupported by the Template |
 | `VAL-008` | Light policy | A Light exists while the effective Recipe/Profile policy forbids it |
 
@@ -34,3 +36,12 @@ inspection artifact; it is not silently deleted or reported as successful.
 
 Each rule currently returns one summary result. Property Binding validation prioritizes
 required failures over optional-property warnings.
+
+Recipe 1.0 keeps its legacy declared-budget behavior. Recipe 1.1 enables the actual
+capacity inspection performed by `VAL-005`; this preserves existing 1.0 compile output
+while making new Recipes opt into the stricter gate.
+
+`VAL-007` is a capture-stage rule rather than a generated-Prefab rule. Every requested
+frame must contain at least the Recipe's `quality.minimumForegroundRatio` and must not
+exceed `quality.maximumBorderForegroundRatio` in the outer two-percent pixel band. One
+failed frame fails the complete capture and removes files created by that attempt.

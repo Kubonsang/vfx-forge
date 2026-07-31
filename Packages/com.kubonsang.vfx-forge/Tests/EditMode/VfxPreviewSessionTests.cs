@@ -156,6 +156,36 @@ namespace Kubonsang.VfxForge.Editor.Tests
         }
 
         [Test]
+        public void SimulateTo_ExplicitPreviewContractReceivesTime()
+        {
+            GameObject source = new GameObject("Preview Contract");
+            GameObject prefab;
+            try
+            {
+                VfxMetadata metadata = source.AddComponent<VfxMetadata>();
+                metadata.schemaVersion = "1.1";
+                source.AddComponent<VisualEffect>();
+                prefab = PrefabUtility.SaveAsPrefabAsset(
+                    source,
+                    $"{testAssetRoot}/PreviewContract.prefab");
+            }
+            finally
+            {
+                UnityEngine.Object.DestroyImmediate(source);
+            }
+
+            VfxPreviewOpenResult result = VfxPreviewSession.Open(prefab);
+            openSession = result.Session;
+            Assert.That(result.Success, Is.True, result.Message);
+
+            VfxPreviewTimeProbe probe =
+                openSession.PreviewInstance.AddComponent<VfxPreviewTimeProbe>();
+            openSession.SimulateTo(0.25f);
+
+            Assert.That(probe.LastTime, Is.EqualTo(0.25f));
+        }
+
+        [Test]
         public void Open_NonGeneratedPrefab_IsRejectedBeforeSceneCreation()
         {
             GameObject source = new GameObject("UserOwned");
@@ -218,6 +248,17 @@ namespace Kubonsang.VfxForge.Editor.Tests
             {
                 UnityEngine.Object.DestroyImmediate(source);
             }
+        }
+    }
+
+    public sealed class VfxPreviewTimeProbe
+        : MonoBehaviour, IVfxPreviewTimeEvaluable
+    {
+        public float LastTime { get; private set; }
+
+        public void EvaluatePreviewTime(float timeSeconds)
+        {
+            LastTime = timeSeconds;
         }
     }
 }

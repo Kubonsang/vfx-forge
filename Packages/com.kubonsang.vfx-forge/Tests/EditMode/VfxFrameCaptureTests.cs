@@ -73,10 +73,21 @@ namespace Kubonsang.VfxForge.Editor.Tests
             VfxCaptureManifest manifest = JsonUtility.FromJson<VfxCaptureManifest>(
                 File.ReadAllText(result.ManifestPath));
             Assert.That(manifest.status, Is.EqualTo("passed"));
+            Assert.That(manifest.schemaVersion, Is.EqualTo("1.1"));
             Assert.That(manifest.recipeId, Is.EqualTo(recipe.id));
             Assert.That(manifest.frames, Has.Count.EqualTo(6));
             Assert.That(manifest.width, Is.EqualTo(64));
             Assert.That(manifest.height, Is.EqualTo(64));
+            foreach (VfxCapturedFrame frame in manifest.frames)
+            {
+                Assert.That(
+                    frame.foregroundRatio,
+                    Is.GreaterThanOrEqualTo(0.01f));
+                Assert.That(
+                    frame.borderForegroundRatio,
+                    Is.LessThanOrEqualTo(0.005f));
+                Assert.That(frame.boundsSize.sqrMagnitude, Is.GreaterThan(0f));
+            }
             Assert.That(previewSession.IsPlaying, Is.True);
         }
 
@@ -192,6 +203,86 @@ namespace Kubonsang.VfxForge.Editor.Tests
             Assert.That(front, Is.Not.EqualTo(side));
             Assert.That(side, Is.Not.EqualTo(top));
             Assert.That(top.y, Is.GreaterThan(front.y));
+        }
+
+        [Test]
+        public void PrepareFraming_TopIsOrthographicAndFrontIsPerspective()
+        {
+            OpenPreview();
+
+            Assert.That(
+                previewSession.TryPrepareCaptureFraming(
+                    new[] { 0f, 0.1f },
+                    1.15f,
+                    1f,
+                    out string error),
+                Is.True,
+                error);
+            previewSession.SetCameraView(VfxPreviewView.Top);
+            Assert.That(previewSession.PreviewCamera.orthographic, Is.True);
+            previewSession.SetCameraView(VfxPreviewView.Front);
+            Assert.That(previewSession.PreviewCamera.orthographic, Is.False);
+            Assert.That(
+                previewSession.CaptureBounds.size.sqrMagnitude,
+                Is.GreaterThan(0f));
+        }
+
+        [Test]
+        public void CaptureContentGate_BackgroundOnly_ReturnsVal007()
+        {
+            var pixels = new Color32[64 * 64];
+            for (int index = 0; index < pixels.Length; index++)
+            {
+                pixels[index] = new Color32(30, 30, 30, 255);
+            }
+
+            VfxCaptureContentMetrics metrics =
+                VfxCaptureContentGate.Measure(pixels, 64, 64);
+            VfxValidationResult result = VfxCaptureContentGate.Evaluate(
+                CreateRecipe(new[] { 0f }, new[] { "front" }),
+                new VfxCapturedFrame
+                {
+                    fileName = "blank.png",
+                    foregroundRatio = metrics.ForegroundRatio,
+                    borderForegroundRatio = metrics.BorderForegroundRatio
+                });
+
+            Assert.That(result.ruleId, Is.EqualTo("VAL-007"));
+            Assert.That(result.passed, Is.False);
+            Assert.That(
+                result.severity,
+                Is.EqualTo(VfxValidationSeverity.Error));
+        }
+
+        [Test]
+        public void CaptureContentGate_ForegroundOnBorder_ReturnsVal007()
+        {
+            var background = new Color32(30, 30, 30, 255);
+            var pixels = new Color32[64 * 64];
+            for (int index = 0; index < pixels.Length; index++)
+            {
+                pixels[index] = background;
+            }
+            for (int x = 0; x < 64; x++)
+            {
+                pixels[x] = new Color32(255, 255, 255, 255);
+            }
+
+            VfxCaptureContentMetrics metrics =
+                VfxCaptureContentGate.Measure(pixels, 64, 64, background);
+            VfxValidationResult result = VfxCaptureContentGate.Evaluate(
+                CreateRecipe(new[] { 0f }, new[] { "front" }),
+                new VfxCapturedFrame
+                {
+                    fileName = "clipped.png",
+                    foregroundRatio = metrics.ForegroundRatio,
+                    borderForegroundRatio = metrics.BorderForegroundRatio
+                });
+
+            Assert.That(metrics.ForegroundRatio, Is.GreaterThan(0.01f));
+            Assert.That(metrics.BorderForegroundRatio, Is.GreaterThan(0.005f));
+            Assert.That(result.ruleId, Is.EqualTo("VAL-007"));
+            Assert.That(result.passed, Is.False);
         }
 
         [Test]

@@ -15,10 +15,19 @@ namespace Kubonsang.VfxForge.Editor.Tests
             IReadOnlyList<IVfxValidationRule> rules =
                 VfxValidationPipeline.CreateDefaultRules();
 
-            Assert.That(rules.Count, Is.EqualTo(5));
+            Assert.That(rules.Count, Is.EqualTo(7));
             Assert.That(
                 GetRuleIds(rules),
-                Is.EqualTo(new[] { "VAL-001", "VAL-002", "VAL-003", "VAL-006", "VAL-008" }));
+                Is.EqualTo(new[]
+                {
+                    "VAL-001",
+                    "VAL-002",
+                    "VAL-003",
+                    "VAL-004",
+                    "VAL-005",
+                    "VAL-006",
+                    "VAL-008"
+                }));
         }
 
         [Test]
@@ -30,10 +39,12 @@ namespace Kubonsang.VfxForge.Editor.Tests
                 List<VfxValidationResult> results =
                     VfxValidationPipeline.Run(CreateContext(prefab));
 
-                Assert.That(results, Has.Count.EqualTo(5));
+                Assert.That(results, Has.Count.EqualTo(7));
                 Assert.That(HasFailure(results, "VAL-001", VfxValidationSeverity.Error), Is.True);
                 Assert.That(HasPass(results, "VAL-002"), Is.True);
                 Assert.That(HasPass(results, "VAL-003"), Is.True);
+                Assert.That(HasPass(results, "VAL-004"), Is.True);
+                Assert.That(HasPass(results, "VAL-005"), Is.True);
                 Assert.That(HasPass(results, "VAL-006"), Is.True);
                 Assert.That(HasPass(results, "VAL-008"), Is.True);
             }
@@ -146,6 +157,64 @@ namespace Kubonsang.VfxForge.Editor.Tests
 
                 Assert.That(result.ruleId, Is.EqualTo("VAL-008"));
                 Assert.That(result.severity, Is.EqualTo(VfxValidationSeverity.Error));
+            }
+            finally
+            {
+                UnityEngine.Object.DestroyImmediate(prefab);
+            }
+        }
+
+        [Test]
+        public void FiniteBoundsRule_OversizedMesh_ReturnsStableRuleId()
+        {
+            GameObject prefab = CreatePrefabObject();
+            var mesh = new Mesh
+            {
+                vertices = new[]
+                {
+                    Vector3.zero,
+                    Vector3.right * 20f,
+                    Vector3.up
+                },
+                triangles = new[] { 0, 1, 2 }
+            };
+            mesh.RecalculateBounds();
+            prefab.AddComponent<MeshFilter>().sharedMesh = mesh;
+            try
+            {
+                VfxValidationResult result =
+                    new FiniteBoundsRule().Evaluate(CreateContext(prefab));
+
+                Assert.That(result.ruleId, Is.EqualTo("VAL-004"));
+                Assert.That(
+                    result.severity,
+                    Is.EqualTo(VfxValidationSeverity.Error));
+            }
+            finally
+            {
+                UnityEngine.Object.DestroyImmediate(mesh);
+                UnityEngine.Object.DestroyImmediate(prefab);
+            }
+        }
+
+        [Test]
+        public void ParticleBudgetRule_ParticleSystemCapacityOverBudget_ReturnsStableRuleId()
+        {
+            GameObject prefab = CreatePrefabObject();
+            ParticleSystem system = prefab.AddComponent<ParticleSystem>();
+            ParticleSystem.MainModule main = system.main;
+            main.maxParticles = 101;
+            try
+            {
+                VfxValidationContext context = CreateContext(prefab);
+                context.Recipe.schemaVersion = "1.1";
+                VfxValidationResult result =
+                    new ParticleBudgetRule().Evaluate(context);
+
+                Assert.That(result.ruleId, Is.EqualTo("VAL-005"));
+                Assert.That(
+                    result.severity,
+                    Is.EqualTo(VfxValidationSeverity.Error));
             }
             finally
             {

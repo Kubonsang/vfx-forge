@@ -766,6 +766,60 @@
         },
         "next_task_candidate": "VF-016 Preview and automated quality gate hardening"
       }
+    },
+    {
+      "id": "VF-016",
+      "title": "Preview and Automated Quality Gate Hardening",
+      "status": "done",
+      "scope": [
+        "Add the explicit IVfxPreviewTimeEvaluable runtime contract",
+        "Fit deterministic Preview cameras to the union of finite capture-time bounds",
+        "Validate finite bounds and actual particle capacity",
+        "Record foreground and border metrics in capture manifest 1.1",
+        "Reject every empty or clipped required frame"
+      ],
+      "acceptance": [
+        "Legacy Recipe 1.0 preview-time hooks remain compatible with a deprecation warning",
+        "Top uses orthographic framing and Front/Side use perspective framing with 15 percent padding",
+        "VAL-004 rejects invalid bounds",
+        "VAL-005 rejects actual particle capacity over budget",
+        "VAL-007 rejects foreground below 1 percent or border foreground above 0.5 percent",
+        "Existing EditMode tests and new graphical fixtures pass with zero Unity Console errors"
+      ],
+      "verification": {
+        "unity": "6000.3.8f1",
+        "urp": "17.3.0",
+        "vfx_graph": "17.3.0",
+        "test_framework": "1.6.0",
+        "preview_time_contract": "IVfxPreviewTimeEvaluable",
+        "legacy_recipe_1_0_reflection_fallback": "deprecated warning",
+        "capture_manifest": "1.1",
+        "camera_framing": {
+          "bounds": "union of requested capture times",
+          "padding": 0.15,
+          "top": "orthographic",
+          "front_side": "perspective",
+          "fixed_during_capture": true
+        },
+        "quality_rules": [
+          "VAL-004",
+          "VAL-005",
+          "VAL-007"
+        ],
+        "default_minimum_foreground_ratio": 0.01,
+        "default_maximum_border_foreground_ratio": 0.005,
+        "editmode_tests": {
+          "passed": 148,
+          "failed": 0,
+          "skipped": 0,
+          "artifact": "/tmp/vf016-editmode-final.xml"
+        },
+        "console": {
+          "errors": 0,
+          "artifact": "/tmp/vf016-editmode-final.log"
+        },
+        "next_task_candidate": "VF-017 Gameplay Review Context and Contact Sheet"
+      }
     }
   ]
 }

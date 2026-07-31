@@ -5,7 +5,8 @@ using UnityEngine.VFX;
 namespace VfxForge.Dogfood
 {
     [DisallowMultipleComponent]
-    public sealed class OrnateShieldDeployment : MonoBehaviour
+    public sealed class OrnateShieldDeployment
+        : MonoBehaviour, IVfxPreviewTimeEvaluable
     {
         private static readonly int PrimaryColorId =
             Shader.PropertyToID("_PrimaryColor");

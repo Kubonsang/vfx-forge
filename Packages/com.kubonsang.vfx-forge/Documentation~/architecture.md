@@ -31,12 +31,18 @@ stable stage-specific exit codes, and one compact JSON result line.
 - `EditorSceneManager.NewPreviewScene` creates an isolated, pathless Scene.
 - The generated Prefab is instantiated only inside that Scene.
 - A fixed, disabled Camera is created for later explicit frame rendering.
+- Components implement `IVfxPreviewTimeEvaluable` for deterministic custom preview
+  animation. Recipe 1.0 retains the former name-based reflection hook as a deprecated
+  compatibility fallback.
 - `VfxPreviewSession.Dispose` closes the Preview Scene and removes all temporary objects.
 - The active Scene, its dirty state, and the generated Prefab asset remain unchanged.
 
 ## Frame Capture Contract
 
 - Each requested time and view starts from a reinitialized Preview instance.
+- A prepass unions finite active Renderer bounds across all requested times, then keeps
+  one 15-percent-padded camera framing for the full sequence.
+- Top capture uses an orthographic Camera; front and side use perspective.
 - The Camera renders to a temporary `RenderTexture`; CPU-side PNG data is written only
   after encoding succeeds.
 - Stable frame names use sorted time, canonical view order, and microsecond time values.
@@ -90,6 +96,6 @@ reflection or Recipe-provided Asset paths.
 
 ## Deliberate Gaps
 
-Contact sheets, profiler metrics, and graph composition are intentionally left for later
+Review contexts, contact sheets, profiler metrics, and graph composition are intentionally left for later
 tasks. The compatibility capture fixture proves structural rendering, not VFX visual
 quality. Do not hide these gaps with fake success values.

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -34,6 +35,12 @@ namespace Kubonsang.VfxForge.Editor
         private GameObject previewInstance;
         private Camera previewCamera;
         private VfxPlayer player;
+        private string schemaVersion = string.Empty;
+        private Bounds captureBounds;
+        private float captureAspect = 1f;
+        private float capturePadding = 1.15f;
+        private bool hasCaptureBounds;
+        private bool legacyPreviewWarningLogged;
         private bool disposed;
 
         private VfxPreviewSession()
@@ -45,6 +52,8 @@ namespace Kubonsang.VfxForge.Editor
         public Camera PreviewCamera => previewCamera;
         public bool IsPlaying { get; private set; }
         public bool IsDisposed => disposed;
+        public bool HasCaptureBounds => hasCaptureBounds;
+        public Bounds CaptureBounds => captureBounds;
 
         public static VfxPreviewOpenResult Open(
             GameObject generatedPrefab,
@@ -157,6 +166,12 @@ namespace Kubonsang.VfxForge.Editor
         public void SetCameraView(VfxPreviewView view)
         {
             ThrowIfDisposed();
+            if (hasCaptureBounds)
+            {
+                SetFittedCameraView(view);
+                return;
+            }
+
             Vector3 target = previewInstance.transform.position + Vector3.up;
             Vector3 position;
             Vector3 up = Vector3.up;
@@ -180,6 +195,72 @@ namespace Kubonsang.VfxForge.Editor
             previewCamera.transform.position = position;
             previewCamera.transform.rotation =
                 Quaternion.LookRotation(target - position, up);
+        }
+
+        public bool TryPrepareCaptureFraming(
+            IEnumerable<float> frameTimes,
+            float padding,
+            float aspect,
+            out string error)
+        {
+            ThrowIfDisposed();
+            error = string.Empty;
+            if (frameTimes == null
+                || !IsFinite(padding)
+                || padding < 1f
+                || !IsFinite(aspect)
+                || aspect <= 0f)
+            {
+                error = "Capture framing settings are invalid.";
+                return false;
+            }
+
+            bool found = false;
+            Bounds union = default;
+            foreach (float frameTime in frameTimes)
+            {
+                SimulateTo(frameTime);
+                foreach (Renderer renderer in
+                    previewInstance.GetComponentsInChildren<Renderer>(true))
+                {
+                    if (renderer == null
+                        || !renderer.enabled
+                        || !renderer.gameObject.activeInHierarchy)
+                    {
+                        continue;
+                    }
+
+                    Bounds candidate = renderer.bounds;
+                    if (!IsFinite(candidate)
+                        || candidate.size.sqrMagnitude <= 0.000001f)
+                    {
+                        continue;
+                    }
+
+                    if (!found)
+                    {
+                        union = candidate;
+                        found = true;
+                    }
+                    else
+                    {
+                        union.Encapsulate(candidate);
+                    }
+                }
+            }
+
+            if (!found || !IsFinite(union))
+            {
+                error = "Preview produced no finite Renderer bounds.";
+                return false;
+            }
+
+            captureBounds = union;
+            capturePadding = padding;
+            captureAspect = aspect;
+            hasCaptureBounds = true;
+            previewCamera.aspect = aspect;
+            return true;
         }
 
         public void Dispose()
@@ -206,6 +287,7 @@ namespace Kubonsang.VfxForge.Editor
             previewInstance = null;
             previewRoot = null;
             previewScene = default;
+            hasCaptureBounds = false;
         }
 
         private void Bootstrap(GameObject generatedPrefab, string playEventName)
@@ -224,6 +306,8 @@ namespace Kubonsang.VfxForge.Editor
 
             previewInstance.name = generatedPrefab.name;
             previewInstance.transform.SetParent(previewRoot.transform, false);
+            VfxMetadata metadata = previewInstance.GetComponent<VfxMetadata>();
+            schemaVersion = metadata?.schemaVersion ?? string.Empty;
 
             player = previewInstance.GetComponent<VfxPlayer>();
             if (player == null)
@@ -275,14 +359,101 @@ namespace Kubonsang.VfxForge.Editor
                     continue;
                 }
 
+                if (behaviour is IVfxPreviewTimeEvaluable evaluable)
+                {
+                    evaluable.EvaluatePreviewTime(timeSeconds);
+                    continue;
+                }
+
+                if (schemaVersion != "1.0")
+                {
+                    continue;
+                }
+
                 MethodInfo method = behaviour.GetType().GetMethod(
                     "EvaluatePreviewTime",
                     Flags,
                     null,
                     new[] { typeof(float) },
                     null);
-                method?.Invoke(behaviour, new object[] { timeSeconds });
+                if (method == null)
+                {
+                    continue;
+                }
+
+                if (!legacyPreviewWarningLogged)
+                {
+                    Debug.LogWarning(
+                        "VFX Forge: reflection-based EvaluatePreviewTime is "
+                        + "deprecated. Implement IVfxPreviewTimeEvaluable.");
+                    legacyPreviewWarningLogged = true;
+                }
+
+                method.Invoke(behaviour, new object[] { timeSeconds });
             }
+        }
+
+        private void SetFittedCameraView(VfxPreviewView view)
+        {
+            Vector3 target = captureBounds.center;
+            Vector3 extents = captureBounds.extents;
+            previewCamera.orthographic = view == VfxPreviewView.Top;
+
+            if (view == VfxPreviewView.Top)
+            {
+                float vertical = extents.z;
+                float horizontal = extents.x / captureAspect;
+                previewCamera.orthographicSize =
+                    Mathf.Max(0.01f, Mathf.Max(vertical, horizontal) * capturePadding);
+                float height = Mathf.Max(1f, extents.y + previewCamera.orthographicSize);
+                previewCamera.transform.position =
+                    target + Vector3.up * height;
+                previewCamera.transform.rotation =
+                    Quaternion.LookRotation(Vector3.down, Vector3.forward);
+                previewCamera.nearClipPlane = 0.01f;
+                previewCamera.farClipPlane = height + extents.y + 10f;
+                return;
+            }
+
+            float projectedHorizontal = view == VfxPreviewView.Front
+                ? extents.x
+                : extents.z;
+            float projectedVertical = extents.y;
+            float depth = view == VfxPreviewView.Front
+                ? extents.z
+                : extents.x;
+            float halfFov = previewCamera.fieldOfView * 0.5f * Mathf.Deg2Rad;
+            float requiredHalfHeight = Mathf.Max(
+                projectedVertical,
+                projectedHorizontal / captureAspect);
+            float distance =
+                (requiredHalfHeight * capturePadding) / Mathf.Tan(halfFov)
+                + depth
+                + 0.1f;
+            Vector3 position = view == VfxPreviewView.Front
+                ? target - Vector3.forward * distance
+                : target + Vector3.right * distance;
+            previewCamera.transform.position = position;
+            previewCamera.transform.rotation = Quaternion.LookRotation(
+                target - position,
+                Vector3.up);
+            previewCamera.nearClipPlane = 0.01f;
+            previewCamera.farClipPlane = distance + depth + 10f;
+        }
+
+        private static bool IsFinite(Bounds bounds)
+        {
+            return IsFinite(bounds.center.x)
+                && IsFinite(bounds.center.y)
+                && IsFinite(bounds.center.z)
+                && IsFinite(bounds.extents.x)
+                && IsFinite(bounds.extents.y)
+                && IsFinite(bounds.extents.z);
+        }
+
+        private static bool IsFinite(float value)
+        {
+            return !float.IsNaN(value) && !float.IsInfinity(value);
         }
 
         private void SetEffectsPaused(bool paused)

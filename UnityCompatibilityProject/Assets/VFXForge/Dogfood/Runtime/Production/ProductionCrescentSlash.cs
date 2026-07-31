@@ -5,7 +5,8 @@ using UnityEngine.VFX;
 namespace VfxForge.Dogfood
 {
     [DisallowMultipleComponent]
-    public sealed class ProductionCrescentSlash : MonoBehaviour
+    public sealed class ProductionCrescentSlash
+        : MonoBehaviour, IVfxPreviewTimeEvaluable
     {
         private static readonly int PrimaryColorId = Shader.PropertyToID("_PrimaryColor");
         private static readonly int SecondaryColorId = Shader.PropertyToID("_SecondaryColor");

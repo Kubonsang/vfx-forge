@@ -16,6 +16,8 @@ namespace Kubonsang.VfxForge.Editor
                 new MissingAssetRule(),
                 new PropertyBindingRule(),
                 new DurationBudgetRule(),
+                new FiniteBoundsRule(),
+                new ParticleBudgetRule(),
                 new LayerSupportRule(),
                 new LightPolicyRule()
             };
