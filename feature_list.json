@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "project": "VFX Forge",
-  "current_task": null,
+  "current_task": "VF-019",
   "status_values": [
     "done",
     "in_progress",
@@ -929,6 +929,48 @@
         },
         "production_approval_automated": false,
         "next_task_candidate": "VF-019 Holy Aegis Shield V3 silhouette"
+      }
+    },
+    {
+      "id": "VF-019",
+      "title": "Holy Aegis Shield V3 / DF-006",
+      "status": "in_progress",
+      "phase": "waiting_user_silhouette_approval",
+      "scope": [
+        "Preserve VF-013 and rejected VF-014 assets",
+        "Create a 2.6 meter circular shield plate tilted 35 degrees toward the ground",
+        "Use one thick central knight crest and exactly four rim-connected ornaments",
+        "Exclude particles, sparks, wisps, shards, dynamic Light, and Distortion",
+        "Stop after grayscale silhouette evidence until the user approves"
+      ],
+      "acceptance": [
+        "Strict top view reads as a giant knight shield",
+        "Circular main plate reads before ornamentation",
+        "Four ornaments remain connected to the rim",
+        "No detached rune fragments or small repeated filigree exist",
+        "User silhouette approval is required before Shader and timing iteration"
+      ],
+      "verification": {
+        "asset": "UnityCompatibilityProject/Assets/VFXForge/Dogfood/HolyAegisV3/Authoring/Silhouette/HolyAegisV3Silhouette.prefab",
+        "evidence": "Dogfooding/Evidence/VF-019-silhouette-v2/silhouette-contact-sheet.png",
+        "structural_contract": {
+          "circular_main_plate": 1,
+          "central_knight_crest": 1,
+          "connected_ornaments": 4,
+          "particle_systems": 0,
+          "dynamic_lights": 0
+        },
+        "editmode_tests": {
+          "passed": 167,
+          "failed": 0,
+          "skipped": 0,
+          "artifact": "/tmp/vf019-silhouette-editmode.xml"
+        },
+        "console": {
+          "errors": 0,
+          "artifact": "/tmp/vf019-silhouette-editmode.log"
+        },
+        "human_review": "pending"
       }
     }
   ]
