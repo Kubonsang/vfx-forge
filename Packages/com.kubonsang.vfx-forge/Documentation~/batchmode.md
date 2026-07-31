@@ -10,6 +10,7 @@ Invoke VFX Forge through Unity's `-executeMethod` option:
   -recipe "/path/to/recipe.json" \
   -templateCatalog "Assets/VFXForge/VfxTemplateCatalog.asset" \
   -artifactPath "/path/to/artifacts/run-001" \
+  -visualReview "/path/to/visual-review.json" \
   -logFile -
 ```
 
@@ -18,12 +19,13 @@ pipeline captures rendered frames, so do not add `-nographics` to a normal run.
 
 ## Arguments
 
-All VFX Forge arguments are required and case-sensitive:
+Core VFX Forge arguments are required and case-sensitive:
 
 - `-recipe`: absolute path or Unity-project-relative path to a Recipe JSON file;
 - `-templateCatalog`: project-relative or absolute path to a
   `VfxTemplateCatalog` asset inside the project's `Assets` directory;
 - `-artifactPath`: absolute path or Unity-project-relative output directory.
+- `-visualReview`: optional human-authored `visual-review-1.0` JSON path.
 
 Unity's own arguments are ignored by the VFX Forge argument parser. Duplicate VFX Forge
 arguments and arguments without values fail before the Recipe is read.
@@ -33,7 +35,9 @@ resolved absolute Artifact path is returned in the command result. A successful 
 writes:
 
 - `validation.json` directly under the Artifact path;
-- captured PNG files and `capture-manifest.json` under `capture/`.
+- captured PNG files and `capture-manifest.json` under `capture/`;
+- gameplay review images and Contact Sheet under `review/` when requested;
+- `visual-review.json` under the Artifact path when human review is required.
 
 ## Result Line
 
@@ -41,7 +45,7 @@ The entry point writes exactly one compact JSON result line to standard output b
 Unity exits. Select the line whose `tool` field is `VFXForge`.
 
 ```json
-{"schemaVersion":"1.0","tool":"VFXForge","status":"passed","exitCode":0,"failedStage":"","recipeId":"impact_blue","artifactPath":"/tmp/vfx-forge/impact_blue","reportPath":"/tmp/vfx-forge/impact_blue/validation.json","generatedPrefab":"Assets/Generated/ImpactBlue.prefab","captureManifest":"/tmp/vfx-forge/impact_blue/capture/capture-manifest.json","reviewManifest":"/tmp/vfx-forge/impact_blue/review/review-manifest.json","contactSheet":"/tmp/vfx-forge/impact_blue/review/contact-sheet.png","message":"Run All completed."}
+{"schemaVersion":"1.0","tool":"VFXForge","status":"accepted","exitCode":0,"failedStage":"","recipeId":"impact_blue","artifactPath":"/tmp/vfx-forge/impact_blue","reportPath":"/tmp/vfx-forge/impact_blue/validation.json","generatedPrefab":"Assets/Generated/ImpactBlue.prefab","captureManifest":"/tmp/vfx-forge/impact_blue/capture/capture-manifest.json","reviewManifest":"/tmp/vfx-forge/impact_blue/review/review-manifest.json","contactSheet":"/tmp/vfx-forge/impact_blue/review/contact-sheet.png","visualReview":"/tmp/vfx-forge/impact_blue/visual-review.json","message":"Human visual review accepted."}
 ```
 
 Messages containing line breaks are JSON-escaped, so one invocation still produces one
@@ -60,8 +64,11 @@ does not request any gameplay Context IDs.
 | 50 | ValidatePrefab | Generated Prefab validation failure. |
 | 60 | OpenPreview | Isolated Preview bootstrap failure. |
 | 70 | CaptureFrames | Frame capture failure. |
-| 80 | WriteReport | Validation report write failure. |
+| 80 | WriteReport / VisualReview | Report failure or human review is required. |
+| 81 | VisualReview | Matching human review rejected the result. |
+| 82 | VisualReview | Submitted approval hashes are stale. |
 | 90 | Unexpected | Unclassified exception or missing pipeline result. |
 
 Nonzero exit codes identify the first failed stage. Later generation stages do not run
-after a failure.
+after a technical failure. Visual review exits happen only after technical capture and
+validation succeed.

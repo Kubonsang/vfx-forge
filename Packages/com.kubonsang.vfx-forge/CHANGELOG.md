@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## 0.2.0
+
+- Added mandatory hash-bound human visual approval with separate
+  `visual-review-1.0` records.
+- Added review-required, rejected, stale, and accepted product states plus
+  BatchMode exit codes 80, 81, and 82.
+- Added Editor Contact Sheet opening and five-criterion Accept/Reject controls.
 - Added allowlisted `VfxReviewContext` Prefabs with explicit Camera, effect
   anchor, caster, and target references.
 - Added gameplay Context capture at isolated frame times, no-effect delta

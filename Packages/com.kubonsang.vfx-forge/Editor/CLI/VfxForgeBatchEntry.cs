@@ -17,6 +17,9 @@ namespace Kubonsang.VfxForge.Editor
         OpenPreview = 60,
         CaptureFrames = 70,
         WriteReport = 80,
+        ReviewRequired = 80,
+        ReviewRejected = 81,
+        ReviewStale = 82,
         Unexpected = 90
     }
 
@@ -35,6 +38,7 @@ namespace Kubonsang.VfxForge.Editor
         public string captureManifest = string.Empty;
         public string reviewManifest = string.Empty;
         public string contactSheet = string.Empty;
+        public string visualReview = string.Empty;
         public string message = string.Empty;
 
         public string ToJson()
@@ -48,6 +52,8 @@ namespace Kubonsang.VfxForge.Editor
         private const string RecipeArgument = "-recipe";
         private const string CatalogArgument = "-templateCatalog";
         private const string ArtifactArgument = "-artifactPath";
+        private const string VisualReviewArgument =
+            "-visualReview";
 
         private static readonly string[] RequiredArguments =
         {
@@ -74,11 +80,19 @@ namespace Kubonsang.VfxForge.Editor
 
                 string recipePath;
                 string catalogPath;
+                string visualReviewPath = string.Empty;
                 try
                 {
                     recipePath = ToAbsolutePath(arguments[RecipeArgument]);
                     artifactPath = ToAbsolutePath(arguments[ArtifactArgument]);
                     catalogPath = ToProjectAssetPath(arguments[CatalogArgument]);
+                    if (arguments.TryGetValue(
+                        VisualReviewArgument,
+                        out string reviewArgument))
+                    {
+                        visualReviewPath =
+                            ToAbsolutePath(reviewArgument);
+                    }
                 }
                 catch (Exception exception)
                 {
@@ -127,7 +141,8 @@ namespace Kubonsang.VfxForge.Editor
                         RecipeJson = recipeJson,
                         RecipeAssetPath = arguments[RecipeArgument],
                         TemplateCatalog = catalog,
-                        ArtifactDirectory = artifactPath
+                        ArtifactDirectory = artifactPath,
+                        VisualReviewPath = visualReviewPath
                     });
                 return FromPipelineResult(pipelineResult, artifactPath);
             }
@@ -147,6 +162,16 @@ namespace Kubonsang.VfxForge.Editor
             if (pipelineResult == null)
             {
                 return VfxForgeBatchExitCode.Unexpected;
+            }
+
+            switch (pipelineResult.ProductStatus)
+            {
+                case VfxVisualReviewStatus.ReviewRequired:
+                    return VfxForgeBatchExitCode.ReviewRequired;
+                case VfxVisualReviewStatus.Rejected:
+                    return VfxForgeBatchExitCode.ReviewRejected;
+                case VfxVisualReviewStatus.ReviewStale:
+                    return VfxForgeBatchExitCode.ReviewStale;
             }
 
             if (pipelineResult.Success)
@@ -200,13 +225,26 @@ namespace Kubonsang.VfxForge.Editor
             }
 
             VfxForgeBatchExitCode exitCode = MapExitCode(pipelineResult);
+            bool visualReviewGate =
+                pipelineResult.ProductStatus
+                    == VfxVisualReviewStatus.ReviewRequired
+                || pipelineResult.ProductStatus
+                    == VfxVisualReviewStatus.Rejected
+                || pipelineResult.ProductStatus
+                    == VfxVisualReviewStatus.ReviewStale;
             return new VfxForgeBatchResult
             {
-                status = pipelineResult.Success
-                    ? VfxReportWriter.ResolveStatus(pipelineResult.Results)
-                    : "failed",
+                status = !string.IsNullOrWhiteSpace(
+                    pipelineResult.ProductStatus)
+                    ? pipelineResult.ProductStatus
+                    : pipelineResult.Success
+                        ? VfxReportWriter.ResolveStatus(
+                            pipelineResult.Results)
+                        : "failed",
                 exitCode = (int)exitCode,
-                failedStage = pipelineResult.Success
+                failedStage = visualReviewGate
+                    ? "VisualReview"
+                    : pipelineResult.Success
                     ? string.Empty
                     : exitCode == VfxForgeBatchExitCode.Unexpected
                         ? "Unexpected"
@@ -218,6 +256,7 @@ namespace Kubonsang.VfxForge.Editor
                 captureManifest = pipelineResult.CaptureManifestPath,
                 reviewManifest = pipelineResult.ReviewManifestPath,
                 contactSheet = pipelineResult.ContactSheetPath,
+                visualReview = pipelineResult.VisualReviewPath,
                 message = pipelineResult.Message
             };
         }
@@ -253,7 +292,7 @@ namespace Kubonsang.VfxForge.Editor
             for (int index = 0; index < rawArguments.Length; index++)
             {
                 string token = rawArguments[index];
-                if (!IsRequiredArgument(token))
+                if (!IsKnownArgument(token))
                 {
                     continue;
                 }
@@ -287,8 +326,16 @@ namespace Kubonsang.VfxForge.Editor
             return true;
         }
 
-        private static bool IsRequiredArgument(string value)
+        private static bool IsKnownArgument(string value)
         {
+            if (string.Equals(
+                value,
+                VisualReviewArgument,
+                StringComparison.Ordinal))
+            {
+                return true;
+            }
+
             foreach (string required in RequiredArguments)
             {
                 if (string.Equals(value, required, StringComparison.Ordinal))

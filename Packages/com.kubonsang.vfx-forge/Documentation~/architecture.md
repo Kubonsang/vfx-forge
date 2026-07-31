@@ -63,6 +63,18 @@ stable stage-specific exit codes, and one compact JSON result line.
 - Frame, isolated manifest, and Contact Sheet SHA-256 values make review inputs
   reproducible.
 
+## Human Approval Contract
+
+- Technical `validation.json` never embeds a product approval.
+- `visual-review.json` uses `visual-review-1.0` and binds the decision to the
+  generated Prefab dependency hash, Capture Manifest SHA-256, and Contact Sheet
+  SHA-256.
+- Acceptance requires reviewer, UTC time, and all five visual criteria.
+- Rejection requires reviewer, UTC time, and a reason.
+- A hash mismatch produces `review_stale`.
+- Automated Pipeline execution may prepare or evaluate a review record but may
+  not create an accepted production decision.
+
 ## Run All Contract
 
 - Input validation completes before Prefab compilation.
@@ -109,6 +121,6 @@ reflection or Recipe-provided Asset paths.
 
 ## Deliberate Gaps
 
-Human visual approval, profiler metrics, and graph composition are intentionally
-left for later tasks. The compatibility capture fixture proves structural
+Profiler metrics and graph composition are intentionally left for later tasks.
+The compatibility capture fixture proves structural
 rendering, not VFX visual quality. Do not hide these gaps with fake success values.

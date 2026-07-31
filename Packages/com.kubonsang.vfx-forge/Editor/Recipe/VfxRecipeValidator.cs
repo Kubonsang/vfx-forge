@@ -160,6 +160,13 @@ namespace Kubonsang.VfxForge.Editor
                         && recipe.quality.maximumBorderForegroundRatio >= 0f
                         && recipe.quality.maximumBorderForegroundRatio <= 1f,
                     "Maximum border foreground ratio must be between 0 and 1.");
+                Require(
+                    results,
+                    "RECIPE-REVIEW-CONTEXT",
+                    !recipe.quality.requireHumanReview
+                        || (recipe.capture?.contexts != null
+                            && recipe.capture.contexts.Length > 0),
+                    "Human visual review requires at least one gameplay Context.");
             }
 
             return results;

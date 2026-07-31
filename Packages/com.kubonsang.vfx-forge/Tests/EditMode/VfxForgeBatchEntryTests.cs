@@ -145,6 +145,83 @@ namespace Kubonsang.VfxForge.Editor.Tests
             Assert.That(command.Request.RecipeJson, Does.Contain("schemaVersion"));
         }
 
+        [Test]
+        public void Execute_VisualReviewArgument_ForwardsNormalizedPath()
+        {
+            var command = new TestBatchCommand
+            {
+                Catalog = catalog,
+                PipelineResult =
+                    new VfxForgePipelineRunResult
+                    {
+                        Success = true,
+                        ProductStatus = "passed"
+                    }
+            };
+            string[] arguments = CreateArguments();
+            var withReview =
+                new List<string>(arguments)
+                {
+                    "-visualReview",
+                    recipePath
+                };
+
+            VfxForgeBatchResult result =
+                command.Execute(withReview.ToArray());
+
+            Assert.That(result.exitCode, Is.Zero);
+            Assert.That(
+                command.Request.VisualReviewPath,
+                Is.EqualTo(Path.GetFullPath(recipePath)));
+        }
+
+        [TestCase(
+            VfxVisualReviewStatus.ReviewRequired,
+            80)]
+        [TestCase(
+            VfxVisualReviewStatus.Rejected,
+            81)]
+        [TestCase(
+            VfxVisualReviewStatus.ReviewStale,
+            82)]
+        [TestCase(
+            VfxVisualReviewStatus.Accepted,
+            0)]
+        public void Execute_VisualReviewStatus_ReturnsStableExitCode(
+            string productStatus,
+            int expectedExitCode)
+        {
+            var command = new TestBatchCommand
+            {
+                Catalog = catalog,
+                PipelineResult =
+                    new VfxForgePipelineRunResult
+                    {
+                        Success = true,
+                        ProductStatus = productStatus,
+                        VisualReviewPath =
+                            Path.Combine(
+                                artifactPath,
+                                "visual-review.json")
+                    }
+            };
+
+            VfxForgeBatchResult result =
+                command.Execute(CreateArguments());
+
+            Assert.That(
+                result.exitCode,
+                Is.EqualTo(expectedExitCode));
+            Assert.That(
+                result.status,
+                Is.EqualTo(productStatus));
+            Assert.That(
+                result.failedStage,
+                expectedExitCode == 0
+                    ? Is.Empty
+                    : Is.EqualTo("VisualReview"));
+        }
+
         [TestCase(VfxForgePipelineStage.ParseRecipe, 20)]
         [TestCase(VfxForgePipelineStage.ValidateInputs, 30)]
         [TestCase(VfxForgePipelineStage.CompilePrefab, 40)]

@@ -37,10 +37,14 @@ After a run, the `Last Run` controls provide:
 - `Select Prefab`: selects and pings the generated Prefab;
 - `Reveal Report`: reveals `validation.json`;
 - `Reveal Capture`: reveals `capture-manifest.json`;
-- `Reveal Contact Sheet`: reveals the gameplay review Contact Sheet when present.
+- `Open Contact Sheet`: opens the gameplay review Contact Sheet when present.
 
 Missing result files are reported as UI validation errors instead of opening an invalid
 path.
+
+When `quality.requireHumanReview` is true, the Human Visual Review section shows
+reviewer input, five required criteria, rejection reason, and Accept/Reject controls.
+Accept is refused until all criteria pass. Reject is refused without a reason.
 
 The individual Validate, Compile, Preview, and Capture controls remain available for
 focused iteration.

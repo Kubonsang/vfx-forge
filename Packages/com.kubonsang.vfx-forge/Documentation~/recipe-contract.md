@@ -24,6 +24,10 @@ Unity `JsonUtility` may serialize the new sections into a 1.0 object. Their
 motion, geometry, quality, or context override in a 1.0 Recipe is rejected by
 semantic validation.
 
+When `quality.requireHumanReview` is true, `capture.contexts` must contain at
+least one allowlisted Catalog Context ID. Product approval is stored separately
+in `visual-review.json`; it is never embedded in the Recipe.
+
 ## Required fields
 
 Every Recipe must provide:

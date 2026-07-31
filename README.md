@@ -21,6 +21,7 @@ Asset은 읽기 전용 입력으로 취급하며, 생성된 결과와 검증 근
 - foreground·border·bounds 지표를 기록하는 Capture Manifest 1.1
 - Catalog allowlist 기반 Gameplay Review Context 캡처
 - 시간순 Contact Sheet와 frame·manifest SHA-256 Review Manifest
+- 다섯 항목과 hash freshness를 요구하는 Human Visual Approval Gate
 - Editor Window의 `Run All`과 단계별 실패 차단
 - 자동화용 BatchMode 인수, 한 줄 JSON 결과, 단계별 종료 코드
 - 3개 성공·2개 실패 Recipe를 사용하는 종단 간 통합 fixture
@@ -35,7 +36,7 @@ Asset은 읽기 전용 입력으로 취급하며, 생성된 결과와 검증 근
 | Unity Test Framework | 1.6.0 |
 
 패키지의 최소 Unity 버전은 `6000.0`입니다. 현재 검증 기준에서는 EditMode 테스트
-153개와 기존 Dogfooding PlayMode 테스트가 통과했고 Unity Console Error는 0개입니다.
+164개와 기존 Dogfooding PlayMode 테스트가 통과했고 Unity Console Error는 0개입니다.
 
 ## Production Crescent Slash 데모
 
@@ -156,6 +157,7 @@ Recipe.outputPath
 
 Artifact Directory/
 ├─ validation.json
+├─ visual-review.json       # quality.requireHumanReview 사용 시
 ├─ capture/
 │  ├─ *.png
 │  └─ capture-manifest.json
@@ -246,15 +248,16 @@ SHA-256, dependency hash, 참조 VFX Asset hash, Catalog JSON도 실행 전후 �
 | [Editor Window](Packages/com.kubonsang.vfx-forge/Documentation~/editor-window.md) | Run All, 진행 상태, 결과 이동 |
 | [Frame Capture](Packages/com.kubonsang.vfx-forge/Documentation~/frame-capture.md) | 결정론적 Capture와 Manifest |
 | [Gameplay Review Context](Packages/com.kubonsang.vfx-forge/Documentation~/review-context.md) | 게임 문맥 Capture, Contact Sheet, Review Manifest |
+| [Human Visual Review](Packages/com.kubonsang.vfx-forge/Documentation~/visual-review.md) | 필수 육안 승인, hash freshness, Batch 상태 |
 | [BatchMode Contract](Packages/com.kubonsang.vfx-forge/Documentation~/batchmode.md) | CLI 인수, JSON 결과, 종료 코드 |
 | [Integration Fixture](Packages/com.kubonsang.vfx-forge/Documentation~/integration-fixture.md) | 5개 Recipe 종단 간 검증 |
 | [Unity 6 Compatibility](Packages/com.kubonsang.vfx-forge/Documentation~/unity-6-compatibility.md) | 검증 버전과 호스트 프로젝트 |
 
 ## 현재 제한사항
 
-- Human Visual Approval Gate는 아직 지원하지 않습니다.
+- 전자서명과 원격 다중 reviewer backend는 지원하지 않습니다.
 - Runtime particle count 측정은 아직 지원하지 않습니다.
 - GPU/CPU Profiler 연동은 아직 지원하지 않습니다.
 - 통합 fixture의 Capture는 구조적 렌더링 근거이며 VFX 시각 품질 평가가 아닙니다.
 
-패키지 버전은 현재 `0.1.0`입니다.
+패키지 버전은 현재 `0.2.0`입니다.

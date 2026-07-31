@@ -32,6 +32,7 @@ namespace Kubonsang.VfxForge.Editor
         public string RecipeAssetPath = string.Empty;
         public VfxTemplateCatalog TemplateCatalog;
         public string ArtifactDirectory = string.Empty;
+        public string VisualReviewPath = string.Empty;
         public VfxOverwritePolicy OverwritePolicy =
             VfxOverwritePolicy.OverwriteGeneratedOnly;
     }
@@ -49,6 +50,8 @@ namespace Kubonsang.VfxForge.Editor
         public string CaptureManifestPath = string.Empty;
         public string ReviewManifestPath = string.Empty;
         public string ContactSheetPath = string.Empty;
+        public string VisualReviewPath = string.Empty;
+        public string ProductStatus = string.Empty;
         public List<string> CaptureFramePaths = new List<string>();
         public List<string> ContextFramePaths = new List<string>();
         public List<VfxValidationResult> Results = new List<VfxValidationResult>();
@@ -315,9 +318,31 @@ namespace Kubonsang.VfxForge.Editor
                     result.PrefabPath,
                     result.Results);
 
+                result.ProductStatus =
+                    VfxReportWriter.ResolveStatus(result.Results);
+                if (result.Recipe.quality?.requireHumanReview == true)
+                {
+                    VfxVisualReviewEvaluation visualReview =
+                        EvaluateVisualReview(
+                            request.ArtifactDirectory,
+                            result.PrefabPath,
+                            result.CaptureManifestPath,
+                            result.ContactSheetPath,
+                            request.VisualReviewPath);
+                    result.VisualReviewPath =
+                        visualReview.OutputPath;
+                    result.ProductStatus =
+                        visualReview.Status;
+                    result.Message =
+                        visualReview.Message;
+                }
+
                 result.Success = true;
                 result.Stage = VfxForgePipelineStage.Completed;
-                result.Message = "Run All completed.";
+                if (string.IsNullOrWhiteSpace(result.Message))
+                {
+                    result.Message = "Run All completed.";
+                }
                 Publish(
                     result,
                     VfxForgePipelineStage.Completed,
@@ -453,6 +478,21 @@ namespace Kubonsang.VfxForge.Editor
                 recipe,
                 prefabPath,
                 results);
+        }
+
+        protected virtual VfxVisualReviewEvaluation EvaluateVisualReview(
+            string artifactDirectory,
+            string prefabPath,
+            string captureManifestPath,
+            string contactSheetPath,
+            string submittedReviewPath)
+        {
+            return VfxVisualReviewStore.Prepare(
+                artifactDirectory,
+                prefabPath,
+                captureManifestPath,
+                contactSheetPath,
+                submittedReviewPath);
         }
 
         private VfxForgePipelineRunResult FinishFailure(

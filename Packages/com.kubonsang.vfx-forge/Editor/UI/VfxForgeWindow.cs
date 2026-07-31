@@ -20,6 +20,11 @@ namespace Kubonsang.VfxForge.Editor
         private float pipelineProgress;
         private string pipelineMessage = "Ready.";
         private bool pipelineRunning;
+        private string visualReviewer = string.Empty;
+        private string visualRejectionReason = string.Empty;
+        private VfxVisualReviewCriteria visualCriteria =
+            new VfxVisualReviewCriteria();
+        private VfxVisualReviewRecord expectedVisualReview;
 
         [MenuItem("Tools/VFX Forge/Open Window")]
         public static void Open()
@@ -104,6 +109,7 @@ namespace Kubonsang.VfxForge.Editor
             }
 
             DrawResultNavigation();
+            DrawVisualReview();
 
             EditorGUILayout.Space();
             scroll = EditorGUILayout.BeginScrollView(scroll);
@@ -160,6 +166,7 @@ namespace Kubonsang.VfxForge.Editor
                 {
                     previewPlayEventName = template.playEventName;
                 }
+                PrepareVisualReviewControls();
             }
             finally
             {
@@ -224,11 +231,73 @@ namespace Kubonsang.VfxForge.Editor
                 using (new EditorGUI.DisabledScope(
                     string.IsNullOrWhiteSpace(lastRun.ContactSheetPath)))
                 {
-                    if (GUILayout.Button("Reveal Contact Sheet"))
+                    if (GUILayout.Button("Open Contact Sheet"))
                     {
-                        RevealResult(
+                        OpenResult(
                             lastRun.ContactSheetPath,
                             "UI-CONTACT-SHEET-PATH");
+                    }
+                }
+            }
+        }
+
+        private void DrawVisualReview()
+        {
+            if (lastRun?.Recipe?.quality?.requireHumanReview != true)
+            {
+                return;
+            }
+
+            EditorGUILayout.Space();
+            EditorGUILayout.LabelField(
+                "Human Visual Review",
+                EditorStyles.boldLabel);
+            EditorGUILayout.LabelField(
+                "Status",
+                string.IsNullOrWhiteSpace(lastRun.ProductStatus)
+                    ? VfxVisualReviewStatus.ReviewRequired
+                    : lastRun.ProductStatus);
+            visualReviewer =
+                EditorGUILayout.TextField(
+                    "Reviewer",
+                    visualReviewer);
+            visualCriteria.meaningClear =
+                EditorGUILayout.Toggle(
+                    "Meaning delivery",
+                    visualCriteria.meaningClear);
+            visualCriteria.silhouetteClear =
+                EditorGUILayout.Toggle(
+                    "Silhouette",
+                    visualCriteria.silhouetteClear);
+            visualCriteria.shaderPatternFinish =
+                EditorGUILayout.Toggle(
+                    "Shader / pattern finish",
+                    visualCriteria.shaderPatternFinish);
+            visualCriteria.timingPolish =
+                EditorGUILayout.Toggle(
+                    "Timing",
+                    visualCriteria.timingPolish);
+            visualCriteria.gameplayReadability =
+                EditorGUILayout.Toggle(
+                    "Gameplay readability",
+                    visualCriteria.gameplayReadability);
+            visualRejectionReason =
+                EditorGUILayout.TextField(
+                    "Rejection reason",
+                    visualRejectionReason);
+
+            using (new EditorGUI.DisabledScope(
+                expectedVisualReview == null))
+            {
+                using (new EditorGUILayout.HorizontalScope())
+                {
+                    if (GUILayout.Button("Accept"))
+                    {
+                        SubmitVisualReview(true);
+                    }
+                    if (GUILayout.Button("Reject"))
+                    {
+                        SubmitVisualReview(false);
                     }
                 }
             }
@@ -245,6 +314,75 @@ namespace Kubonsang.VfxForge.Editor
             }
 
             EditorUtility.RevealInFinder(Path.GetFullPath(path));
+        }
+
+        private void OpenResult(string path, string errorCode)
+        {
+            if (string.IsNullOrWhiteSpace(path)
+                || !File.Exists(path))
+            {
+                results.Add(VfxValidationResult.Error(
+                    errorCode,
+                    $"Result file does not exist: {path}"));
+                return;
+            }
+
+            EditorUtility.OpenWithDefaultApp(
+                Path.GetFullPath(path));
+        }
+
+        private void PrepareVisualReviewControls()
+        {
+            expectedVisualReview = null;
+            visualCriteria =
+                new VfxVisualReviewCriteria();
+            visualRejectionReason = string.Empty;
+            if (lastRun?.Recipe?.quality?.requireHumanReview != true
+                || string.IsNullOrWhiteSpace(
+                    lastRun.ContactSheetPath))
+            {
+                return;
+            }
+
+            try
+            {
+                expectedVisualReview =
+                    VfxVisualReviewStore.CreateExpected(
+                        lastRun.PrefabPath,
+                        lastRun.CaptureManifestPath,
+                        lastRun.ContactSheetPath);
+            }
+            catch (System.Exception exception)
+            {
+                results.Add(VfxValidationResult.Error(
+                    "UI-VISUAL-REVIEW",
+                    exception.Message));
+            }
+        }
+
+        private void SubmitVisualReview(bool accept)
+        {
+            VfxVisualReviewWriteResult written =
+                VfxVisualReviewStore.Submit(
+                    lastRun.VisualReviewPath,
+                    expectedVisualReview,
+                    visualReviewer,
+                    accept,
+                    visualCriteria,
+                    visualRejectionReason);
+            if (!written.Success)
+            {
+                results.Add(VfxValidationResult.Error(
+                    written.ErrorCode,
+                    written.Message));
+                return;
+            }
+
+            lastRun.ProductStatus =
+                written.Record.status;
+            results.Add(VfxValidationResult.Pass(
+                "VISUAL-REVIEW-WRITE",
+                written.Message));
         }
 
         private void ValidateRecipe()

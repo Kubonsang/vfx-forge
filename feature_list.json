@@ -872,6 +872,64 @@
         },
         "next_task_candidate": "VF-018 Human Visual Approval Gate"
       }
+    },
+    {
+      "id": "VF-018",
+      "title": "Mandatory Human Visual Approval Gate",
+      "status": "done",
+      "scope": [
+        "Keep technical validation separate from product visual approval",
+        "Hash generated Prefab, Capture Manifest, and Contact Sheet review inputs",
+        "Support review_required, rejected, review_stale, and accepted states",
+        "Add Editor Contact Sheet review and Accept or Reject controls",
+        "Add BatchMode -visualReview handling and exit codes 80, 81, and 82",
+        "Publish package version 0.2.0 and update contracts"
+      ],
+      "acceptance": [
+        "Accepted review requires all five visual criteria",
+        "Rejected review requires a reason",
+        "Missing approval returns review_required and exit 80",
+        "Rejected approval returns exit 81",
+        "Stale hashes return exit 82",
+        "Matching accepted approval returns exit 0",
+        "Automation never approves a production VFX on behalf of the user"
+      ],
+      "verification": {
+        "package_version": "0.2.0",
+        "visual_review_contract": "visual-review-1.0",
+        "technical_status_file": "validation.json",
+        "product_status_file": "visual-review.json",
+        "required_criteria": [
+          "meaning delivery",
+          "silhouette",
+          "Shader and pattern finish",
+          "timing",
+          "gameplay readability"
+        ],
+        "batch_exit_codes": {
+          "review_required": 80,
+          "rejected": 81,
+          "review_stale": 82,
+          "accepted": 0
+        },
+        "hash_inputs": [
+          "generated Prefab dependency hash",
+          "Capture Manifest SHA-256",
+          "Contact Sheet SHA-256"
+        ],
+        "editmode_tests": {
+          "passed": 164,
+          "failed": 0,
+          "skipped": 0,
+          "artifact": "/tmp/vf018-editmode-final.xml"
+        },
+        "console": {
+          "errors": 0,
+          "artifact": "/tmp/vf018-editmode-final.log"
+        },
+        "production_approval_automated": false,
+        "next_task_candidate": "VF-019 Holy Aegis Shield V3 silhouette"
+      }
     }
   ]
 }

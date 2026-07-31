@@ -108,6 +108,7 @@ namespace Kubonsang.VfxForge.Editor.Tests
             recipe.schemaVersion = "1.1";
             recipe.capture.contexts =
                 new[] { "topdown_pipeline" };
+            recipe.quality.requireHumanReview = true;
             catalog.reviewContexts.Add(new VfxReviewContextEntry
             {
                 id = "topdown_pipeline",
@@ -126,6 +127,26 @@ namespace Kubonsang.VfxForge.Editor.Tests
             Assert.That(runner.ReviewCaptureCalls, Is.EqualTo(1));
             Assert.That(File.Exists(result.ReviewManifestPath), Is.True);
             Assert.That(File.Exists(result.ContactSheetPath), Is.True);
+            Assert.That(File.Exists(result.VisualReviewPath), Is.True);
+            VfxVisualReviewRecord visualReview =
+                JsonUtility.FromJson<VfxVisualReviewRecord>(
+                    File.ReadAllText(result.VisualReviewPath));
+            Assert.That(
+                visualReview.generatedPrefabDependencyHash,
+                Is.Not.Empty);
+            Assert.That(
+                visualReview.captureManifestSha256,
+                Is.Not.Empty);
+            Assert.That(
+                visualReview.contactSheetSha256,
+                Is.Not.Empty);
+            Assert.That(
+                File.ReadAllText(result.ReportPath),
+                Does.Not.Contain("visual-review"));
+            Assert.That(
+                result.ProductStatus,
+                Is.EqualTo(
+                    VfxVisualReviewStatus.ReviewRequired));
             Assert.That(result.ContextFramePaths, Has.Count.EqualTo(1));
             Assert.That(File.Exists(result.ContextFramePaths[0]), Is.True);
         }
