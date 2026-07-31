@@ -1,0 +1,897 @@
+{
+    "schemaVersion": "1.0",
+    "recipeId": "holy_aegis_shield_v3",
+    "status": "passed",
+    "generatedPrefab": "Assets/VFXForge/Dogfood/HolyAegisV3/Generated/HolyAegisShieldV3.prefab",
+    "templateId": "holy_aegis_shield_v3",
+    "results": [
+        {
+            "ruleId": "RECIPE-SCHEMA",
+            "severity": "Info",
+            "passed": true,
+            "message": "Only schemaVersion 1.0 and 1.1 are supported.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-ID",
+            "severity": "Info",
+            "passed": true,
+            "message": "Recipe id is invalid.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-TEMPLATE",
+            "severity": "Info",
+            "passed": true,
+            "message": "Template id is required.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-OUTPUT",
+            "severity": "Info",
+            "passed": true,
+            "message": "Output path must be a traversal-free .prefab path under Assets/.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-DURATION",
+            "severity": "Info",
+            "passed": true,
+            "message": "Duration must be greater than zero.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-MAX-DURATION",
+            "severity": "Info",
+            "passed": true,
+            "message": "Max duration must be greater than zero.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-ANTICIPATION",
+            "severity": "Info",
+            "passed": true,
+            "message": "Anticipation cannot be negative.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-IMPACT",
+            "severity": "Info",
+            "passed": true,
+            "message": "Impact cannot be negative.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-SUSTAIN",
+            "severity": "Info",
+            "passed": true,
+            "message": "Sustain cannot be negative.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-DECAY",
+            "severity": "Info",
+            "passed": true,
+            "message": "Decay cannot be negative.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-MAX-PARTICLES",
+            "severity": "Info",
+            "passed": true,
+            "message": "Max particles must be greater than zero.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-MAX-BOUNDS",
+            "severity": "Info",
+            "passed": true,
+            "message": "Max bounds radius must be greater than zero.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-DURATION-BUDGET",
+            "severity": "Info",
+            "passed": true,
+            "message": "Duration exceeds the recipe budget.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-RADIUS",
+            "severity": "Info",
+            "passed": true,
+            "message": "Radius cannot be negative.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-DIRECTIONALITY",
+            "severity": "Info",
+            "passed": true,
+            "message": "Directionality must be between 0 and 1.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-SPREAD",
+            "severity": "Info",
+            "passed": true,
+            "message": "Spread angle must be between 0 and 360.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-PRIMARY-COLOR",
+            "severity": "Info",
+            "passed": true,
+            "message": "Primary color is invalid.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-SECONDARY-COLOR",
+            "severity": "Info",
+            "passed": true,
+            "message": "Secondary color is invalid.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-EMISSION",
+            "severity": "Info",
+            "passed": true,
+            "message": "Emission intensity cannot be negative.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-SHARPNESS",
+            "severity": "Info",
+            "passed": true,
+            "message": "Sharpness must be between 0 and 1.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-DISTORTION",
+            "severity": "Info",
+            "passed": true,
+            "message": "Distortion strength cannot be negative.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-MOTION-SPEED",
+            "severity": "Info",
+            "passed": true,
+            "message": "Motion speed must be finite and non-negative.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-MOTION-DIRECTION",
+            "severity": "Info",
+            "passed": true,
+            "message": "Motion direction must be finite.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-LAYER",
+            "severity": "Info",
+            "passed": true,
+            "message": "Value is empty, duplicated, or unsupported: emerald_energy_plate.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-LAYER",
+            "severity": "Info",
+            "passed": true,
+            "message": "Value is empty, duplicated, or unsupported: gold_connected_rim.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-LAYER",
+            "severity": "Info",
+            "passed": true,
+            "message": "Value is empty, duplicated, or unsupported: central_knight_crest.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-LAYER",
+            "severity": "Info",
+            "passed": true,
+            "message": "Value is empty, duplicated, or unsupported: four_connected_ornaments.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-CAPTURE-DURATION",
+            "severity": "Info",
+            "passed": true,
+            "message": "Capture duration must be greater than zero.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-CAPTURE-WIDTH",
+            "severity": "Info",
+            "passed": true,
+            "message": "Capture width must be at least 64.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-CAPTURE-HEIGHT",
+            "severity": "Info",
+            "passed": true,
+            "message": "Capture height must be at least 64.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-CAPTURE-VIEW",
+            "severity": "Info",
+            "passed": true,
+            "message": "Value is empty, duplicated, or unsupported: top.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-CAPTURE-CONTEXT",
+            "severity": "Info",
+            "passed": true,
+            "message": "Value is empty, duplicated, or unsupported: topdown_three_grounds.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-FRAME-TIME",
+            "severity": "Info",
+            "passed": true,
+            "message": "Frame time 0.18 is outside capture duration.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-FRAME-TIME",
+            "severity": "Info",
+            "passed": true,
+            "message": "Frame time 0.28 is outside capture duration.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-FRAME-TIME",
+            "severity": "Info",
+            "passed": true,
+            "message": "Frame time 0.72 is outside capture duration.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-FRAME-TIME",
+            "severity": "Info",
+            "passed": true,
+            "message": "Frame time 1.38 is outside capture duration.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-FRAME-TIME",
+            "severity": "Info",
+            "passed": true,
+            "message": "Frame time 1.56 is outside capture duration.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-FRAME-TIME",
+            "severity": "Info",
+            "passed": true,
+            "message": "Frame time 1.68 is outside capture duration.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-QUALITY-FOREGROUND",
+            "severity": "Info",
+            "passed": true,
+            "message": "Minimum foreground ratio must be between 0 and 1.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-QUALITY-BORDER",
+            "severity": "Info",
+            "passed": true,
+            "message": "Maximum border foreground ratio must be between 0 and 1.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-REVIEW-CONTEXT",
+            "severity": "Info",
+            "passed": true,
+            "message": "Human visual review requires at least one gameplay Context.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-SCHEMA",
+            "severity": "Info",
+            "passed": true,
+            "message": "Only schemaVersion 1.0 and 1.1 are supported.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-ID",
+            "severity": "Info",
+            "passed": true,
+            "message": "Recipe id is invalid.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-TEMPLATE",
+            "severity": "Info",
+            "passed": true,
+            "message": "Template id is required.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-OUTPUT",
+            "severity": "Info",
+            "passed": true,
+            "message": "Output path must be a traversal-free .prefab path under Assets/.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-DURATION",
+            "severity": "Info",
+            "passed": true,
+            "message": "Duration must be greater than zero.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-MAX-DURATION",
+            "severity": "Info",
+            "passed": true,
+            "message": "Max duration must be greater than zero.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-ANTICIPATION",
+            "severity": "Info",
+            "passed": true,
+            "message": "Anticipation cannot be negative.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-IMPACT",
+            "severity": "Info",
+            "passed": true,
+            "message": "Impact cannot be negative.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-SUSTAIN",
+            "severity": "Info",
+            "passed": true,
+            "message": "Sustain cannot be negative.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-DECAY",
+            "severity": "Info",
+            "passed": true,
+            "message": "Decay cannot be negative.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-MAX-PARTICLES",
+            "severity": "Info",
+            "passed": true,
+            "message": "Max particles must be greater than zero.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-MAX-BOUNDS",
+            "severity": "Info",
+            "passed": true,
+            "message": "Max bounds radius must be greater than zero.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-DURATION-BUDGET",
+            "severity": "Info",
+            "passed": true,
+            "message": "Duration exceeds the recipe budget.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-RADIUS",
+            "severity": "Info",
+            "passed": true,
+            "message": "Radius cannot be negative.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-DIRECTIONALITY",
+            "severity": "Info",
+            "passed": true,
+            "message": "Directionality must be between 0 and 1.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-SPREAD",
+            "severity": "Info",
+            "passed": true,
+            "message": "Spread angle must be between 0 and 360.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-PRIMARY-COLOR",
+            "severity": "Info",
+            "passed": true,
+            "message": "Primary color is invalid.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-SECONDARY-COLOR",
+            "severity": "Info",
+            "passed": true,
+            "message": "Secondary color is invalid.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-EMISSION",
+            "severity": "Info",
+            "passed": true,
+            "message": "Emission intensity cannot be negative.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-SHARPNESS",
+            "severity": "Info",
+            "passed": true,
+            "message": "Sharpness must be between 0 and 1.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-DISTORTION",
+            "severity": "Info",
+            "passed": true,
+            "message": "Distortion strength cannot be negative.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-MOTION-SPEED",
+            "severity": "Info",
+            "passed": true,
+            "message": "Motion speed must be finite and non-negative.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-MOTION-DIRECTION",
+            "severity": "Info",
+            "passed": true,
+            "message": "Motion direction must be finite.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-LAYER",
+            "severity": "Info",
+            "passed": true,
+            "message": "Value is empty, duplicated, or unsupported: emerald_energy_plate.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-LAYER",
+            "severity": "Info",
+            "passed": true,
+            "message": "Value is empty, duplicated, or unsupported: gold_connected_rim.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-LAYER",
+            "severity": "Info",
+            "passed": true,
+            "message": "Value is empty, duplicated, or unsupported: central_knight_crest.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-LAYER",
+            "severity": "Info",
+            "passed": true,
+            "message": "Value is empty, duplicated, or unsupported: four_connected_ornaments.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-CAPTURE-DURATION",
+            "severity": "Info",
+            "passed": true,
+            "message": "Capture duration must be greater than zero.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-CAPTURE-WIDTH",
+            "severity": "Info",
+            "passed": true,
+            "message": "Capture width must be at least 64.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-CAPTURE-HEIGHT",
+            "severity": "Info",
+            "passed": true,
+            "message": "Capture height must be at least 64.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-CAPTURE-VIEW",
+            "severity": "Info",
+            "passed": true,
+            "message": "Value is empty, duplicated, or unsupported: top.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-CAPTURE-CONTEXT",
+            "severity": "Info",
+            "passed": true,
+            "message": "Value is empty, duplicated, or unsupported: topdown_three_grounds.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-FRAME-TIME",
+            "severity": "Info",
+            "passed": true,
+            "message": "Frame time 0.18 is outside capture duration.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-FRAME-TIME",
+            "severity": "Info",
+            "passed": true,
+            "message": "Frame time 0.28 is outside capture duration.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-FRAME-TIME",
+            "severity": "Info",
+            "passed": true,
+            "message": "Frame time 0.72 is outside capture duration.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-FRAME-TIME",
+            "severity": "Info",
+            "passed": true,
+            "message": "Frame time 1.38 is outside capture duration.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-FRAME-TIME",
+            "severity": "Info",
+            "passed": true,
+            "message": "Frame time 1.56 is outside capture duration.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-FRAME-TIME",
+            "severity": "Info",
+            "passed": true,
+            "message": "Frame time 1.68 is outside capture duration.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-QUALITY-FOREGROUND",
+            "severity": "Info",
+            "passed": true,
+            "message": "Minimum foreground ratio must be between 0 and 1.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-QUALITY-BORDER",
+            "severity": "Info",
+            "passed": true,
+            "message": "Maximum border foreground ratio must be between 0 and 1.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "RECIPE-REVIEW-CONTEXT",
+            "severity": "Info",
+            "passed": true,
+            "message": "Human visual review requires at least one gameplay Context.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "BIND-APPLY",
+            "severity": "Info",
+            "passed": true,
+            "message": "Applied seed to AdapterProperty:<root>:RandomSeed.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "BIND-APPLY",
+            "severity": "Info",
+            "passed": true,
+            "message": "Applied timing.duration to AdapterProperty:<root>:Duration.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "BIND-APPLY",
+            "severity": "Info",
+            "passed": true,
+            "message": "Applied timing.impact to AdapterProperty:<root>:ImpactTime.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "BIND-APPLY",
+            "severity": "Info",
+            "passed": true,
+            "message": "Applied timing.sustain to AdapterProperty:<root>:SustainTime.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "BIND-APPLY",
+            "severity": "Info",
+            "passed": true,
+            "message": "Applied timing.decay to AdapterProperty:<root>:DecayTime.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "BIND-APPLY",
+            "severity": "Info",
+            "passed": true,
+            "message": "Applied shape.radius to AdapterProperty:<root>:Radius.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "BIND-APPLY",
+            "severity": "Info",
+            "passed": true,
+            "message": "Applied shape.spreadAngle to AdapterProperty:<root>:SpreadAngle.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "BIND-APPLY",
+            "severity": "Info",
+            "passed": true,
+            "message": "Applied shape.directionality to AdapterProperty:<root>:Directionality.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "BIND-APPLY",
+            "severity": "Info",
+            "passed": true,
+            "message": "Applied style.primaryColor to AdapterProperty:<root>:PrimaryColor.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "BIND-APPLY",
+            "severity": "Info",
+            "passed": true,
+            "message": "Applied style.secondaryColor to AdapterProperty:<root>:SecondaryColor.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "BIND-APPLY",
+            "severity": "Info",
+            "passed": true,
+            "message": "Applied style.emissionIntensity to AdapterProperty:<root>:EmissionIntensity.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "BIND-APPLY",
+            "severity": "Info",
+            "passed": true,
+            "message": "Applied style.sharpness to AdapterProperty:<root>:Sharpness.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "BIND-APPLY",
+            "severity": "Info",
+            "passed": true,
+            "message": "Applied motion.speed to AdapterProperty:<root>:PulseRate.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "BIND-APPLY",
+            "severity": "Info",
+            "passed": true,
+            "message": "Applied motion.localDirection to AdapterProperty:<root>:LocalDirection.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "BIND-APPLY",
+            "severity": "Info",
+            "passed": true,
+            "message": "Applied style.primaryColor to MaterialProperty:Shield Assembly/Circular Main Plate:_PrimaryColor.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "BIND-APPLY",
+            "severity": "Info",
+            "passed": true,
+            "message": "Applied style.secondaryColor to MaterialProperty:Shield Assembly/Thick Connected Rim:_SecondaryColor.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "BIND-APPLY",
+            "severity": "Info",
+            "passed": true,
+            "message": "Applied style.emissionIntensity to MaterialProperty:Shield Assembly/Circular Main Plate:_Emission.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "BIND-APPLY",
+            "severity": "Info",
+            "passed": true,
+            "message": "Applied style.sharpness to MaterialProperty:Shield Assembly/Circular Main Plate:_Sharpness.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "BIND-APPLY",
+            "severity": "Info",
+            "passed": true,
+            "message": "Applied shape.radius to TransformProperty:Recipe Scale Witness:uniformScale.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "COMPILE-SAVE",
+            "severity": "Info",
+            "passed": true,
+            "message": "Prefab saved: Assets/VFXForge/Dogfood/HolyAegisV3/Generated/HolyAegisShieldV3.prefab",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "VAL-001",
+            "severity": "Info",
+            "passed": true,
+            "message": "No required assets are missing.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "VAL-002",
+            "severity": "Info",
+            "passed": true,
+            "message": "All registered Property Bindings are available.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "VAL-003",
+            "severity": "Info",
+            "passed": true,
+            "message": "Duration is within budget.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "VAL-004",
+            "severity": "Info",
+            "passed": true,
+            "message": "Validated 29 finite Renderer and Mesh bound(s).",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "VAL-005",
+            "severity": "Info",
+            "passed": true,
+            "message": "Actual particle capacity 1 is within budget 1.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "VAL-006",
+            "severity": "Info",
+            "passed": true,
+            "message": "All requested layers are supported.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "VAL-008",
+            "severity": "Info",
+            "passed": true,
+            "message": "Light policy passed.",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "CAPTURE-WRITE",
+            "severity": "Info",
+            "passed": true,
+            "message": "Captured 6 frame(s).",
+            "assetPath": "",
+            "propertyName": ""
+        },
+        {
+            "ruleId": "REVIEW-WRITE",
+            "severity": "Info",
+            "passed": true,
+            "message": "Captured 6 gameplay frame(s) and Contact Sheet.",
+            "assetPath": "",
+            "propertyName": ""
+        }
+    ]
+}

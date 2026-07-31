@@ -4,6 +4,7 @@
   "references": [
     "VFXForge.Runtime",
     "VFXForge.Editor",
+    "VFXForge.Dogfood.Runtime",
     "Unity.VisualEffectGraph.Runtime"
   ],
   "includePlatforms": [

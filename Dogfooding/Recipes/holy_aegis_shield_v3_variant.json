@@ -1,0 +1,75 @@
+{
+  "schemaVersion": "1.1",
+  "id": "holy_aegis_shield_v3_variant",
+  "displayName": "Holy Aegis Shield V3 Azure Variant",
+  "template": "holy_aegis_shield_v3",
+  "styleProfile": "",
+  "intent": "A compact azure and pale-gold Holy Aegis variant used to verify typed color, size, timing, transform, material, and motion bindings",
+  "outputPath": "Assets/VFXForge/Dogfood/HolyAegisV3/Generated/HolyAegisShieldV3Variant.prefab",
+  "anchor": "Caster",
+  "seed": 190732,
+  "timing": {
+    "duration": 1.62,
+    "anticipation": 0.0,
+    "impact": 0.24,
+    "sustain": 0.98,
+    "decay": 0.40
+  },
+  "shape": {
+    "radius": 2.3,
+    "directionality": 0.86,
+    "spreadAngle": 126.0
+  },
+  "style": {
+    "primaryColor": "#2C83E8FF",
+    "secondaryColor": "#F4D27CFF",
+    "emissionIntensity": 2.8,
+    "sharpness": 0.74,
+    "distortionStrength": 0.0
+  },
+  "motion": {
+    "speed": 1.1,
+    "localDirection": {
+      "x": 0.12,
+      "y": 0.0,
+      "z": 1.0
+    }
+  },
+  "layers": [
+    "emerald_energy_plate",
+    "gold_connected_rim",
+    "central_knight_crest",
+    "four_connected_ornaments"
+  ],
+  "budget": {
+    "maxParticles": 1,
+    "maxDuration": 1.8,
+    "maxBoundsRadius": 5.2,
+    "allowDistortion": false,
+    "allowLight": false
+  },
+  "capture": {
+    "duration": 1.62,
+    "frameTimes": [
+      0.16,
+      0.24,
+      0.64,
+      1.22,
+      1.40,
+      1.52
+    ],
+    "views": [
+      "top"
+    ],
+    "contexts": [
+      "topdown_three_grounds"
+    ],
+    "width": 960,
+    "height": 540
+  },
+  "quality": {
+    "minimumForegroundRatio": 0.01,
+    "maximumBorderForegroundRatio": 0.005,
+    "requireHumanReview": true
+  }
+}

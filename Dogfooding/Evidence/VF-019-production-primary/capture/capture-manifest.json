@@ -1,0 +1,130 @@
+{
+    "schemaVersion": "1.1",
+    "recipeId": "holy_aegis_shield_v3",
+    "status": "passed",
+    "durationSeconds": 1.7999999523162842,
+    "width": 960,
+    "height": 540,
+    "frames": [
+        {
+            "frameIndex": 0,
+            "timeSeconds": 0.18000000715255738,
+            "view": "top",
+            "fileName": "holy_aegis_shield_v3_f000_top_t00180000.png",
+            "width": 960,
+            "height": 540,
+            "foregroundRatio": 0.11434799432754517,
+            "borderForegroundRatio": 0.0,
+            "boundsCenter": {
+                "x": 0.0,
+                "y": 2.3577442169189455,
+                "z": 0.05021333694458008
+            },
+            "boundsSize": {
+                "x": 8.783683776855469,
+                "y": 6.781656265258789,
+                "z": 4.748566627502441
+            }
+        },
+        {
+            "frameIndex": 1,
+            "timeSeconds": 0.2800000011920929,
+            "view": "top",
+            "fileName": "holy_aegis_shield_v3_f001_top_t00280000.png",
+            "width": 960,
+            "height": 540,
+            "foregroundRatio": 0.2920949161052704,
+            "borderForegroundRatio": 0.0,
+            "boundsCenter": {
+                "x": 0.0,
+                "y": 2.3577442169189455,
+                "z": 0.05021333694458008
+            },
+            "boundsSize": {
+                "x": 8.783683776855469,
+                "y": 6.781656265258789,
+                "z": 4.748566627502441
+            }
+        },
+        {
+            "frameIndex": 2,
+            "timeSeconds": 0.7200000286102295,
+            "view": "top",
+            "fileName": "holy_aegis_shield_v3_f002_top_t00720000.png",
+            "width": 960,
+            "height": 540,
+            "foregroundRatio": 0.29771989583969118,
+            "borderForegroundRatio": 0.0,
+            "boundsCenter": {
+                "x": 0.0,
+                "y": 2.3577442169189455,
+                "z": 0.05021333694458008
+            },
+            "boundsSize": {
+                "x": 8.783683776855469,
+                "y": 6.781656265258789,
+                "z": 4.748566627502441
+            }
+        },
+        {
+            "frameIndex": 3,
+            "timeSeconds": 1.3799999952316285,
+            "view": "top",
+            "fileName": "holy_aegis_shield_v3_f003_top_t01380000.png",
+            "width": 960,
+            "height": 540,
+            "foregroundRatio": 0.2920949161052704,
+            "borderForegroundRatio": 0.0,
+            "boundsCenter": {
+                "x": 0.0,
+                "y": 2.3577442169189455,
+                "z": 0.05021333694458008
+            },
+            "boundsSize": {
+                "x": 8.783683776855469,
+                "y": 6.781656265258789,
+                "z": 4.748566627502441
+            }
+        },
+        {
+            "frameIndex": 4,
+            "timeSeconds": 1.559999942779541,
+            "view": "top",
+            "fileName": "holy_aegis_shield_v3_f004_top_t01560000.png",
+            "width": 960,
+            "height": 540,
+            "foregroundRatio": 0.21308642625808717,
+            "borderForegroundRatio": 0.0,
+            "boundsCenter": {
+                "x": 0.0,
+                "y": 2.3577442169189455,
+                "z": 0.05021333694458008
+            },
+            "boundsSize": {
+                "x": 8.783683776855469,
+                "y": 6.781656265258789,
+                "z": 4.748566627502441
+            }
+        },
+        {
+            "frameIndex": 5,
+            "timeSeconds": 1.6799999475479127,
+            "view": "top",
+            "fileName": "holy_aegis_shield_v3_f005_top_t01680000.png",
+            "width": 960,
+            "height": 540,
+            "foregroundRatio": 0.2119714468717575,
+            "borderForegroundRatio": 0.0,
+            "boundsCenter": {
+                "x": 0.0,
+                "y": 2.3577442169189455,
+                "z": 0.05021333694458008
+            },
+            "boundsSize": {
+                "x": 8.783683776855469,
+                "y": 6.781656265258789,
+                "z": 4.748566627502441
+            }
+        }
+    ]
+}

@@ -36,7 +36,8 @@ Asset은 읽기 전용 입력으로 취급하며, 생성된 결과와 검증 근
 | Unity Test Framework | 1.6.0 |
 
 패키지의 최소 Unity 버전은 `6000.0`입니다. 현재 검증 기준에서는 EditMode 테스트
-164개와 기존 Dogfooding PlayMode 테스트가 통과했고 Unity Console Error는 0개입니다.
+171개와 Dogfooding PlayMode 테스트 4개가 통과했고 Unity Console Error는
+0개입니다.
 
 ## Production Crescent Slash 데모
 
@@ -54,6 +55,26 @@ Asset은 읽기 전용 입력으로 취급하며, 생성된 결과와 검증 근
   `Dogfooding/DF-003-production-crescent-slash.md`
 - Gameplay captures:
   `Dogfooding/Evidence/VF-012/`
+
+## Holy Aegis Shield V3 데모
+
+`UnityCompatibilityProject`에서
+`Assets/VFXForge/Dogfood/HolyAegisV3/Demo/HolyAegisV3Demo.unity`를
+열고 Play하면 16:9 탑다운 문맥에서 1.8초 수명의 원형 이지스를 확인할 수
+있습니다.
+
+- Primary / Variant Recipe:
+  `Dogfooding/Recipes/holy_aegis_shield_v3.json`,
+  `holy_aegis_shield_v3_variant.json`
+- Dogfooding record:
+  `Dogfooding/DF-006-holy-aegis-shield-v3.md`
+- Primary Contact Sheet:
+  `Dogfooding/Evidence/VF-019-production-primary/review/contact-sheet.png`
+- Variant Contact Sheet:
+  `Dogfooding/Evidence/VF-019-production-variant/review/contact-sheet.png`
+
+두 결과의 자동 검증은 통과했지만 `quality.requireHumanReview=true`이므로
+사용자 승인 전에는 production-ready가 아닙니다.
 
 ## 설치
 

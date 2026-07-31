@@ -1,0 +1,17 @@
+{
+    "schemaVersion": "visual-review-1.0",
+    "status": "review_required",
+    "generatedPrefabDependencyHash": "81dfb327a6f79ab6ec4b3ef1353406f7",
+    "captureManifestSha256": "0dfe0008066ea5576fbf1e552280a6006604ffc38d6337413417a906e09b2396",
+    "contactSheetSha256": "a93ee8353e13663de893ffbfef94407d1988f55b2f460bded04d0ae918150b1d",
+    "reviewer": "",
+    "reviewTimeUtc": "",
+    "criteria": {
+        "meaningClear": false,
+        "silhouetteClear": false,
+        "shaderPatternFinish": false,
+        "timingPolish": false,
+        "gameplayReadability": false
+    },
+    "rejectionReason": ""
+}

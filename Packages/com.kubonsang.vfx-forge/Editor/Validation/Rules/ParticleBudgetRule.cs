@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
@@ -90,19 +91,43 @@ namespace Kubonsang.VfxForge.Editor
             {
                 Type resourceType =
                     FindLoadedType("UnityEditor.VFX.VisualEffectResource");
-                MethodInfo getResource = resourceType?.GetMethod(
-                    "GetResourceAtPath",
-                    BindingFlags.Static
-                        | BindingFlags.Public
-                        | BindingFlags.NonPublic);
+                MethodInfo getResource = resourceType?
+                    .GetMethods(
+                        BindingFlags.Static
+                            | BindingFlags.Public
+                            | BindingFlags.NonPublic)
+                    .FirstOrDefault(
+                        method =>
+                        {
+                            ParameterInfo[] parameters =
+                                method.GetParameters();
+                            return method.Name
+                                    == "GetResourceAtPath"
+                                && parameters.Length == 1
+                                && parameters[0].ParameterType
+                                    == typeof(string);
+                        });
                 object resource = getResource?.Invoke(null, new object[] { path });
+                if (resource == null)
+                {
+                    error =
+                        $"VFX Graph resource could not be inspected: {path}.";
+                    return false;
+                }
                 Type extensionType = FindLoadedType(
                     "UnityEditor.VFX.VisualEffectResourceExtensions");
-                MethodInfo getGraph = extensionType?.GetMethod(
-                    "GetOrCreateGraph",
-                    BindingFlags.Static
-                        | BindingFlags.Public
-                        | BindingFlags.NonPublic);
+                MethodInfo getGraph = extensionType?
+                    .GetMethods(
+                        BindingFlags.Static
+                            | BindingFlags.Public
+                            | BindingFlags.NonPublic)
+                    .FirstOrDefault(
+                        method =>
+                            method.Name == "GetOrCreateGraph"
+                            && method.GetParameters().Length == 1
+                            && method.GetParameters()[0]
+                                .ParameterType
+                                .IsAssignableFrom(resource.GetType()));
                 object graph = getGraph?.Invoke(null, new[] { resource });
                 if (graph == null)
                 {
@@ -144,9 +169,16 @@ namespace Kubonsang.VfxForge.Editor
                         pending.Push(data.objectReferenceValue);
                     }
 
-                    PropertyInfo children = model.GetType().GetProperty(
-                        "children",
-                        BindingFlags.Instance | BindingFlags.Public);
+                    PropertyInfo children = model.GetType()
+                        .GetProperties(
+                            BindingFlags.Instance
+                                | BindingFlags.Public)
+                        .FirstOrDefault(
+                            property =>
+                                property.Name == "children"
+                                && property
+                                    .GetIndexParameters()
+                                    .Length == 0);
                     if (children?.GetValue(model) is IEnumerable childModels)
                     {
                         foreach (object child in childModels)

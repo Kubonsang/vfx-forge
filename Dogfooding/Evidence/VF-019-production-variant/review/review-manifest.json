@@ -1,0 +1,131 @@
+{
+    "schemaVersion": "review-manifest-1.0",
+    "recipeId": "holy_aegis_shield_v3_variant",
+    "status": "passed",
+    "isolatedCaptureManifest": "../capture/capture-manifest.json",
+    "isolatedCaptureManifestSha256": "0dfe0008066ea5576fbf1e552280a6006604ffc38d6337413417a906e09b2396",
+    "contactSheet": "contact-sheet.png",
+    "contactSheetSha256": "a93ee8353e13663de893ffbfef94407d1988f55b2f460bded04d0ae918150b1d",
+    "frames": [
+        {
+            "order": 0,
+            "timeSeconds": 0.1599999964237213,
+            "sourceKind": "isolated",
+            "sourceId": "top",
+            "fileName": "../capture/holy_aegis_shield_v3_variant_f000_top_t00160000.png",
+            "foregroundRatio": 0.12786650657653809,
+            "borderForegroundRatio": 0.0,
+            "sha256": "23b1be451eeb25ecf0bad9577d4b532e75d195b3377ca8c868d7e32ee60e0e5f"
+        },
+        {
+            "order": 1,
+            "timeSeconds": 0.1599999964237213,
+            "sourceKind": "context",
+            "sourceId": "topdown_three_grounds",
+            "fileName": "contexts/holy_aegis_shield_v3_variant_context_topdown_three_grounds_t00160000.png",
+            "foregroundRatio": 0.015416666865348816,
+            "borderForegroundRatio": 0.0,
+            "sha256": "fb81d1e8c4324f5fbebbd57d5469237fd119e4d06ef0668b1a46ac714a0c2b23"
+        },
+        {
+            "order": 2,
+            "timeSeconds": 0.23999999463558198,
+            "sourceKind": "isolated",
+            "sourceId": "top",
+            "fileName": "../capture/holy_aegis_shield_v3_variant_f001_top_t00240000.png",
+            "foregroundRatio": 0.2952392101287842,
+            "borderForegroundRatio": 0.0,
+            "sha256": "5afbec6d15dde421291dcda068a4e6ac06c80d45ce1d2493347b222350ddf05c"
+        },
+        {
+            "order": 3,
+            "timeSeconds": 0.23999999463558198,
+            "sourceKind": "context",
+            "sourceId": "topdown_three_grounds",
+            "fileName": "contexts/holy_aegis_shield_v3_variant_context_topdown_three_grounds_t00240000.png",
+            "foregroundRatio": 0.03463734686374664,
+            "borderForegroundRatio": 0.0,
+            "sha256": "4d0a20ae4c7f3052609df51a60831de3ed408c8d44fc1bca52336766bbef75fb"
+        },
+        {
+            "order": 4,
+            "timeSeconds": 0.6399999856948853,
+            "sourceKind": "isolated",
+            "sourceId": "top",
+            "fileName": "../capture/holy_aegis_shield_v3_variant_f002_top_t00640000.png",
+            "foregroundRatio": 0.2978086471557617,
+            "borderForegroundRatio": 0.0,
+            "sha256": "09f5ec3df789ce281da287b5936caa6829b56f8ba4db64e3dbbc8aa778de2c80"
+        },
+        {
+            "order": 5,
+            "timeSeconds": 0.6399999856948853,
+            "sourceKind": "context",
+            "sourceId": "topdown_three_grounds",
+            "fileName": "contexts/holy_aegis_shield_v3_variant_context_topdown_three_grounds_t00640000.png",
+            "foregroundRatio": 0.03491126373410225,
+            "borderForegroundRatio": 0.0,
+            "sha256": "b8170a1069f168ebe45ea507976caa182fb9390eacafe0f8c69b38c755ad3934"
+        },
+        {
+            "order": 6,
+            "timeSeconds": 1.2200000286102296,
+            "sourceKind": "isolated",
+            "sourceId": "top",
+            "fileName": "../capture/holy_aegis_shield_v3_variant_f003_top_t01220000.png",
+            "foregroundRatio": 0.2952392101287842,
+            "borderForegroundRatio": 0.0,
+            "sha256": "573e8e0cc1f781b4a5e56f1d34cdb59292609fcdd9963c0d4838c876ab2f8622"
+        },
+        {
+            "order": 7,
+            "timeSeconds": 1.2200000286102296,
+            "sourceKind": "context",
+            "sourceId": "topdown_three_grounds",
+            "fileName": "contexts/holy_aegis_shield_v3_variant_context_topdown_three_grounds_t01220000.png",
+            "foregroundRatio": 0.03463734686374664,
+            "borderForegroundRatio": 0.0,
+            "sha256": "d55df6852a82102a218403e8b3f2267685cc43051052987df5b29420547d99c8"
+        },
+        {
+            "order": 8,
+            "timeSeconds": 1.399999976158142,
+            "sourceKind": "isolated",
+            "sourceId": "top",
+            "fileName": "../capture/holy_aegis_shield_v3_variant_f004_top_t01400000.png",
+            "foregroundRatio": 0.2154436707496643,
+            "borderForegroundRatio": 0.0,
+            "sha256": "659015a4bf62994155dec751d9ddebf0a11f7e0e9ce7f90c34a481cab3e3f123"
+        },
+        {
+            "order": 9,
+            "timeSeconds": 1.399999976158142,
+            "sourceKind": "context",
+            "sourceId": "topdown_three_grounds",
+            "fileName": "contexts/holy_aegis_shield_v3_variant_context_topdown_three_grounds_t01400000.png",
+            "foregroundRatio": 0.025974150747060777,
+            "borderForegroundRatio": 0.0,
+            "sha256": "7c52e394f56cfa1af5993594cca29f353ad8a8d773bb04d7206dd5b01938825a"
+        },
+        {
+            "order": 10,
+            "timeSeconds": 1.5199999809265137,
+            "sourceKind": "isolated",
+            "sourceId": "top",
+            "fileName": "../capture/holy_aegis_shield_v3_variant_f005_top_t01520000.png",
+            "foregroundRatio": 0.21416667103767396,
+            "borderForegroundRatio": 0.0,
+            "sha256": "f34278af807748842c79f4a9be6a804d11b12427c738b0f5b3544db1f3e48f9c"
+        },
+        {
+            "order": 11,
+            "timeSeconds": 1.5199999809265137,
+            "sourceKind": "context",
+            "sourceId": "topdown_three_grounds",
+            "fileName": "contexts/holy_aegis_shield_v3_variant_context_topdown_three_grounds_t01520000.png",
+            "foregroundRatio": 0.02583526261150837,
+            "borderForegroundRatio": 0.0,
+            "sha256": "653f9350647733826ed3d88fb6a9073164b84fbe57a4729d952608d1cd4fefb7"
+        }
+    ]
+}

@@ -6,7 +6,7 @@
 - Task ID: `VF-019`
 - Date: `2026-07-31`
 - Operator: Codex
-- Current phase: `waiting_user_silhouette_approval`
+- Current phase: `production_review_required`
 - Unity / URP / VFX Graph / Test Framework:
   `6000.3.8f1` / `17.3.0` / `17.3.0` / `1.6.0`
 
@@ -49,7 +49,7 @@
   - 후방: 하나의 큰 용골형 장식
 - 반복되는 작은 문양이나 분리된 조각은 추가하지 않았다.
 
-## Automated Verification
+## Silhouette Verification
 
 - Structural contract:
   - circular main plate: `1`
@@ -82,9 +82,87 @@
   - 네 장식이 분리된 파티클이 아니라 림에 연결된 구조로 읽히는가?
   - 캐릭터와 타깃을 과도하게 가리지 않는가?
 
-## Next Gate
+사용자는 색·Shader·timing이 적용된 결과를 본 뒤 상세 평가하겠다고 판단해
+Production 반복 진행을 승인했다. 이는 최종 품질 승인이 아니다.
 
-사용자 실루엣 승인 전에는 황금·에메랄드 Transparent Emissive Shader,
-전개 `0.28s`, 유지 `1.10s`, 소멸 `0.42s`, Recipe Variant, Production
-Template 반복으로 진행하지 않는다. VF-019는 `done` 또는
-production-ready가 아니다.
+## Iteration 2 — Production Shader and Timing
+
+- 기존 Silhouette Prefab과 Mesh는 수정하지 않고 새 Production Template이
+  읽기 전용 Mesh 참조를 사용한다.
+- 모든 가시 Mesh Renderer `14개`에 전용
+  `VFXForge/Dogfood/HolyAegisShield` Transparent Emissive Shader를
+  적용했다.
+- Emerald energy plate, gold connected rim, central knight crest, four
+  connected ornaments의 네 레이어만 사용한다.
+- 전개:
+  - 중앙 문장
+  - 원형 에너지 판과 금색 림
+  - 네 연결 장식
+- 소멸: 장식 → 림 → 판 → 중앙 문장 순서의 외곽-안쪽 감쇠.
+- 수명: 전개 `0.28s`, 유지 `1.10s`, 소멸 `0.42s`, 총 `1.8s`.
+- ParticleSystem, spark, wisp, shard, dynamic Light, Distortion은 없다.
+- Preview playback 계약을 위해 활성 VFX Graph를 사용하지만 scale
+  `0.0001`, capacity `1`로 두며 가시 레이어로 사용하지 않는다.
+
+### Visual Adjustment
+
+첫 Production Contact Sheet는 emission clipping 때문에 금색이 백색으로
+날아가고 에메랄드 판보다 청록 링이 먼저 읽혔다.
+
+한 번의 개선 반복에서 다음 세 Shader 속성만 변경했다.
+
+1. HDR emission 출력 범위를 압축했다.
+2. 금색과 에메랄드의 보조색 혼합을 분리했다.
+3. 에너지 판 alpha를 올려 주 판이 먼저 읽히게 했다.
+
+실루엣과 timing 곡선은 이 반복에서 변경하지 않았다.
+
+## Pipeline Dogfooding Findings
+
+- 실제 VFX Graph에서 `VAL-005`가 Unity 6의 overload 증가 때문에
+  `AmbiguousMatchException`으로 실패했다.
+  - `GetResourceAtPath(string)`과 호환되는
+    `GetOrCreateGraph(resource)` overload를 명시적으로 고르도록
+    capacity reader를 수정했다.
+  - 수정 후 실제 capacity `1 / budget 1`로 통과했다.
+- 0.12초 context 프레임은 foreground `0.49%`로 `VAL-007`에 실패했다.
+  - 임계값 `1%`를 낮추지 않았다.
+  - 아직 전개 중이면서 판독 가능한 `0.18초`로 첫 평가 시점을 옮겼다.
+- 35° 판의 초기 side view는 edge-on으로 foreground `0%`였다.
+  - V3 제품 문맥이 strict top-down이므로 Recipe 캡처를 top view로
+    제한했다.
+  - 직접 캡처로 우회하거나 빈 프레임을 성공 처리하지 않았다.
+
+## Production Automated Verification
+
+- Recipe 1.1 Primary / Variant:
+  - Adapter Binding: timing, radius, colors, emission, sharpness, motion
+  - MaterialPropertyBlock Binding: plate/rim color, emission, sharpness
+  - Transform Binding: Recipe scale witness
+- Primary와 Variant는 색·크기·timing·motion override가 실제로 다르다.
+- Primary technical status: `passed`; product status: `review_required`.
+- Variant technical status: `passed`; product status: `review_required`.
+- Isolated/context foreground: 모든 프레임 `1%` 이상.
+- Border foreground: 모든 프레임 `0%`.
+- EditMode: `171 passed`, `0 failed`, `0 skipped`.
+- PlayMode: `4 passed`, `0 failed`, `0 skipped`.
+- Unity Console compile/Shader errors: `0`.
+- Artifacts:
+  - `Dogfooding/Evidence/VF-019-production-primary/`
+  - `Dogfooding/Evidence/VF-019-production-variant/`
+- Demo:
+  `Assets/VFXForge/Dogfood/HolyAegisV3/Demo/HolyAegisV3Demo.unity`
+
+## Human Production Review
+
+- Status: `review_required`.
+- 자동화와 Codex는 `accepted`를 기록하지 않았다.
+- 현재 Contact Sheet에서 자동 검증할 수 없는 잔여 위험:
+  - 네 방향 대칭 때문에 장식이 여전히 방패 장식보다 나침반/UI
+    실루엣으로 읽힐 수 있다.
+  - 중앙 검 문장이 원하는 기사 문장으로 충분히 읽히는지는 사용자
+    판정이 필요하다.
+  - gameplay zoom에서 효과 크기가 캐릭터를 과도하게 가리는지 사용자
+    판정이 필요하다.
+
+VF-019는 사용자 최종 승인 전까지 `done` 또는 production-ready가 아니다.

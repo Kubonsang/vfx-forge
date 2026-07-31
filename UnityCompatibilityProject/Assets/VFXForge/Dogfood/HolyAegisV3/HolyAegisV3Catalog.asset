@@ -1,0 +1,199 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2852dc2c7a13b29662129f93b2c31e7, type: 3}
+  m_Name: HolyAegisV3Catalog
+  m_EditorClassIdentifier: VFXForge.Editor::Kubonsang.VfxForge.Editor.VfxTemplateCatalog
+  templates:
+  - id: holy_aegis_shield_v3
+    prefab: {fileID: 6997993815615236868, guid: aa9ead4250732447cbac1211ad1ac9b8, type: 3}
+    playEventName: OnPlay
+    supportedLayers:
+    - emerald_energy_plate
+    - gold_connected_rim
+    - central_knight_crest
+    - four_connected_ornaments
+    bindings:
+    - recipePath: seed
+      exposedPropertyName: RandomSeed
+      propertyType: 1
+      required: 1
+      componentIndex: -1
+      targetKind: 4
+      targetPath: 
+      materialIndex: 0
+      adapterId: holy-aegis-v3
+    - recipePath: timing.duration
+      exposedPropertyName: Duration
+      propertyType: 0
+      required: 1
+      componentIndex: -1
+      targetKind: 4
+      targetPath: 
+      materialIndex: 0
+      adapterId: holy-aegis-v3
+    - recipePath: timing.impact
+      exposedPropertyName: ImpactTime
+      propertyType: 0
+      required: 1
+      componentIndex: -1
+      targetKind: 4
+      targetPath: 
+      materialIndex: 0
+      adapterId: holy-aegis-v3
+    - recipePath: timing.sustain
+      exposedPropertyName: SustainTime
+      propertyType: 0
+      required: 1
+      componentIndex: -1
+      targetKind: 4
+      targetPath: 
+      materialIndex: 0
+      adapterId: holy-aegis-v3
+    - recipePath: timing.decay
+      exposedPropertyName: DecayTime
+      propertyType: 0
+      required: 1
+      componentIndex: -1
+      targetKind: 4
+      targetPath: 
+      materialIndex: 0
+      adapterId: holy-aegis-v3
+    - recipePath: shape.radius
+      exposedPropertyName: Radius
+      propertyType: 0
+      required: 1
+      componentIndex: -1
+      targetKind: 4
+      targetPath: 
+      materialIndex: 0
+      adapterId: holy-aegis-v3
+    - recipePath: shape.spreadAngle
+      exposedPropertyName: SpreadAngle
+      propertyType: 0
+      required: 1
+      componentIndex: -1
+      targetKind: 4
+      targetPath: 
+      materialIndex: 0
+      adapterId: holy-aegis-v3
+    - recipePath: shape.directionality
+      exposedPropertyName: Directionality
+      propertyType: 0
+      required: 1
+      componentIndex: -1
+      targetKind: 4
+      targetPath: 
+      materialIndex: 0
+      adapterId: holy-aegis-v3
+    - recipePath: style.primaryColor
+      exposedPropertyName: PrimaryColor
+      propertyType: 6
+      required: 1
+      componentIndex: -1
+      targetKind: 4
+      targetPath: 
+      materialIndex: 0
+      adapterId: holy-aegis-v3
+    - recipePath: style.secondaryColor
+      exposedPropertyName: SecondaryColor
+      propertyType: 6
+      required: 1
+      componentIndex: -1
+      targetKind: 4
+      targetPath: 
+      materialIndex: 0
+      adapterId: holy-aegis-v3
+    - recipePath: style.emissionIntensity
+      exposedPropertyName: EmissionIntensity
+      propertyType: 0
+      required: 1
+      componentIndex: -1
+      targetKind: 4
+      targetPath: 
+      materialIndex: 0
+      adapterId: holy-aegis-v3
+    - recipePath: style.sharpness
+      exposedPropertyName: Sharpness
+      propertyType: 0
+      required: 1
+      componentIndex: -1
+      targetKind: 4
+      targetPath: 
+      materialIndex: 0
+      adapterId: holy-aegis-v3
+    - recipePath: motion.speed
+      exposedPropertyName: PulseRate
+      propertyType: 0
+      required: 1
+      componentIndex: -1
+      targetKind: 4
+      targetPath: 
+      materialIndex: 0
+      adapterId: holy-aegis-v3
+    - recipePath: motion.localDirection
+      exposedPropertyName: LocalDirection
+      propertyType: 4
+      required: 1
+      componentIndex: -1
+      targetKind: 4
+      targetPath: 
+      materialIndex: 0
+      adapterId: holy-aegis-v3
+    - recipePath: style.primaryColor
+      exposedPropertyName: _PrimaryColor
+      propertyType: 6
+      required: 1
+      componentIndex: -1
+      targetKind: 2
+      targetPath: Shield Assembly/Circular Main Plate
+      materialIndex: 0
+      adapterId: 
+    - recipePath: style.secondaryColor
+      exposedPropertyName: _SecondaryColor
+      propertyType: 6
+      required: 1
+      componentIndex: -1
+      targetKind: 2
+      targetPath: Shield Assembly/Thick Connected Rim
+      materialIndex: 0
+      adapterId: 
+    - recipePath: style.emissionIntensity
+      exposedPropertyName: _Emission
+      propertyType: 0
+      required: 1
+      componentIndex: -1
+      targetKind: 2
+      targetPath: Shield Assembly/Circular Main Plate
+      materialIndex: 0
+      adapterId: 
+    - recipePath: style.sharpness
+      exposedPropertyName: _Sharpness
+      propertyType: 0
+      required: 1
+      componentIndex: -1
+      targetKind: 2
+      targetPath: Shield Assembly/Circular Main Plate
+      materialIndex: 0
+      adapterId: 
+    - recipePath: shape.radius
+      exposedPropertyName: uniformScale
+      propertyType: 0
+      required: 1
+      componentIndex: -1
+      targetKind: 1
+      targetPath: Recipe Scale Witness
+      materialIndex: 0
+      adapterId: 
+    meshVariants: []
+  reviewContexts:
+  - id: topdown_three_grounds
+    prefab: {fileID: 4971086127040227211, guid: b500c91329c5a4033929930c06c2320f, type: 3}

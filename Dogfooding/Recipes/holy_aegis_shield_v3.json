@@ -1,0 +1,75 @@
+{
+  "schemaVersion": "1.1",
+  "id": "holy_aegis_shield_v3",
+  "displayName": "Holy Aegis Shield V3",
+  "template": "holy_aegis_shield_v3",
+  "styleProfile": "",
+  "intent": "A giant circular knight aegis with a readable emerald energy plate, connected gold heraldry, and outside-in dissolution for top-down gameplay",
+  "outputPath": "Assets/VFXForge/Dogfood/HolyAegisV3/Generated/HolyAegisShieldV3.prefab",
+  "anchor": "Caster",
+  "seed": 190731,
+  "timing": {
+    "duration": 1.8,
+    "anticipation": 0.0,
+    "impact": 0.28,
+    "sustain": 1.10,
+    "decay": 0.42
+  },
+  "shape": {
+    "radius": 2.6,
+    "directionality": 1.0,
+    "spreadAngle": 140.0
+  },
+  "style": {
+    "primaryColor": "#05D676FF",
+    "secondaryColor": "#FFB82EFF",
+    "emissionIntensity": 3.2,
+    "sharpness": 0.82,
+    "distortionStrength": 0.0
+  },
+  "motion": {
+    "speed": 0.8,
+    "localDirection": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 1.0
+    }
+  },
+  "layers": [
+    "emerald_energy_plate",
+    "gold_connected_rim",
+    "central_knight_crest",
+    "four_connected_ornaments"
+  ],
+  "budget": {
+    "maxParticles": 1,
+    "maxDuration": 1.8,
+    "maxBoundsRadius": 5.2,
+    "allowDistortion": false,
+    "allowLight": false
+  },
+  "capture": {
+    "duration": 1.8,
+    "frameTimes": [
+      0.18,
+      0.28,
+      0.72,
+      1.38,
+      1.56,
+      1.68
+    ],
+    "views": [
+      "top"
+    ],
+    "contexts": [
+      "topdown_three_grounds"
+    ],
+    "width": 960,
+    "height": 540
+  },
+  "quality": {
+    "minimumForegroundRatio": 0.01,
+    "maximumBorderForegroundRatio": 0.005,
+    "requireHumanReview": true
+  }
+}
