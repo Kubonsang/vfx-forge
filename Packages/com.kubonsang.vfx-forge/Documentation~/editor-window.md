@@ -12,7 +12,7 @@ The Editor pipeline executes these stages in order:
 3. compile the generated Prefab;
 4. validate the generated Prefab;
 5. open an isolated Preview;
-6. capture the requested frames;
+6. capture isolated frames and any requested gameplay Contexts;
 7. write the validation report.
 
 The progress bar and Unity progress dialog show the active stage. The final state is
@@ -36,7 +36,8 @@ After a run, the `Last Run` controls provide:
 
 - `Select Prefab`: selects and pings the generated Prefab;
 - `Reveal Report`: reveals `validation.json`;
-- `Reveal Capture`: reveals `capture-manifest.json`.
+- `Reveal Capture`: reveals `capture-manifest.json`;
+- `Reveal Contact Sheet`: reveals the gameplay review Contact Sheet when present.
 
 Missing result files are reported as UI validation errors instead of opening an invalid
 path.

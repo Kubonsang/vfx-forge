@@ -103,6 +103,34 @@ namespace Kubonsang.VfxForge.Editor.Tests
         }
 
         [Test]
+        public void Run_RecipeWithReviewContextWritesContactSheetAndManifest()
+        {
+            recipe.schemaVersion = "1.1";
+            recipe.capture.contexts =
+                new[] { "topdown_pipeline" };
+            catalog.reviewContexts.Add(new VfxReviewContextEntry
+            {
+                id = "topdown_pipeline",
+                prefab = CreateReviewContextPrefab(
+                    $"{testAssetRoot}/ReviewContext.prefab")
+            });
+            var runner = new InstrumentedPipelineRunner
+            {
+                PassGeneratedValidation = true
+            };
+
+            VfxForgePipelineRunResult result =
+                runner.Run(CreateRequest());
+
+            Assert.That(result.Success, Is.True, result.Message);
+            Assert.That(runner.ReviewCaptureCalls, Is.EqualTo(1));
+            Assert.That(File.Exists(result.ReviewManifestPath), Is.True);
+            Assert.That(File.Exists(result.ContactSheetPath), Is.True);
+            Assert.That(result.ContextFramePaths, Has.Count.EqualTo(1));
+            Assert.That(File.Exists(result.ContextFramePaths[0]), Is.True);
+        }
+
+        [Test]
         public void Run_InvalidInputs_StopBeforeCompilePreviewAndCapture()
         {
             recipe.id = "INVALID ID";
@@ -279,6 +307,72 @@ namespace Kubonsang.VfxForge.Editor.Tests
             }
         }
 
+        private GameObject CreateReviewContextPrefab(string path)
+        {
+            Material material =
+                AssetDatabase.LoadAssetAtPath<Material>(
+                    $"{testAssetRoot}/PipelineMaterial.mat");
+            var root =
+                new GameObject("Pipeline Review Context");
+            try
+            {
+                var context =
+                    root.AddComponent<VfxReviewContext>();
+                var cameraObject =
+                    new GameObject("Review Camera");
+                cameraObject.transform.SetParent(
+                    root.transform,
+                    false);
+                cameraObject.transform.localPosition =
+                    new Vector3(0f, 10f, 0f);
+                cameraObject.transform.localRotation =
+                    Quaternion.LookRotation(
+                        Vector3.down,
+                        Vector3.forward);
+                Camera camera =
+                    cameraObject.AddComponent<Camera>();
+                camera.enabled = false;
+                camera.orthographic = true;
+                camera.orthographicSize = 4f;
+                camera.clearFlags =
+                    CameraClearFlags.SolidColor;
+                camera.backgroundColor =
+                    new Color(0.08f, 0.08f, 0.08f, 1f);
+
+                var anchor =
+                    new GameObject("Effect Anchor").transform;
+                anchor.SetParent(root.transform, false);
+                Transform caster =
+                    GameObject.CreatePrimitive(
+                        PrimitiveType.Capsule).transform;
+                caster.SetParent(root.transform, false);
+                caster.localPosition =
+                    new Vector3(0f, 0f, -2f);
+                caster.GetComponent<Renderer>()
+                    .sharedMaterial = material;
+                Transform target =
+                    GameObject.CreatePrimitive(
+                        PrimitiveType.Capsule).transform;
+                target.SetParent(root.transform, false);
+                target.localPosition =
+                    new Vector3(0f, 0f, 2f);
+                target.GetComponent<Renderer>()
+                    .sharedMaterial = material;
+
+                context.reviewCamera = camera;
+                context.effectAnchor = anchor;
+                context.caster = caster;
+                context.target = target;
+                return PrefabUtility.SaveAsPrefabAsset(
+                    root,
+                    path);
+            }
+            finally
+            {
+                UnityEngine.Object.DestroyImmediate(root);
+            }
+        }
+
         private static VfxForgePipelineStage[] GetStages(
             IEnumerable<VfxForgePipelineProgress> progress)
         {
@@ -342,6 +436,7 @@ namespace Kubonsang.VfxForge.Editor.Tests
             public int GeneratedValidationCalls;
             public int PreviewCalls;
             public int CaptureCalls;
+            public int ReviewCaptureCalls;
             public int ReportCalls;
 
             protected override VfxCompileResult Compile(
@@ -400,6 +495,24 @@ namespace Kubonsang.VfxForge.Editor.Tests
             {
                 CaptureCalls++;
                 return base.Capture(session, candidate, captureDirectory);
+            }
+
+            protected override VfxGameplayReviewResult CaptureReview(
+                VfxRecipe candidate,
+                GameObject prefab,
+                VfxTemplateCatalog templateCatalog,
+                string playEventName,
+                string isolatedManifestPath,
+                string reviewDirectory)
+            {
+                ReviewCaptureCalls++;
+                return base.CaptureReview(
+                    candidate,
+                    prefab,
+                    templateCatalog,
+                    playEventName,
+                    isolatedManifestPath,
+                    reviewDirectory);
             }
 
             protected override string WriteReport(

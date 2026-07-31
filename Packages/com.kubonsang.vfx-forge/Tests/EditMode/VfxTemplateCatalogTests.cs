@@ -244,6 +244,38 @@ namespace Kubonsang.VfxForge.Editor.Tests
                 Is.Null);
         }
 
+        [Test]
+        public void Validate_ReviewContextWithMissingReferences_ReturnsStableRuleId()
+        {
+            var source = new GameObject("Invalid Review Context");
+            try
+            {
+                source.AddComponent<VfxReviewContext>();
+                GameObject prefab = PrefabUtility.SaveAsPrefabAsset(
+                    source,
+                    $"{testAssetRoot}/InvalidContext.prefab");
+                catalog.reviewContexts.Add(
+                    new VfxReviewContextEntry
+                    {
+                        id = "invalid_context",
+                        prefab = prefab
+                    });
+
+                List<VfxValidationResult> results =
+                    VfxTemplateCatalogValidator.Validate(catalog);
+
+                Assert.That(
+                    HasError(
+                        results,
+                        "CATALOG-CONTEXT-REFERENCES"),
+                    Is.True);
+            }
+            finally
+            {
+                UnityEngine.Object.DestroyImmediate(source);
+            }
+        }
+
         private VfxTemplateEntry CreateValidEntry(string id, string prefabName)
         {
             var source = new GameObject(prefabName);

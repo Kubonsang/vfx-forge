@@ -47,7 +47,10 @@ namespace Kubonsang.VfxForge.Editor
         public string PrefabPath = string.Empty;
         public string ReportPath = string.Empty;
         public string CaptureManifestPath = string.Empty;
+        public string ReviewManifestPath = string.Empty;
+        public string ContactSheetPath = string.Empty;
         public List<string> CaptureFramePaths = new List<string>();
+        public List<string> ContextFramePaths = new List<string>();
         public List<VfxValidationResult> Results = new List<VfxValidationResult>();
         public List<VfxForgePipelineProgress> Progress =
             new List<VfxForgePipelineProgress>();
@@ -255,6 +258,50 @@ namespace Kubonsang.VfxForge.Editor
                     "CAPTURE-WRITE",
                     $"Captured {capture.FramePaths.Count} frame(s)."));
 
+                if (result.Recipe.capture.contexts != null
+                    && result.Recipe.capture.contexts.Length > 0)
+                {
+                    VfxGameplayReviewResult review = CaptureReview(
+                        result.Recipe,
+                        result.Prefab,
+                        request.TemplateCatalog,
+                        template.playEventName,
+                        result.CaptureManifestPath,
+                        Path.Combine(
+                            request.ArtifactDirectory,
+                            "review"));
+                    if (review == null || !review.Success)
+                    {
+                        string errorCode =
+                            review == null
+                                || string.IsNullOrWhiteSpace(review.ErrorCode)
+                                ? "PIPELINE-REVIEW"
+                                : review.ErrorCode;
+                        string message =
+                            review?.Message
+                            ?? "Gameplay Review capture returned no result.";
+                        result.Results.Add(
+                            VfxValidationResult.Error(
+                                errorCode,
+                                message));
+                        return FinishFailure(
+                            result,
+                            activeStage,
+                            "Gameplay Review capture failed.",
+                            request,
+                            progressCallback);
+                    }
+
+                    result.ReviewManifestPath = review.ManifestPath;
+                    result.ContactSheetPath = review.ContactSheetPath;
+                    result.ContextFramePaths.AddRange(
+                        review.ContextFramePaths);
+                    result.Results.Add(VfxValidationResult.Pass(
+                        "REVIEW-WRITE",
+                        $"Captured {review.ContextFramePaths.Count} "
+                        + "gameplay frame(s) and Contact Sheet."));
+                }
+
                 activeStage = VfxForgePipelineStage.WriteReport;
                 Publish(
                     result,
@@ -307,6 +354,10 @@ namespace Kubonsang.VfxForge.Editor
         {
             var results = VfxRecipeValidator.Validate(recipe);
             results.AddRange(VfxTemplateCatalogValidator.Validate(catalog));
+            results.AddRange(
+                VfxTemplateCatalogValidator.ValidateRequestedReviewContexts(
+                    recipe,
+                    catalog));
 
             if (string.IsNullOrWhiteSpace(artifactDirectory))
             {
@@ -372,6 +423,23 @@ namespace Kubonsang.VfxForge.Editor
             string captureDirectory)
         {
             return VfxFrameCapture.Capture(session, recipe, captureDirectory);
+        }
+
+        protected virtual VfxGameplayReviewResult CaptureReview(
+            VfxRecipe recipe,
+            GameObject prefab,
+            VfxTemplateCatalog catalog,
+            string playEventName,
+            string isolatedManifestPath,
+            string reviewDirectory)
+        {
+            return VfxGameplayReviewCapture.Capture(
+                recipe,
+                prefab,
+                catalog,
+                playEventName,
+                isolatedManifestPath,
+                reviewDirectory);
         }
 
         protected virtual string WriteReport(

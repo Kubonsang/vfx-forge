@@ -48,6 +48,39 @@ namespace Kubonsang.VfxForge.Editor
                 }
             }
 
+            ValidateReviewContexts(catalog.reviewContexts, results);
+            return results;
+        }
+
+        public static List<VfxValidationResult> ValidateRequestedReviewContexts(
+            VfxRecipe recipe,
+            VfxTemplateCatalog catalog)
+        {
+            var results = new List<VfxValidationResult>();
+            if (recipe?.capture?.contexts == null
+                || recipe.capture.contexts.Length == 0)
+            {
+                return results;
+            }
+
+            if (catalog == null)
+            {
+                results.Add(VfxValidationResult.Error(
+                    "CATALOG-CONTEXT-REFERENCE",
+                    "Template Catalog is required to resolve Review Contexts."));
+                return results;
+            }
+
+            foreach (string contextId in recipe.capture.contexts)
+            {
+                if (!catalog.TryGetReviewContext(contextId, out _))
+                {
+                    results.Add(VfxValidationResult.Error(
+                        "CATALOG-CONTEXT-REFERENCE",
+                        $"Review Context is not registered: {contextId}."));
+                }
+            }
+
             return results;
         }
 
@@ -173,6 +206,80 @@ namespace Kubonsang.VfxForge.Editor
                         $"Supported layer is empty or duplicated at {location}: {layer ?? "<null>"}."));
                 }
             }
+        }
+
+        private static void ValidateReviewContexts(
+            IEnumerable<VfxReviewContextEntry> entries,
+            List<VfxValidationResult> results)
+        {
+            if (entries == null)
+            {
+                return;
+            }
+
+            var ids = new HashSet<string>(StringComparer.Ordinal);
+            int index = 0;
+            foreach (VfxReviewContextEntry entry in entries)
+            {
+                string location = $"reviewContexts[{index}]";
+                index++;
+                if (entry == null)
+                {
+                    results.Add(VfxValidationResult.Error(
+                        "CATALOG-CONTEXT-NULL",
+                        $"Review Context entry is null: {location}."));
+                    continue;
+                }
+
+                if (string.IsNullOrWhiteSpace(entry.id)
+                    || !IdPattern.IsMatch(entry.id)
+                    || !ids.Add(entry.id))
+                {
+                    results.Add(VfxValidationResult.Error(
+                        "CATALOG-CONTEXT-ID",
+                        $"Review Context id is invalid or duplicated at {location}: {entry.id}."));
+                }
+
+                if (entry.prefab == null
+                    || !EditorUtility.IsPersistent(entry.prefab)
+                    || !PrefabUtility.IsPartOfPrefabAsset(entry.prefab))
+                {
+                    results.Add(VfxValidationResult.Error(
+                        "CATALOG-CONTEXT-PREFAB",
+                        $"Review Context must reference a Prefab asset at {location}."));
+                    continue;
+                }
+
+                VfxReviewContext context =
+                    entry.prefab.GetComponentInChildren<VfxReviewContext>(true);
+                if (context == null)
+                {
+                    results.Add(VfxValidationResult.Error(
+                        "CATALOG-CONTEXT-COMPONENT",
+                        $"Review Context component is missing at {location}."));
+                    continue;
+                }
+
+                if (context.reviewCamera == null
+                    || context.effectAnchor == null
+                    || context.caster == null
+                    || context.target == null
+                    || !BelongsToPrefab(entry.prefab.transform, context.reviewCamera.transform)
+                    || !BelongsToPrefab(entry.prefab.transform, context.effectAnchor)
+                    || !BelongsToPrefab(entry.prefab.transform, context.caster)
+                    || !BelongsToPrefab(entry.prefab.transform, context.target))
+                {
+                    results.Add(VfxValidationResult.Error(
+                        "CATALOG-CONTEXT-REFERENCES",
+                        $"Review Context references are missing or external at {location}."));
+                }
+            }
+        }
+
+        private static bool BelongsToPrefab(Transform root, Transform candidate)
+        {
+            return candidate != null
+                && (candidate == root || candidate.IsChildOf(root));
         }
 
         private static void ValidateMeshVariants(

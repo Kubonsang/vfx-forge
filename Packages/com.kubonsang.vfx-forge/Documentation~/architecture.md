@@ -50,6 +50,19 @@ stable stage-specific exit codes, and one compact JSON result line.
 - Existing outputs are rejected before rendering.
 - Failed attempts remove the files they created and return a failed result.
 
+## Gameplay Review Contract
+
+- Recipe 1.1 requests Review Contexts only through Catalog IDs.
+- `VfxReviewContext` owns explicit Camera, effect anchor, caster, and target
+  references inside one persistent Prefab.
+- Context and effect instances exist only in a temporary Preview Scene.
+- Context frames use the isolated capture's sorted frame times and dimensions.
+- Gameplay foreground metrics compare against a no-effect Context baseline.
+- Contact Sheet and review-manifest ordering is time, isolated canonical view,
+  then ordinal Context ID.
+- Frame, isolated manifest, and Contact Sheet SHA-256 values make review inputs
+  reproducible.
+
 ## Run All Contract
 
 - Input validation completes before Prefab compilation.
@@ -96,6 +109,6 @@ reflection or Recipe-provided Asset paths.
 
 ## Deliberate Gaps
 
-Review contexts, contact sheets, profiler metrics, and graph composition are intentionally left for later
-tasks. The compatibility capture fixture proves structural rendering, not VFX visual
-quality. Do not hide these gaps with fake success values.
+Human visual approval, profiler metrics, and graph composition are intentionally
+left for later tasks. The compatibility capture fixture proves structural
+rendering, not VFX visual quality. Do not hide these gaps with fake success values.

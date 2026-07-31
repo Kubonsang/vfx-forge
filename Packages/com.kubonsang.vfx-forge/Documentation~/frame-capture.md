@@ -53,6 +53,11 @@ band. Recipe 1.1 can tighten these thresholds through `quality`.
 
 Outputs are written below `<Artifact Directory>/capture`.
 
+When Recipe 1.1 requests `capture.contexts`, Run All also renders the generated
+effect in each allowlisted gameplay Context at the same times and writes a PNG
+Contact Sheet plus `review-manifest.json` below `<Artifact Directory>/review`.
+See [Gameplay Review Context](review-context.md).
+
 The structural fixture verifies Camera rendering, PNG encoding, dimensions, viewpoints,
 and the manifest. Visual quality must be evaluated with project-owned VFX Graph assets;
 the compatibility fixture does not claim VFX quality.

@@ -8,6 +8,8 @@ namespace Kubonsang.VfxForge.Editor
     public sealed class VfxTemplateCatalog : ScriptableObject
     {
         public List<VfxTemplateEntry> templates = new List<VfxTemplateEntry>();
+        public List<VfxReviewContextEntry> reviewContexts =
+            new List<VfxReviewContextEntry>();
 
         public bool TryRegister(
             VfxTemplateEntry candidate,
@@ -47,6 +49,29 @@ namespace Kubonsang.VfxForge.Editor
 
             return false;
         }
+
+        public bool TryGetReviewContext(
+            string id,
+            out VfxReviewContextEntry entry)
+        {
+            entry = null;
+            if (string.IsNullOrWhiteSpace(id) || reviewContexts == null)
+            {
+                return false;
+            }
+
+            foreach (VfxReviewContextEntry candidate in reviewContexts)
+            {
+                if (candidate != null
+                    && string.Equals(candidate.id, id, StringComparison.Ordinal))
+                {
+                    entry = candidate;
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 
     [Serializable]
@@ -65,5 +90,12 @@ namespace Kubonsang.VfxForge.Editor
         public string[] supportedLayers = Array.Empty<string>();
         public List<VfxPropertyBinding> bindings = new List<VfxPropertyBinding>();
         public List<VfxMeshVariant> meshVariants = new List<VfxMeshVariant>();
+    }
+
+    [Serializable]
+    public sealed class VfxReviewContextEntry
+    {
+        public string id = string.Empty;
+        public GameObject prefab;
     }
 }

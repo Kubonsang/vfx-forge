@@ -333,7 +333,7 @@ namespace Kubonsang.VfxForge.Editor
             return true;
         }
 
-        private static VfxRenderedFrame RenderFrame(
+        internal static VfxRenderedFrame RenderFrame(
             Camera camera,
             int width,
             int height)
@@ -516,7 +516,7 @@ namespace Kubonsang.VfxForge.Editor
             };
         }
 
-        private sealed class VfxRenderedFrame
+        internal sealed class VfxRenderedFrame
         {
             public byte[] Png = Array.Empty<byte>();
             public Color32[] Pixels = Array.Empty<Color32>();
@@ -614,6 +614,66 @@ namespace Kubonsang.VfxForge.Editor
             float total = pixels.Length;
             return new VfxCaptureContentMetrics(
                 foreground / total,
+                borderPixels > 0
+                    ? borderForeground / (float)borderPixels
+                    : 1f);
+        }
+
+        public static VfxCaptureContentMetrics MeasureDifference(
+            Color32[] pixels,
+            Color32[] baseline,
+            int width,
+            int height)
+        {
+            if (pixels == null
+                || baseline == null
+                || pixels.Length != width * height
+                || baseline.Length != pixels.Length
+                || pixels.Length == 0)
+            {
+                return new VfxCaptureContentMetrics(0f, 1f);
+            }
+
+            int borderSize = Mathf.Max(
+                1,
+                Mathf.CeilToInt(Mathf.Min(width, height) * 0.02f));
+            int foreground = 0;
+            int borderForeground = 0;
+            int borderPixels = 0;
+            for (int index = 0; index < pixels.Length; index++)
+            {
+                int x = index % width;
+                int y = index / width;
+                bool isBorder =
+                    x < borderSize
+                    || x >= width - borderSize
+                    || y < borderSize
+                    || y >= height - borderSize;
+                if (isBorder)
+                {
+                    borderPixels++;
+                }
+
+                Color32 pixel = pixels[index];
+                Color32 reference = baseline[index];
+                int difference =
+                    Math.Abs(pixel.r - reference.r)
+                    + Math.Abs(pixel.g - reference.g)
+                    + Math.Abs(pixel.b - reference.b);
+                if (difference <= 12)
+                {
+                    continue;
+                }
+
+                foreground++;
+                if (isBorder)
+                {
+                    borderForeground++;
+                }
+            }
+
+            return new VfxCaptureContentMetrics(
+                foreground / (float)pixels.Length,
                 borderPixels > 0
                     ? borderForeground / (float)borderPixels
                     : 1f);

@@ -220,6 +220,17 @@ namespace Kubonsang.VfxForge.Editor
                             "UI-CAPTURE-PATH");
                     }
                 }
+
+                using (new EditorGUI.DisabledScope(
+                    string.IsNullOrWhiteSpace(lastRun.ContactSheetPath)))
+                {
+                    if (GUILayout.Button("Reveal Contact Sheet"))
+                    {
+                        RevealResult(
+                            lastRun.ContactSheetPath,
+                            "UI-CONTACT-SHEET-PATH");
+                    }
+                }
             }
         }
 

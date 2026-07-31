@@ -41,11 +41,12 @@ The entry point writes exactly one compact JSON result line to standard output b
 Unity exits. Select the line whose `tool` field is `VFXForge`.
 
 ```json
-{"schemaVersion":"1.0","tool":"VFXForge","status":"passed","exitCode":0,"failedStage":"","recipeId":"impact_blue","artifactPath":"/tmp/vfx-forge/impact_blue","reportPath":"/tmp/vfx-forge/impact_blue/validation.json","generatedPrefab":"Assets/Generated/ImpactBlue.prefab","captureManifest":"/tmp/vfx-forge/impact_blue/capture/capture-manifest.json","message":"Run All completed."}
+{"schemaVersion":"1.0","tool":"VFXForge","status":"passed","exitCode":0,"failedStage":"","recipeId":"impact_blue","artifactPath":"/tmp/vfx-forge/impact_blue","reportPath":"/tmp/vfx-forge/impact_blue/validation.json","generatedPrefab":"Assets/Generated/ImpactBlue.prefab","captureManifest":"/tmp/vfx-forge/impact_blue/capture/capture-manifest.json","reviewManifest":"/tmp/vfx-forge/impact_blue/review/review-manifest.json","contactSheet":"/tmp/vfx-forge/impact_blue/review/contact-sheet.png","message":"Run All completed."}
 ```
 
 Messages containing line breaks are JSON-escaped, so one invocation still produces one
-physical result line.
+physical result line. `reviewManifest` and `contactSheet` are empty when the Recipe
+does not request any gameplay Context IDs.
 
 ## Exit Codes
 

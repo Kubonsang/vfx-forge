@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Added allowlisted `VfxReviewContext` Prefabs with explicit Camera, effect
+  anchor, caster, and target references.
+- Added gameplay Context capture at isolated frame times, no-effect delta
+  metrics, deterministic Contact Sheets, and `review-manifest-1.0` hashes.
+- Added a 16:9 top-down dogfooding Context with light, medium, and dark grounds.
 - Added deterministic capture-time bounds prepass and fixed orthographic/perspective
   framing with 15 percent padding.
 - Added `IVfxPreviewTimeEvaluable` with a deprecated Recipe 1.0 reflection fallback.

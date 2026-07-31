@@ -820,6 +820,58 @@
         },
         "next_task_candidate": "VF-017 Gameplay Review Context and Contact Sheet"
       }
+    },
+    {
+      "id": "VF-017",
+      "title": "Gameplay Review Context and Contact Sheet",
+      "status": "done",
+      "scope": [
+        "Register allowlisted Review Context Prefabs in the Template Catalog",
+        "Capture isolated and gameplay context frames at identical times",
+        "Generate a deterministic PNG Contact Sheet and review manifest",
+        "Provide a 16:9 top-down context with caster, target, and light, medium, and dark grounds",
+        "Preserve source Context Prefabs and the active Scene"
+      ],
+      "acceptance": [
+        "VfxReviewContext explicitly references Camera, effect anchor, caster, and target",
+        "Recipe capture.contexts resolves only Catalog IDs",
+        "Context and isolated frames use identical sorted frame times",
+        "Contact Sheet ordering and hashes are deterministic",
+        "Original Context Prefab and active Scene remain unchanged",
+        "Existing and new EditMode tests pass with zero Unity Console errors"
+      ],
+      "verification": {
+        "unity": "6000.3.8f1",
+        "urp": "17.3.0",
+        "vfx_graph": "17.3.0",
+        "test_framework": "1.6.0",
+        "public_component": "VfxReviewContext",
+        "catalog_reference_mode": "allowlisted ID only",
+        "review_manifest": "review-manifest-1.0",
+        "ordering": "time, isolated canonical view, ordinal context ID",
+        "hashes": [
+          "isolated capture manifest SHA-256",
+          "frame SHA-256",
+          "Contact Sheet SHA-256"
+        ],
+        "default_context_prefab": "UnityCompatibilityProject/Assets/VFXForge/Dogfood/ReviewContexts/TopDownThreeGrounds.prefab",
+        "default_context_evidence": "Dogfooding/Evidence/VF-017/default-review-context.png",
+        "editmode_tests": {
+          "passed": 153,
+          "failed": 0,
+          "skipped": 0,
+          "artifact": "/tmp/vf017-editmode-final-2.xml"
+        },
+        "console": {
+          "errors": 0,
+          "artifact": "/tmp/vf017-editmode-final-2.log"
+        },
+        "source_safety": {
+          "context_dependency_hash_unchanged": true,
+          "active_scene_dirty_state_unchanged": true
+        },
+        "next_task_candidate": "VF-018 Human Visual Approval Gate"
+      }
     }
   ]
 }

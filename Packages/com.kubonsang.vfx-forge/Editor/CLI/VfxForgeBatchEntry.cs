@@ -33,6 +33,8 @@ namespace Kubonsang.VfxForge.Editor
         public string reportPath = string.Empty;
         public string generatedPrefab = string.Empty;
         public string captureManifest = string.Empty;
+        public string reviewManifest = string.Empty;
+        public string contactSheet = string.Empty;
         public string message = string.Empty;
 
         public string ToJson()
@@ -214,6 +216,8 @@ namespace Kubonsang.VfxForge.Editor
                 reportPath = pipelineResult.ReportPath,
                 generatedPrefab = pipelineResult.PrefabPath,
                 captureManifest = pipelineResult.CaptureManifestPath,
+                reviewManifest = pipelineResult.ReviewManifestPath,
+                contactSheet = pipelineResult.ContactSheetPath,
                 message = pipelineResult.Message
             };
         }
