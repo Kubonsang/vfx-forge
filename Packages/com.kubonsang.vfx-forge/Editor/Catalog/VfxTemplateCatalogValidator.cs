@@ -10,20 +10,26 @@ namespace Kubonsang.VfxForge.Editor
     public static class VfxTemplateCatalogValidator
     {
         private static readonly Regex IdPattern =
-            new Regex("^[a-z0-9][a-z0-9_-]{2,63}$", RegexOptions.CultureInvariant);
+            new Regex(
+                "^[a-z0-9][a-z0-9_-]{2,63}$",
+                RegexOptions.CultureInvariant);
 
         public static List<VfxValidationResult> Validate(VfxTemplateCatalog catalog)
         {
             var results = new List<VfxValidationResult>();
             if (catalog == null)
             {
-                results.Add(VfxValidationResult.Error("CATALOG-NULL", "Template Catalog is null."));
+                results.Add(VfxValidationResult.Error(
+                    "CATALOG-NULL",
+                    "Template Catalog is null."));
                 return results;
             }
 
             if (catalog.templates == null)
             {
-                results.Add(VfxValidationResult.Error("CATALOG-TEMPLATES", "Template list is null."));
+                results.Add(VfxValidationResult.Error(
+                    "CATALOG-TEMPLATES",
+                    "Template list is null."));
                 return results;
             }
 
@@ -59,7 +65,9 @@ namespace Kubonsang.VfxForge.Editor
             var results = new List<VfxValidationResult>();
             if (catalog == null)
             {
-                results.Add(VfxValidationResult.Error("CATALOG-NULL", "Template Catalog is null."));
+                results.Add(VfxValidationResult.Error(
+                    "CATALOG-NULL",
+                    "Template Catalog is null."));
                 return results;
             }
 
@@ -72,7 +80,10 @@ namespace Kubonsang.VfxForge.Editor
             foreach (VfxTemplateEntry existing in catalog.templates)
             {
                 if (existing != null
-                    && string.Equals(existing.id, candidate.id, StringComparison.Ordinal))
+                    && string.Equals(
+                        existing.id,
+                        candidate.id,
+                        StringComparison.Ordinal))
                 {
                     results.Add(VfxValidationResult.Error(
                         "CATALOG-ID-DUPLICATE",
@@ -97,14 +108,14 @@ namespace Kubonsang.VfxForge.Editor
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(entry.id) || !IdPattern.IsMatch(entry.id))
+            if (string.IsNullOrWhiteSpace(entry.id)
+                || !IdPattern.IsMatch(entry.id))
             {
                 results.Add(VfxValidationResult.Error(
                     "CATALOG-ID",
                     $"Template id is invalid at {location}: {entry.id ?? "<null>"}."));
             }
 
-            VisualEffect[] effects = Array.Empty<VisualEffect>();
             if (entry.prefab == null)
             {
                 results.Add(VfxValidationResult.Error(
@@ -121,8 +132,7 @@ namespace Kubonsang.VfxForge.Editor
                         $"Template must reference a Prefab asset at {location}."));
                 }
 
-                effects = entry.prefab.GetComponentsInChildren<VisualEffect>(true);
-                if (effects.Length == 0)
+                if (entry.prefab.GetComponentsInChildren<VisualEffect>(true).Length == 0)
                 {
                     results.Add(VfxValidationResult.Error(
                         "CATALOG-VFX-COMPONENT",
@@ -138,7 +148,8 @@ namespace Kubonsang.VfxForge.Editor
             }
 
             ValidateLayers(entry.supportedLayers, location, results);
-            ValidateBindings(entry.bindings, effects, location, results);
+            ValidateMeshVariants(entry.meshVariants, location, results);
+            ValidateBindings(entry, location, results);
         }
 
         private static void ValidateLayers(
@@ -154,7 +165,8 @@ namespace Kubonsang.VfxForge.Editor
             var uniqueLayers = new HashSet<string>(StringComparer.Ordinal);
             foreach (string layer in layers)
             {
-                if (string.IsNullOrWhiteSpace(layer) || !uniqueLayers.Add(layer))
+                if (string.IsNullOrWhiteSpace(layer)
+                    || !uniqueLayers.Add(layer))
                 {
                     results.Add(VfxValidationResult.Error(
                         "CATALOG-LAYER",
@@ -163,12 +175,38 @@ namespace Kubonsang.VfxForge.Editor
             }
         }
 
-        private static void ValidateBindings(
-            IList<VfxPropertyBinding> bindings,
-            VisualEffect[] effects,
+        private static void ValidateMeshVariants(
+            IEnumerable<VfxMeshVariant> variants,
             string location,
             List<VfxValidationResult> results)
         {
+            if (variants == null)
+            {
+                return;
+            }
+
+            var keys = new HashSet<string>(StringComparer.Ordinal);
+            foreach (VfxMeshVariant variant in variants)
+            {
+                if (variant == null
+                    || string.IsNullOrWhiteSpace(variant.key)
+                    || !keys.Add(variant.key)
+                    || variant.mesh == null
+                    || !EditorUtility.IsPersistent(variant.mesh))
+                {
+                    results.Add(VfxValidationResult.Error(
+                        "CATALOG-MESH-VARIANT",
+                        $"Mesh variant must have a unique key and persistent Mesh at {location}."));
+                }
+            }
+        }
+
+        private static void ValidateBindings(
+            VfxTemplateEntry entry,
+            string location,
+            List<VfxValidationResult> results)
+        {
+            IList<VfxPropertyBinding> bindings = entry.bindings;
             if (bindings == null)
             {
                 results.Add(VfxValidationResult.Error(
@@ -206,21 +244,27 @@ namespace Kubonsang.VfxForge.Editor
                         $"Binding type at {bindingLocation} must be {expectedType} for {binding.recipePath}."));
                 }
 
-                bool propertyNameValid = !string.IsNullOrWhiteSpace(binding.exposedPropertyName);
+                bool propertyNameValid =
+                    !string.IsNullOrWhiteSpace(binding.exposedPropertyName);
                 if (!propertyNameValid)
                 {
                     results.Add(VfxValidationResult.Error(
                         "CATALOG-BINDING-NAME",
-                        $"Exposed property name is empty at {bindingLocation}."));
+                        $"Target property name is empty at {bindingLocation}."));
                 }
 
-                bool componentValid = binding.componentIndex >= -1
-                    && (binding.componentIndex < 0 || binding.componentIndex < effects.Length);
-                if (!componentValid)
+                Transform target = ResolveTarget(entry.prefab, binding.targetPath);
+                if (!IsSafeTargetPath(binding.targetPath) || target == null)
                 {
                     results.Add(VfxValidationResult.Error(
-                        "CATALOG-BINDING-COMPONENT",
-                        $"VisualEffect component index is invalid at {bindingLocation}: {binding.componentIndex}."));
+                        "CATALOG-BINDING-TARGET",
+                        $"Binding target path is unsafe or missing at {bindingLocation}: {binding.targetPath}."));
+                }
+                else if (pathValid
+                    && binding.propertyType == expectedType
+                    && propertyNameValid)
+                {
+                    ValidateTarget(entry, target, binding, bindingLocation, results);
                 }
 
                 foreach (VfxPropertyBinding prior in priorBindings)
@@ -234,50 +278,86 @@ namespace Kubonsang.VfxForge.Editor
                     }
                 }
 
-                if (pathValid
-                    && binding.propertyType == expectedType
-                    && propertyNameValid
-                    && componentValid
-                    && effects.Length > 0
-                    && !HasExposedProperty(effects, binding))
-                {
-                    results.Add(binding.required
-                        ? VfxValidationResult.Error(
-                            "CATALOG-BINDING-PROPERTY",
-                            $"Required exposed property was not found at {bindingLocation}: {binding.exposedPropertyName}.")
-                        : VfxValidationResult.Warning(
-                            "CATALOG-BINDING-PROPERTY",
-                            $"Optional exposed property was not found at {bindingLocation}: {binding.exposedPropertyName}."));
-                }
-
                 priorBindings.Add(binding);
             }
         }
 
-        private static bool TargetsOverlap(VfxPropertyBinding left, VfxPropertyBinding right)
+        private static void ValidateTarget(
+            VfxTemplateEntry entry,
+            Transform target,
+            VfxPropertyBinding binding,
+            string location,
+            List<VfxValidationResult> results)
         {
-            return left != null
-                && right != null
-                && !string.IsNullOrWhiteSpace(left.exposedPropertyName)
-                && string.Equals(
-                    left.exposedPropertyName,
-                    right.exposedPropertyName,
-                    StringComparison.Ordinal)
-                && (left.componentIndex == right.componentIndex
-                    || left.componentIndex < 0
-                    || right.componentIndex < 0);
+            bool valid;
+            switch (binding.targetKind)
+            {
+                case VfxBindingTargetKind.VisualEffectProperty:
+                    valid = ValidateVisualEffectTarget(
+                        target,
+                        binding,
+                        location,
+                        results);
+                    break;
+                case VfxBindingTargetKind.TransformProperty:
+                    valid = IsTransformPropertySupported(binding);
+                    break;
+                case VfxBindingTargetKind.MaterialProperty:
+                    valid = IsMaterialPropertySupported(target, binding);
+                    break;
+                case VfxBindingTargetKind.MeshVariant:
+                    valid = binding.propertyType == VfxPropertyType.String
+                        && binding.exposedPropertyName == "sharedMesh"
+                        && target.GetComponent<MeshFilter>() != null
+                        && entry.meshVariants != null
+                        && entry.meshVariants.Count > 0;
+                    break;
+                case VfxBindingTargetKind.AdapterProperty:
+                    valid = IsAdapterPropertySupported(target, binding);
+                    break;
+                default:
+                    valid = false;
+                    break;
+            }
+
+            if (!valid)
+            {
+                results.Add(binding.required
+                    ? VfxValidationResult.Error(
+                        "CATALOG-BINDING-PROPERTY",
+                        $"Required target property was not found or allowed at {location}: {binding.exposedPropertyName}.")
+                    : VfxValidationResult.Warning(
+                        "CATALOG-BINDING-PROPERTY",
+                        $"Optional target property was not found or allowed at {location}: {binding.exposedPropertyName}."));
+            }
         }
 
-        private static bool HasExposedProperty(
-            IReadOnlyList<VisualEffect> effects,
-            VfxPropertyBinding binding)
+        private static bool ValidateVisualEffectTarget(
+            Transform target,
+            VfxPropertyBinding binding,
+            string location,
+            List<VfxValidationResult> results)
         {
+            VisualEffect[] effects =
+                target.GetComponentsInChildren<VisualEffect>(true);
+            bool componentValid = binding.componentIndex >= -1
+                && (binding.componentIndex < 0
+                    || binding.componentIndex < effects.Length);
+            if (!componentValid)
+            {
+                results.Add(VfxValidationResult.Error(
+                    "CATALOG-BINDING-COMPONENT",
+                    $"VisualEffect component index is invalid at {location}: {binding.componentIndex}."));
+                return false;
+            }
+
             int start = binding.componentIndex < 0 ? 0 : binding.componentIndex;
-            int end = binding.componentIndex < 0 ? effects.Count : binding.componentIndex + 1;
+            int end = binding.componentIndex < 0
+                ? effects.Length
+                : binding.componentIndex + 1;
             for (int index = start; index < end; index++)
             {
-                VisualEffect effect = effects[index];
-                if (effect != null && HasExposedProperty(effect, binding))
+                if (HasExposedProperty(effects[index], binding))
                 {
                     return true;
                 }
@@ -286,10 +366,91 @@ namespace Kubonsang.VfxForge.Editor
             return false;
         }
 
+        private static bool IsTransformPropertySupported(
+            VfxPropertyBinding binding)
+        {
+            if (binding.exposedPropertyName == "uniformScale")
+            {
+                return binding.propertyType == VfxPropertyType.Float;
+            }
+
+            return binding.propertyType == VfxPropertyType.Vector3
+                && (binding.exposedPropertyName == "localPosition"
+                    || binding.exposedPropertyName == "localEulerAngles"
+                    || binding.exposedPropertyName == "localScale");
+        }
+
+        private static bool IsMaterialPropertySupported(
+            Transform target,
+            VfxPropertyBinding binding)
+        {
+            Renderer renderer = target.GetComponent<Renderer>();
+            if (renderer == null
+                || binding.materialIndex < 0
+                || binding.materialIndex >= renderer.sharedMaterials.Length
+                || binding.propertyType == VfxPropertyType.Bool
+                || binding.propertyType == VfxPropertyType.String)
+            {
+                return false;
+            }
+
+            Material material = renderer.sharedMaterials[binding.materialIndex];
+            return material != null
+                && material.shader != null
+                && material.HasProperty(binding.exposedPropertyName);
+        }
+
+        private static bool IsAdapterPropertySupported(
+            Transform target,
+            VfxPropertyBinding binding)
+        {
+            if (string.IsNullOrWhiteSpace(binding.adapterId))
+            {
+                return false;
+            }
+
+            VfxRecipeBindingValueType runtimeType =
+                ToRuntimeType(binding.propertyType);
+            foreach (MonoBehaviour behaviour in target.GetComponents<MonoBehaviour>())
+            {
+                if (behaviour is IVfxRecipeBindingAdapter adapter
+                    && adapter.BindingAdapterId == binding.adapterId
+                    && adapter.SupportsBinding(
+                        binding.exposedPropertyName,
+                        runtimeType))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private static bool TargetsOverlap(
+            VfxPropertyBinding left,
+            VfxPropertyBinding right)
+        {
+            return left != null
+                && right != null
+                && left.targetKind == right.targetKind
+                && left.targetPath == right.targetPath
+                && left.exposedPropertyName == right.exposedPropertyName
+                && left.adapterId == right.adapterId
+                && left.materialIndex == right.materialIndex
+                && (left.componentIndex == right.componentIndex
+                    || left.componentIndex < 0
+                    || right.componentIndex < 0);
+        }
+
         private static bool HasExposedProperty(
             VisualEffect effect,
             VfxPropertyBinding binding)
         {
+            if (effect == null)
+            {
+                return false;
+            }
+
             try
             {
                 switch (binding.propertyType)
@@ -314,6 +475,71 @@ namespace Kubonsang.VfxForge.Editor
             catch (Exception)
             {
                 return false;
+            }
+        }
+
+        private static Transform ResolveTarget(GameObject prefab, string path)
+        {
+            if (prefab == null)
+            {
+                return null;
+            }
+
+            return string.IsNullOrEmpty(path)
+                ? prefab.transform
+                : prefab.transform.Find(path);
+        }
+
+        private static bool IsSafeTargetPath(string path)
+        {
+            if (string.IsNullOrEmpty(path))
+            {
+                return true;
+            }
+
+            if (path.StartsWith("/", StringComparison.Ordinal)
+                || path.EndsWith("/", StringComparison.Ordinal)
+                || path.Contains("\\"))
+            {
+                return false;
+            }
+
+            foreach (string segment in path.Split('/'))
+            {
+                if (string.IsNullOrWhiteSpace(segment)
+                    || segment == "."
+                    || segment == "..")
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private static VfxRecipeBindingValueType ToRuntimeType(
+            VfxPropertyType type)
+        {
+            switch (type)
+            {
+                case VfxPropertyType.Float:
+                    return VfxRecipeBindingValueType.Float;
+                case VfxPropertyType.Int:
+                    return VfxRecipeBindingValueType.Int;
+                case VfxPropertyType.Bool:
+                    return VfxRecipeBindingValueType.Bool;
+                case VfxPropertyType.Vector2:
+                    return VfxRecipeBindingValueType.Vector2;
+                case VfxPropertyType.Vector3:
+                    return VfxRecipeBindingValueType.Vector3;
+                case VfxPropertyType.Vector4:
+                    return VfxRecipeBindingValueType.Vector4;
+                case VfxPropertyType.Color:
+                    return VfxRecipeBindingValueType.Color;
+                case VfxPropertyType.String:
+                    return VfxRecipeBindingValueType.String;
+                default:
+                    return default;
             }
         }
     }

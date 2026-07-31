@@ -1,4 +1,4 @@
-# Recipe Contract 1.0
+# Recipe Contract 1.0 and 1.1
 
 VFX Forge validates Recipe JSON in two stages:
 
@@ -7,6 +7,22 @@ VFX Forge validates Recipe JSON in two stages:
 
 The canonical machine-readable contract is
 [`Schemas/vfx-recipe-1.0.schema.json`](../Schemas/vfx-recipe-1.0.schema.json).
+Recipe 1.1 is defined by
+[`Schemas/vfx-recipe-1.1.schema.json`](../Schemas/vfx-recipe-1.1.schema.json).
+
+Recipe 1.0 remains unchanged. Recipe 1.1 adds optional typed data used by
+multi-target bindings and later review stages:
+
+- `motion.speed`, `motion.localDirection`
+- `geometry.variant`
+- `quality.minimumForegroundRatio`,
+  `quality.maximumBorderForegroundRatio`, `quality.requireHumanReview`
+- `capture.contexts`
+
+Unity `JsonUtility` may serialize the new sections into a 1.0 object. Their
+1.1 defaults are accepted for programmatic compatibility, but any non-default
+motion, geometry, quality, or context override in a 1.0 Recipe is rejected by
+semantic validation.
 
 ## Required fields
 

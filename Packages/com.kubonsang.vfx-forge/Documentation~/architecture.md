@@ -82,6 +82,12 @@ Overwrite policies are:
   the legacy enum name, the saved output is an independent regular Prefab rather than a
   Unity Prefab Variant.
 
+Recipe 1.1 Binding targets remain allowlist-based. Material values are stored
+as generated-Prefab `MaterialPropertyBlock` overrides, Mesh values resolve
+through Catalog-owned variant keys, and custom components must implement
+`IVfxRecipeBindingAdapter`. The compiler never accepts arbitrary component
+reflection or Recipe-provided Asset paths.
+
 ## Deliberate Gaps
 
 Contact sheets, profiler metrics, and graph composition are intentionally left for later

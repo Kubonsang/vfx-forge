@@ -33,6 +33,14 @@ namespace Kubonsang.VfxForge.Editor
             new FieldRule("style.emissionIntensity", JsonValueKind.Number),
             new FieldRule("style.sharpness", JsonValueKind.Number),
             new FieldRule("style.distortionStrength", JsonValueKind.Number),
+            new FieldRule("motion", JsonValueKind.Object),
+            new FieldRule("motion.speed", JsonValueKind.Number),
+            new FieldRule("motion.localDirection", JsonValueKind.Object),
+            new FieldRule("motion.localDirection.x", JsonValueKind.Number),
+            new FieldRule("motion.localDirection.y", JsonValueKind.Number),
+            new FieldRule("motion.localDirection.z", JsonValueKind.Number),
+            new FieldRule("geometry", JsonValueKind.Object),
+            new FieldRule("geometry.variant", JsonValueKind.String),
             new FieldRule("layers", JsonValueKind.Array),
             new FieldRule("budget", JsonValueKind.Object),
             new FieldRule("budget.maxParticles", JsonValueKind.Integer),
@@ -44,8 +52,13 @@ namespace Kubonsang.VfxForge.Editor
             new FieldRule("capture.duration", JsonValueKind.Number),
             new FieldRule("capture.frameTimes", JsonValueKind.Array),
             new FieldRule("capture.views", JsonValueKind.Array),
+            new FieldRule("capture.contexts", JsonValueKind.Array),
             new FieldRule("capture.width", JsonValueKind.Integer),
-            new FieldRule("capture.height", JsonValueKind.Integer)
+            new FieldRule("capture.height", JsonValueKind.Integer),
+            new FieldRule("quality", JsonValueKind.Object),
+            new FieldRule("quality.minimumForegroundRatio", JsonValueKind.Number),
+            new FieldRule("quality.maximumBorderForegroundRatio", JsonValueKind.Number),
+            new FieldRule("quality.requireHumanReview", JsonValueKind.Boolean)
         };
 
         private static readonly string[] RequiredTopLevelFields =
@@ -69,7 +82,8 @@ namespace Kubonsang.VfxForge.Editor
         {
             new ArrayRule("layers", JsonValueKind.String),
             new ArrayRule("capture.frameTimes", JsonValueKind.Number),
-            new ArrayRule("capture.views", JsonValueKind.String)
+            new ArrayRule("capture.views", JsonValueKind.String),
+            new ArrayRule("capture.contexts", JsonValueKind.String)
         };
 
         public static ContractResult Validate(string json)
@@ -87,6 +101,13 @@ namespace Kubonsang.VfxForge.Editor
                 return ContractResult.Failure(
                     VfxRecipeErrorCodes.JsonRootType,
                     "Recipe JSON root must be an object.");
+            }
+
+            ContractResult requiredResult =
+                RequireFields(reader.PropertyKinds, RequiredTopLevelFields);
+            if (!requiredResult.Success)
+            {
+                return requiredResult;
             }
 
             var knownFields = new Dictionary<string, FieldRule>(StringComparer.Ordinal);
@@ -110,12 +131,6 @@ namespace Kubonsang.VfxForge.Editor
                 return ContractResult.Failure(
                     VfxRecipeErrorCodes.SchemaUnknownField,
                     $"Unknown JSON field: {unknownFields[0]}.");
-            }
-
-            ContractResult requiredResult = RequireFields(reader.PropertyKinds, RequiredTopLevelFields);
-            if (!requiredResult.Success)
-            {
-                return requiredResult;
             }
 
             foreach (FieldRule rule in FieldRules)
@@ -252,6 +267,9 @@ namespace Kubonsang.VfxForge.Editor
             public readonly Dictionary<string, List<JsonValueKind>> ArrayItemKinds =
                 new Dictionary<string, List<JsonValueKind>>(StringComparer.Ordinal);
 
+            public readonly Dictionary<string, string> StringValues =
+                new Dictionary<string, string>(StringComparer.Ordinal);
+
             public string ErrorCode { get; private set; } = VfxRecipeErrorCodes.JsonMalformed;
             public string ErrorMessage { get; private set; } = "Recipe JSON is malformed.";
 
@@ -298,12 +316,16 @@ namespace Kubonsang.VfxForge.Editor
 
                 if (token == '"')
                 {
-                    if (!TryReadString(out _))
+                    if (!TryReadString(out string stringValue))
                     {
                         return Malformed(out kind);
                     }
 
                     kind = JsonValueKind.String;
+                    if (!string.IsNullOrEmpty(path))
+                    {
+                        StringValues[path] = stringValue;
+                    }
                     return true;
                 }
 

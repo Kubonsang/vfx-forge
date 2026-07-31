@@ -2,6 +2,15 @@ using System;
 
 namespace Kubonsang.VfxForge.Editor
 {
+    public enum VfxBindingTargetKind
+    {
+        VisualEffectProperty,
+        TransformProperty,
+        MaterialProperty,
+        MeshVariant,
+        AdapterProperty
+    }
+
     public enum VfxPropertyType
     {
         Float,
@@ -10,7 +19,8 @@ namespace Kubonsang.VfxForge.Editor
         Vector2,
         Vector3,
         Vector4,
-        Color
+        Color,
+        String
     }
 
     [Serializable]
@@ -21,5 +31,10 @@ namespace Kubonsang.VfxForge.Editor
         public VfxPropertyType propertyType = VfxPropertyType.Float;
         public bool required = true;
         public int componentIndex = -1;
+        public VfxBindingTargetKind targetKind =
+            VfxBindingTargetKind.VisualEffectProperty;
+        public string targetPath = string.Empty;
+        public int materialIndex;
+        public string adapterId = string.Empty;
     }
 }

@@ -18,7 +18,11 @@ namespace Kubonsang.VfxForge.Editor
                 return results;
             }
 
-            Require(results, "RECIPE-SCHEMA", recipe.schemaVersion == "1.0", "Only schemaVersion 1.0 is supported.");
+            Require(
+                results,
+                "RECIPE-SCHEMA",
+                recipe.schemaVersion == "1.0" || recipe.schemaVersion == "1.1",
+                "Only schemaVersion 1.0 and 1.1 are supported.");
             Require(results, "RECIPE-ID", !string.IsNullOrWhiteSpace(recipe.id) && IdPattern.IsMatch(recipe.id), "Recipe id is invalid.");
             Require(results, "RECIPE-TEMPLATE", !string.IsNullOrWhiteSpace(recipe.template), "Template id is required.");
             Require(
@@ -64,6 +68,55 @@ namespace Kubonsang.VfxForge.Editor
                 Require(results, "RECIPE-DISTORTION", recipe.style.distortionStrength >= 0f, "Distortion strength cannot be negative.");
             }
 
+            if (recipe.motion != null)
+            {
+                Require(
+                    results,
+                    "RECIPE-MOTION-SPEED",
+                    IsFinite(recipe.motion.speed) && recipe.motion.speed >= 0f,
+                    "Motion speed must be finite and non-negative.");
+                Require(
+                    results,
+                    "RECIPE-MOTION-DIRECTION",
+                    IsFinite(recipe.motion.localDirection.x)
+                        && IsFinite(recipe.motion.localDirection.y)
+                        && IsFinite(recipe.motion.localDirection.z),
+                    "Motion direction must be finite.");
+            }
+
+            if (recipe.schemaVersion == "1.0")
+            {
+                Require(
+                    results,
+                    "RECIPE-1.0-MOTION",
+                    recipe.motion == null
+                        || (recipe.motion.speed == 0f
+                            && recipe.motion.localDirection == Vector3.forward),
+                    "Recipe 1.0 cannot define motion overrides.");
+                Require(
+                    results,
+                    "RECIPE-1.0-GEOMETRY",
+                    recipe.geometry == null
+                        || string.IsNullOrEmpty(recipe.geometry.variant),
+                    "Recipe 1.0 cannot define geometry variants.");
+                Require(
+                    results,
+                    "RECIPE-1.0-CONTEXTS",
+                    recipe.capture == null
+                        || recipe.capture.contexts == null
+                        || recipe.capture.contexts.Length == 0,
+                    "Recipe 1.0 cannot define review contexts.");
+                Require(
+                    results,
+                    "RECIPE-1.0-QUALITY",
+                    recipe.quality == null
+                        || (recipe.quality.minimumForegroundRatio == 0.01f
+                            && recipe.quality.maximumBorderForegroundRatio
+                                == 0.005f
+                            && !recipe.quality.requireHumanReview),
+                    "Recipe 1.0 cannot override quality settings.");
+            }
+
             ValidateUniqueStrings(results, "RECIPE-LAYER", recipe.layers, null);
 
             if (recipe.capture != null)
@@ -76,6 +129,11 @@ namespace Kubonsang.VfxForge.Editor
                     "RECIPE-CAPTURE-VIEW",
                     recipe.capture.views,
                     new HashSet<string>(new[] { "front", "side", "top" }, StringComparer.Ordinal));
+                ValidateUniqueStrings(
+                    results,
+                    "RECIPE-CAPTURE-CONTEXT",
+                    recipe.capture.contexts,
+                    null);
 
                 if (recipe.capture.frameTimes != null)
                 {
@@ -84,6 +142,24 @@ namespace Kubonsang.VfxForge.Editor
                         Require(results, "RECIPE-FRAME-TIME", frameTime >= 0f && frameTime <= recipe.capture.duration, $"Frame time {frameTime} is outside capture duration.");
                     }
                 }
+            }
+
+            if (recipe.quality != null)
+            {
+                Require(
+                    results,
+                    "RECIPE-QUALITY-FOREGROUND",
+                    IsFinite(recipe.quality.minimumForegroundRatio)
+                        && recipe.quality.minimumForegroundRatio >= 0f
+                        && recipe.quality.minimumForegroundRatio <= 1f,
+                    "Minimum foreground ratio must be between 0 and 1.");
+                Require(
+                    results,
+                    "RECIPE-QUALITY-BORDER",
+                    IsFinite(recipe.quality.maximumBorderForegroundRatio)
+                        && recipe.quality.maximumBorderForegroundRatio >= 0f
+                        && recipe.quality.maximumBorderForegroundRatio <= 1f,
+                    "Maximum border foreground ratio must be between 0 and 1.");
             }
 
             return results;
@@ -133,6 +209,11 @@ namespace Kubonsang.VfxForge.Editor
                     && (allowedValues == null || allowedValues.Contains(value));
                 Require(results, id, valid, $"Value is empty, duplicated, or unsupported: {value ?? "<null>"}.");
             }
+        }
+
+        private static bool IsFinite(float value)
+        {
+            return !float.IsNaN(value) && !float.IsInfinity(value);
         }
     }
 }

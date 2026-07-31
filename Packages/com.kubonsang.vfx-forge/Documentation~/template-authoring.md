@@ -54,3 +54,26 @@ properties are warnings and do not prevent registration.
 | `shape.radius`, `shape.directionality`, `shape.spreadAngle` | `Float` |
 | `style.emissionIntensity`, `style.sharpness`, `style.distortionStrength` | `Float` |
 | `style.primaryColor`, `style.secondaryColor` | `Color` |
+| `motion.speed` | `Float` |
+| `motion.localDirection` | `Vector3` |
+| `geometry.variant` | `String` |
+
+## Typed multi-target bindings
+
+`VisualEffectProperty` remains the default target and preserves existing
+Catalog serialization. Recipe 1.1 templates may additionally use:
+
+- `TransformProperty`: `uniformScale`, `localPosition`,
+  `localEulerAngles`, or `localScale`;
+- `MaterialProperty`: a Shader property on one Renderer material slot,
+  persisted through `VfxMaterialPropertyOverrides` and
+  `MaterialPropertyBlock`;
+- `MeshVariant`: `geometry.variant` selects a persistent Mesh from the
+  Catalog entry's allowlist;
+- `AdapterProperty`: a component implementing
+  `IVfxRecipeBindingAdapter` explicitly declares its stable adapter ID and
+  supported typed properties.
+
+Target paths are relative Transform paths. Absolute paths, backslashes,
+empty segments, `.` and `..` are rejected. Arbitrary component/member
+reflection and Recipe-provided Asset paths are not supported.

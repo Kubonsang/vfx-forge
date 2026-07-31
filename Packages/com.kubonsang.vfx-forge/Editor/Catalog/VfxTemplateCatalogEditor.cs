@@ -65,12 +65,18 @@ namespace Kubonsang.VfxForge.Editor
                         continue;
                     }
 
-                    string component = binding.componentIndex < 0
-                        ? "all components"
-                        : $"component {binding.componentIndex}";
+                    string component = binding.targetKind
+                        == VfxBindingTargetKind.VisualEffectProperty
+                            ? binding.componentIndex < 0
+                                ? "all components"
+                                : $"component {binding.componentIndex}"
+                            : string.IsNullOrEmpty(binding.targetPath)
+                                ? "root"
+                                : binding.targetPath;
                     EditorGUILayout.LabelField(
                         $"  {binding.recipePath} → {binding.exposedPropertyName}",
-                        $"{binding.propertyType}, {component}, {(binding.required ? "required" : "optional")}");
+                        $"{binding.targetKind}, {binding.propertyType}, {component}, "
+                        + $"{(binding.required ? "required" : "optional")}");
                 }
             }
         }

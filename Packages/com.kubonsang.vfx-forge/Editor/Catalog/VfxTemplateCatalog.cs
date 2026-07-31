@@ -50,6 +50,13 @@ namespace Kubonsang.VfxForge.Editor
     }
 
     [Serializable]
+    public sealed class VfxMeshVariant
+    {
+        public string key = string.Empty;
+        public Mesh mesh;
+    }
+
+    [Serializable]
     public sealed class VfxTemplateEntry
     {
         public string id = string.Empty;
@@ -57,5 +64,6 @@ namespace Kubonsang.VfxForge.Editor
         public string playEventName = "OnPlay";
         public string[] supportedLayers = Array.Empty<string>();
         public List<VfxPropertyBinding> bindings = new List<VfxPropertyBinding>();
+        public List<VfxMeshVariant> meshVariants = new List<VfxMeshVariant>();
     }
 }

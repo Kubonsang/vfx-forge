@@ -10,8 +10,9 @@ Asset은 읽기 전용 입력으로 취급하며, 생성된 결과와 검증 근
 
 ## 주요 기능
 
-- JSON Recipe 1.0 파싱, 정규화 및 안정적인 오류 코드
+- JSON Recipe 1.0/1.1 파싱, 정규화 및 안정적인 오류 코드
 - 검증된 Template Catalog와 명시적 Property Binding
+- VFX·Transform·Material·Mesh·Adapter 대상 typed Binding
 - 원본과 연결되지 않은 독립 Prefab 생성
 - `VfxMetadata` 기반의 생성 Asset 전용 덮어쓰기 보호
 - 생성 Prefab 검증과 심각도 기반 `validation.json`
@@ -31,7 +32,7 @@ Asset은 읽기 전용 입력으로 취급하며, 생성된 결과와 검증 근
 | Unity Test Framework | 1.6.0 |
 
 패키지의 최소 Unity 버전은 `6000.0`입니다. 현재 검증 기준에서는 EditMode 테스트
-132개와 VF-012 PlayMode 테스트 1개가 통과했고 Unity Console Error는 0개입니다.
+142개와 기존 Dogfooding PlayMode 테스트가 통과했고 Unity Console Error는 0개입니다.
 
 ## Production Crescent Slash 데모
 

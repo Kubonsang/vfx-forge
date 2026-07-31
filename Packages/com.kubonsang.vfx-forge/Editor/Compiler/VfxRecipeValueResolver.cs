@@ -22,11 +22,18 @@ namespace Kubonsang.VfxForge.Editor
                 case "style.emissionIntensity":
                 case "style.sharpness":
                 case "style.distortionStrength":
+                case "motion.speed":
                     propertyType = VfxPropertyType.Float;
                     return true;
                 case "style.primaryColor":
                 case "style.secondaryColor":
                     propertyType = VfxPropertyType.Color;
+                    return true;
+                case "motion.localDirection":
+                    propertyType = VfxPropertyType.Vector3;
+                    return true;
+                case "geometry.variant":
+                    propertyType = VfxPropertyType.String;
                     return true;
                 default:
                     propertyType = default;
@@ -56,6 +63,9 @@ namespace Kubonsang.VfxForge.Editor
                 case "style.emissionIntensity": value = recipe.style.emissionIntensity; return true;
                 case "style.sharpness": value = recipe.style.sharpness; return true;
                 case "style.distortionStrength": value = recipe.style.distortionStrength; return true;
+                case "motion.speed": value = recipe.motion.speed; return true;
+                case "motion.localDirection": value = recipe.motion.localDirection; return true;
+                case "geometry.variant": value = recipe.geometry.variant; return true;
                 case "style.primaryColor":
                     if (ColorUtility.TryParseHtmlString(recipe.style.primaryColor, out Color primary)) { value = primary; return true; }
                     return false;

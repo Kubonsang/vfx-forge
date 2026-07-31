@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 namespace Kubonsang.VfxForge
 {
@@ -17,9 +18,12 @@ namespace Kubonsang.VfxForge
         public VfxTiming timing = new VfxTiming();
         public VfxShape shape = new VfxShape();
         public VfxStyle style = new VfxStyle();
+        public VfxMotion motion = new VfxMotion();
+        public VfxGeometry geometry = new VfxGeometry();
         public string[] layers = Array.Empty<string>();
         public VfxBudget budget = new VfxBudget();
         public VfxCaptureSettings capture = new VfxCaptureSettings();
+        public VfxQualitySettings quality = new VfxQualitySettings();
     }
 
     [Serializable]
@@ -51,6 +55,19 @@ namespace Kubonsang.VfxForge
     }
 
     [Serializable]
+    public sealed class VfxMotion
+    {
+        public float speed;
+        public Vector3 localDirection = Vector3.forward;
+    }
+
+    [Serializable]
+    public sealed class VfxGeometry
+    {
+        public string variant = string.Empty;
+    }
+
+    [Serializable]
     public sealed class VfxBudget
     {
         public int maxParticles = 500;
@@ -66,7 +83,16 @@ namespace Kubonsang.VfxForge
         public float duration = 1f;
         public float[] frameTimes = { 0f, 0.1f, 0.2f, 0.5f, 1f };
         public string[] views = { "front" };
+        public string[] contexts = Array.Empty<string>();
         public int width = 1024;
         public int height = 1024;
+    }
+
+    [Serializable]
+    public sealed class VfxQualitySettings
+    {
+        public float minimumForegroundRatio = 0.01f;
+        public float maximumBorderForegroundRatio = 0.005f;
+        public bool requireHumanReview;
     }
 }

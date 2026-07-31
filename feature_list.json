@@ -717,6 +717,55 @@
         "dogfooding_record": "Dogfooding/DF-005-ornate-topdown-giant-shield.md",
         "next_task_candidate": "VF-015 generic binding and visual quality gates"
       }
+    },
+    {
+      "id": "VF-015",
+      "title": "Recipe 1.1 and Typed Multi-Target Binding",
+      "status": "done",
+      "scope": [
+        "Preserve Recipe 1.0 behavior while adding the optional Recipe 1.1 contract",
+        "Add motion, geometry, quality, and capture context fields",
+        "Apply typed Transform, Material, Mesh variant, and Adapter bindings without arbitrary reflection",
+        "Preserve source Prefab, VFX Graph, Material, and Mesh assets"
+      ],
+      "acceptance": [
+        "Recipe 1.0 parser and compiler regression tests remain unchanged",
+        "Recipe 1.1 rejects unknown fields and invalid ranges with stable codes",
+        "Catalog rejects unsafe targets, unsupported properties, and Adapter type mismatches",
+        "Primary and variant Recipes produce distinct VFX, Transform, Material, Mesh, and Motion overrides",
+        "Required Binding failures stop before Prefab save",
+        "Unity Console errors are zero"
+      ],
+      "verification": {
+        "unity": "6000.3.8f1",
+        "urp": "17.3.0",
+        "vfx_graph": "17.3.0",
+        "test_framework": "1.6.0",
+        "recipe_versions": ["1.0", "1.1"],
+        "binding_targets": [
+          "VisualEffectProperty",
+          "TransformProperty",
+          "MaterialProperty",
+          "MeshVariant",
+          "AdapterProperty"
+        ],
+        "editmode_tests": {
+          "passed": 142,
+          "failed": 0,
+          "artifact": "/tmp/vf015-editmode-v2.xml"
+        },
+        "console": {
+          "errors": 0,
+          "artifact": "/tmp/vf015-editmode-v2.log"
+        },
+        "source_safety": {
+          "template_dependency_hash_regression": "passed",
+          "material_uses_property_block": true,
+          "mesh_uses_catalog_allowlist": true,
+          "arbitrary_reflection": false
+        },
+        "next_task_candidate": "VF-016 Preview and automated quality gate hardening"
+      }
     }
   ]
 }

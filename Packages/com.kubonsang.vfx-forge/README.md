@@ -29,6 +29,8 @@ The five-Recipe end-to-end fixture and Template immutability checks are document
 ## Current Capabilities
 
 - JSON Recipe parsing and normalization
+- Backward-compatible Recipe 1.1 motion, geometry, quality, and review-context data
+- Typed VisualEffect, Transform, Material, Mesh allowlist, and Adapter bindings
 - Deterministic generated-Prefab validation pipeline and severity-based reports
 - Validated Template Catalog registration and Property Binding inspection
 - Safe independent Prefab compilation with generated-only overwrite protection

@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Added backward-compatible Recipe 1.1 parsing and validation.
+- Added typed Transform, Material PropertyBlock, Mesh allowlist, and explicit
+  Adapter binding targets without arbitrary reflection.
 - Added three valid and two invalid versioned Recipe integration fixtures.
 - Added full Batch pipeline coverage through Prefab generation, Preview, Capture, and reports.
 - Added Template, Catalog, and referenced VFX asset immutability assertions.
