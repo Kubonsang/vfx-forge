@@ -707,6 +707,12 @@
           "warnings": 12,
           "artifact": "UnityCompatibilityProject/Artifacts/vf-014-console.json"
         },
+        "quality_verdict": {
+          "status": "rejected",
+          "reviewed_at": "2026-07-31",
+          "reason": "The effect is semantically unclear, and its particle-like elements and ornament patterns are too crude for production use.",
+          "note": "Automated rendering, binding, test, and console gates passed but did not establish visual quality."
+        },
         "gameplay_evidence": "Dogfooding/Evidence/VF-014",
         "dogfooding_record": "Dogfooding/DF-005-ornate-topdown-giant-shield.md",
         "next_task_candidate": "VF-015 generic binding and visual quality gates"
