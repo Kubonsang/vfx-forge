@@ -24,6 +24,7 @@ Asset은 읽기 전용 입력으로 취급하며, 생성된 결과와 검증 근
 - 다섯 항목과 hash freshness를 요구하는 Human Visual Approval Gate
 - 출처·사용 범위가 명시된 Reference Board와 실루엣 중심 Art Direction Brief
 - Reference Board 변경을 감지해 컨셉 생성을 차단하는 Preproduction Gate
+- 동일 카메라 후보 보드와 hash-bound Human Concept Selection Gate
 - Editor Window의 `Run All`과 단계별 실패 차단
 - 자동화용 BatchMode 인수, 한 줄 JSON 결과, 단계별 종료 코드
 - 3개 성공·2개 실패 Recipe를 사용하는 종단 간 통합 fixture
@@ -38,7 +39,7 @@ Asset은 읽기 전용 입력으로 취급하며, 생성된 결과와 검증 근
 | Unity Test Framework | 1.6.0 |
 
 패키지의 최소 Unity 버전은 `6000.0`입니다. 현재 검증 기준에서는 EditMode 테스트
-178개 EditMode 테스트가 통과했고 Unity Console Error는
+187개 EditMode 테스트가 통과했고 Unity Console Error는
 0개입니다.
 
 ## Production Crescent Slash 데모

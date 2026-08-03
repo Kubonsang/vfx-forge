@@ -65,10 +65,35 @@ from every linked work.
 The status means only that the research inputs are complete and mutually consistent.
 It is not an aesthetic approval.
 
+## VF-021 candidate set
+
+Four camera-locked 1536×1024 boards were generated with the built-in image tool. Each
+board contains grayscale, color, three-ground, and layer-breakdown evidence.
+
+- A — Faceted Bastion:
+  `Dogfooding/Evidence/VF-021-concepts/candidate-a-faceted-bastion-board.png`
+  - Strength: dominant plate and strong material separation.
+  - Risk: braces still resemble attached gold blocks.
+- B — Cathedral Wing:
+  `Dogfooding/Evidence/VF-021-concepts/candidate-b-cathedral-wing-board.png`
+  - Strength: strongest rim-to-ornament structural logic.
+  - Risk: wings overtake the plate and approach an emblem silhouette.
+- C — Fractured Ward:
+  `Dogfooding/Evidence/VF-021-concepts/candidate-c-fractured-ward-board.png`
+  - Strength: clearest asymmetry and mass hierarchy.
+  - Risk: horizontal plane can be mistaken for a ground sigil.
+- D — Solar Mantlet:
+  `Dogfooding/Evidence/VF-021-concepts/candidate-d-solar-mantlet-board.png`
+  - Strength: only candidate whose 35° tilt clearly communicates shield thickness.
+  - Risk: four braces are not equally countable and the split suggests two lobes.
+
+Input and output hashes are recorded in
+`Dogfooding/Evidence/VF-021-concepts/concept-candidates.json`. The current
+`concept-review.json` state is `selection_required`; no candidate has been selected by
+automation.
+
 ## Next review gate
 
-VF-021 must generate four strict-top-down candidates at a fixed 1920×1080 gameplay
-context and approximately 360 px effect footprint. Each candidate needs a grayscale
-silhouette, full-color concept, light/mid/dark ground composite, and labeled layer
-breakdown. The project owner must select one candidate before VF-022 creates any Unity
-Mesh, Shader Graph, or VFX Graph asset.
+The project owner must select or reject the candidate set. VF-022 cannot create any
+Unity Mesh, Shader Graph, or VFX Graph asset until the selection hashes match and all
+five concept-review criteria pass.

@@ -1046,6 +1046,7 @@
       "id": "VF-021",
       "title": "Top-Down VFX Concept Generation and Selection",
       "status": "in_progress",
+      "phase": "selection_required",
       "scope": [
         "Generate three to six camera-locked concept candidates from a validated Brief",
         "Produce grayscale, full-color, three-ground, and labeled-breakdown evidence per candidate",
@@ -1057,7 +1058,33 @@
         "All candidates use the same top-down camera and gameplay footprint",
         "Concept selection stores reviewer, decision, reason, and candidate hashes",
         "Automation does not select a production concept"
-      ]
+      ],
+      "verification": {
+        "contracts": [
+          "concept-candidates-1.0",
+          "concept-review-1.0"
+        ],
+        "candidate_manifest": "Dogfooding/Evidence/VF-021-concepts/concept-candidates.json",
+        "concept_review": "Dogfooding/Evidence/VF-021-concepts/concept-review.json",
+        "candidate_count": 4,
+        "board_dimensions": "1536x1024",
+        "camera_view": "strict_top_down",
+        "effect_footprint_pixels": 360,
+        "selection_status": "selection_required",
+        "selected_candidate": "",
+        "selection_automated": false,
+        "editmode_tests": {
+          "passed": 187,
+          "failed": 0,
+          "skipped": 0,
+          "artifact": "/tmp/vf021-concepts-editmode.xml"
+        },
+        "console": {
+          "errors": 0,
+          "artifact": "/tmp/vf021-concepts-editmode.log"
+        },
+        "next_gate": "Project owner selects or rejects the concept set"
+      }
     },
     {
       "id": "VF-022",

@@ -6,6 +6,8 @@
   contracts with provenance, usage, silhouette, depth, and material-zone rules.
 - Added a hash-bound `ready_for_concepts` gate and Editor Window validation UI.
 - Added DF-007 link-only reference research for the rejected Holy Aegis redesign.
+- Added hash-bound concept candidate and human selection contracts with locked camera,
+  evidence-role, file-integrity, and stale-review validation.
 
 ## 0.2.0
 

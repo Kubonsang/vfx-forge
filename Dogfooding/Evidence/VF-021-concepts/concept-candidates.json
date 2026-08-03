@@ -1,0 +1,95 @@
+{
+  "schemaVersion": "concept-candidates-1.0",
+  "taskId": "VF-021",
+  "referenceBoardSha256": "ad4f00bdec04dec423c3082a9aa623c9e1d1c508f81d74c6e4b2d8dfb35ab274",
+  "artDirectionBriefSha256": "eaed118e918e7e1d4ec302b1c0f95fe1cf568cb4920bc5b54a393f72e654bc82",
+  "promptSetPath": "Dogfooding/Preproduction/DF-007/concept-prompts.md",
+  "promptSetSha256": "c2a8dd7fd38c301f9d08252ee1b3dc2417521498765dccb5f58ca91df2056120",
+  "generator": "OpenAI built-in image generation; stylized-concept; one call per candidate",
+  "candidates": [
+    {
+      "id": "candidate_a",
+      "title": "Faceted Bastion",
+      "boardPath": "Dogfooding/Evidence/VF-021-concepts/candidate-a-faceted-bastion-board.png",
+      "boardSha256": "af7961d7de590019d4bf7dee2ad14632492a096df0b39d57263f673d147dfc67",
+      "cameraView": "strict_top_down",
+      "width": 1536,
+      "height": 1024,
+      "effectFootprintPixels": 360,
+      "evidence": [
+        "grayscale_silhouette",
+        "full_color_concept",
+        "three_ground_composite",
+        "labeled_breakdown"
+      ],
+      "shapeSummary": "Dominant faceted round plate with broken rim rhythm, compressed lower point, and four broad overlapping braces.",
+      "knownRisks": [
+        "Braces may still read as attached gold blocks rather than grown structure.",
+        "Central crest is more ornate than the brief requests."
+      ]
+    },
+    {
+      "id": "candidate_b",
+      "title": "Cathedral Wing",
+      "boardPath": "Dogfooding/Evidence/VF-021-concepts/candidate-b-cathedral-wing-board.png",
+      "boardSha256": "dc87e96b10aa1079d4c7fa6c08c1e07dd13186431c9c521af62e48348c586dfe",
+      "cameraView": "strict_top_down",
+      "width": 1536,
+      "height": 1024,
+      "effectFootprintPixels": 360,
+      "evidence": [
+        "grayscale_silhouette",
+        "full_color_concept",
+        "three_ground_composite",
+        "labeled_breakdown"
+      ],
+      "shapeSummary": "Tall cathedral-wing frame interlocked around a central shield plate with a strong vertical sunblade crest.",
+      "knownRisks": [
+        "Wings can dominate the primary plate and become an emblem silhouette.",
+        "Overall footprint may obscure too much gameplay space."
+      ]
+    },
+    {
+      "id": "candidate_c",
+      "title": "Fractured Ward",
+      "boardPath": "Dogfooding/Evidence/VF-021-concepts/candidate-c-fractured-ward-board.png",
+      "boardSha256": "8292325a98ec30923ee55a99a1dd81a5741e16317249eee5b3ebce5a5589f03e",
+      "cameraView": "strict_top_down",
+      "width": 1536,
+      "height": 1024,
+      "effectFootprintPixels": 360,
+      "evidence": [
+        "grayscale_silhouette",
+        "full_color_concept",
+        "three_ground_composite",
+        "labeled_breakdown"
+      ],
+      "shapeSummary": "Flattened forward-compressed round ward with one offset fracture channel and four unequal integral buttresses.",
+      "knownRisks": [
+        "Horizontal presentation can read as a ground sigil instead of a shield.",
+        "Rim rhythm remains close to a radial medallion."
+      ]
+    },
+    {
+      "id": "candidate_d",
+      "title": "Solar Mantlet",
+      "boardPath": "Dogfooding/Evidence/VF-021-concepts/candidate-d-solar-mantlet-board.png",
+      "boardSha256": "04825573a191f00f6e7edf4be002b9d23fd2515ba269c344401dac21306d6eb9",
+      "cameraView": "strict_top_down",
+      "width": 1536,
+      "height": 1024,
+      "effectFootprintPixels": 360,
+      "evidence": [
+        "grayscale_silhouette",
+        "full_color_concept",
+        "three_ground_composite",
+        "labeled_breakdown"
+      ],
+      "shapeSummary": "A 35-degree enemy-facing oval mantlet with visible thickness, strong central ridge, offset chamfer, and four integrated braces.",
+      "knownRisks": [
+        "Individual side braces are less immediately countable in the concept board.",
+        "The central split can suggest two energy lobes instead of one plate."
+      ]
+    }
+  ]
+}

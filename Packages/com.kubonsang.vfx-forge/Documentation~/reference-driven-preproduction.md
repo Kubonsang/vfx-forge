@@ -60,3 +60,17 @@ on behalf of the human reviewer.
 5. Compare candidates in grayscale before judging Shader finish.
 6. Require human selection before producing Unity Mesh, Shader Graph, or VFX Graph
    assets.
+
+## Concept candidate and selection contracts
+
+`concept-candidates-1.0` binds the Reference Board, Brief, Prompt Set, and every
+candidate board with SHA-256. Three to six candidates must use identical strict
+top-down dimensions and gameplay footprint. Each candidate declares the four evidence
+roles and at least one known risk. `ValidateFiles` detects missing, changed, or resized
+Prompt Sets and boards.
+
+`concept-review-1.0` is separate from the candidate manifest. Its product states are
+`selection_required`, `selected`, `rejected`, and `review_stale`. A selection requires
+a real candidate ID, reviewer, time, rationale, and passing decisions for shield
+meaning, silhouette quality, connected structure, contemporary finish potential, and
+gameplay readability. Automation must not create that selection for a human reviewer.

@@ -44,6 +44,7 @@ documented in
 - BatchMode entry point with stable arguments, JSON result, Artifact path, and exit codes
 - Five-Recipe Batch integration fixture with Template and VFX asset immutability checks
 - Reference Board and Art Direction Brief contracts with a stale-hash concept gate
+- Camera-locked Concept Candidate manifests and a hash-bound human selection gate
 
 ## Not Yet Implemented
 

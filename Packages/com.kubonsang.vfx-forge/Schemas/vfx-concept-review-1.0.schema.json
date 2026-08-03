@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Kubonsang/vfx-forge/schemas/vfx-concept-review-1.0.schema.json",
+  "title": "VFX Forge Concept Review 1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "status", "candidateManifestSha256", "selectedCandidateId", "reviewer", "reviewTimeUtc", "criteria", "decisionReason"],
+  "properties": {
+    "schemaVersion": { "const": "concept-review-1.0" },
+    "status": { "enum": ["selection_required", "selected", "rejected", "review_stale"] },
+    "candidateManifestSha256": { "type": "string", "pattern": "^[a-fA-F0-9]{64}$" },
+    "selectedCandidateId": { "type": "string" },
+    "reviewer": { "type": "string" },
+    "reviewTimeUtc": { "type": "string" },
+    "criteria": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["shieldMeaning", "silhouetteQuality", "connectedStructure", "contemporaryFinishPotential", "gameplayReadability"],
+      "properties": {
+        "shieldMeaning": { "type": "boolean" },
+        "silhouetteQuality": { "type": "boolean" },
+        "connectedStructure": { "type": "boolean" },
+        "contemporaryFinishPotential": { "type": "boolean" },
+        "gameplayReadability": { "type": "boolean" }
+      }
+    },
+    "decisionReason": { "type": "string" }
+  }
+}
