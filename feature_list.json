@@ -1181,9 +1181,53 @@
           "artifact": "Dogfooding/Evidence/VF-022-cavalier-wall-shape/console-counts.json"
         },
         "capture_manifest": "Dogfooding/Evidence/VF-022-cavalier-wall-shape/shape-review.json",
-        "contact_sheet": "Dogfooding/Evidence/VF-022-cavalier-wall-shape/shape-contact-sheet.png",
+        "contact_sheet": "Dogfooding/Evidence/VF-022-cavalier-wall-shape-v2/shape-contact-sheet-v2.png",
+        "shape_revision_v2": {
+          "reason": "Project owner requested higher shape quality and denser modeling topology",
+          "previous_prefab_preserved": "UnityCompatibilityProject/Assets/VFXForge/Dogfood/HolyAegisV4/Authoring/Shape/CavalierWallShape.prefab",
+          "prefab": "UnityCompatibilityProject/Assets/VFXForge/Dogfood/HolyAegisV4/Authoring/ShapeV2/CavalierWallShapeV2.prefab",
+          "prefab_sha256": "acba13cf3c8ac2a90ae21c48cd942872e24681bbb1224dca3badf82d91975179",
+          "demo_scene": "UnityCompatibilityProject/Assets/VFXForge/Dogfood/HolyAegisV4/Demo/CavalierWallShapeV2Demo.unity",
+          "surface_grid": "72x14",
+          "rail_cross_section_sides": 12,
+          "rendered_vertices": 4430,
+          "rendered_triangles": 8824,
+          "previous_rendered_triangles": 876,
+          "triangle_multiplier": 10.0731,
+          "major_changes": [
+            "sculpted high-density primary surface",
+            "continuous rectangular-bevel swept frame",
+            "four connected chamfered block anchors"
+          ],
+          "targeted_editmode_tests": {
+            "passed": 4,
+            "failed": 0,
+            "artifact": "/tmp/vf022-v2-editmode-final.xml"
+          },
+          "targeted_playmode_tests": {
+            "passed": 1,
+            "failed": 0,
+            "artifact": "/tmp/vf022-v2-playmode.xml"
+          },
+          "full_editmode_tests": {
+            "passed": 194,
+            "failed": 0,
+            "artifact": "/tmp/vf022-v2-full-editmode-final.xml"
+          },
+          "full_playmode_tests": {
+            "passed": 6,
+            "failed": 0,
+            "artifact": "/tmp/vf022-v2-full-playmode.xml"
+          },
+          "console": {
+            "errors": 0,
+            "warnings": 12,
+            "artifact": "Dogfooding/Evidence/VF-022-cavalier-wall-shape-v2/console-counts-v2.json"
+          },
+          "review_manifest": "Dogfooding/Evidence/VF-022-cavalier-wall-shape-v2/shape-review-v2.json"
+        },
         "human_shape_review": "review_required",
-        "known_risk": "The regular frame and heavy side roots may still read as architecture rather than a deployed skill",
+        "known_risk": "Higher topology now supports curved highlights, but final shield identity and ornament balance still require human shape review",
         "next_gate": "Project owner accepts or rejects the Unity grayscale shape before VF-023 begins"
       }
     },

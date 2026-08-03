@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using VfxForge.Dogfood;
 
-public static class VfxForgeCavalierWallDogfood
+public static partial class VfxForgeCavalierWallDogfood
 {
     [Serializable]
     private sealed class ConsoleCounts

@@ -1,0 +1,86 @@
+{
+  "schemaVersion": "shape-review-1.0",
+  "taskId": "VF-022",
+  "recordId": "DF-007",
+  "revision": "v2",
+  "generatedAtUtc": "2026-08-03T08:58:16Z",
+  "status": "review_required",
+  "reason": "Project owner requested higher shape quality and denser modeling topology.",
+  "selectedCandidateId": "candidate_e",
+  "conceptManifestSha256": "674b5e324cf9aa44a3094822203fe28659be410c421fd327e5512921352646d7",
+  "implementation": {
+    "prefab": "UnityCompatibilityProject/Assets/VFXForge/Dogfood/HolyAegisV4/Authoring/ShapeV2/CavalierWallShapeV2.prefab",
+    "prefabSha256": "acba13cf3c8ac2a90ae21c48cd942872e24681bbb1224dca3badf82d91975179",
+    "demoScene": "UnityCompatibilityProject/Assets/VFXForge/Dogfood/HolyAegisV4/Demo/CavalierWallShapeV2Demo.unity",
+    "demoSceneSha256": "6b33abc90d5780d7b931565f26e1d91f3b8afe50c12e9ca03622a648078425d4",
+    "facingBehavior": "caster_forward_or_flattened_world_aim_override",
+    "majorVisualGroups": 3,
+    "shaderFinishApplied": false
+  },
+  "topology": {
+    "v1RenderedVertices": 456,
+    "v1RenderedTriangles": 876,
+    "v2RenderedVertices": 4430,
+    "v2RenderedTriangles": 8824,
+    "triangleMultiplier": 10.0731,
+    "surfaceHorizontalSegments": 72,
+    "surfaceVerticalSegments": 14,
+    "railCrossSectionSides": 12
+  },
+  "captures": [
+    {
+      "id": "isolated",
+      "path": "Dogfooding/Evidence/VF-022-cavalier-wall-shape-v2/isolated-grayscale-v2.png",
+      "width": 1280,
+      "height": 720,
+      "sha256": "d4da9695e302c42bd2f9d7b2321af8f8309f71e82cb57b8dc5150a5486cf1ffd"
+    },
+    {
+      "id": "gameplay_forward",
+      "path": "Dogfooding/Evidence/VF-022-cavalier-wall-shape-v2/gameplay-forward-v2.png",
+      "width": 1280,
+      "height": 720,
+      "sha256": "cdc0b67bc0988449c1adf934f59947aeb27eadeb4beddfe2f019eb8757921174"
+    },
+    {
+      "id": "gameplay_facing_right",
+      "path": "Dogfooding/Evidence/VF-022-cavalier-wall-shape-v2/gameplay-facing-right-v2.png",
+      "width": 1280,
+      "height": 720,
+      "sha256": "4fd34ecf1ef7790461729a1aedbdbf1253a17cd2bf1f3d24e647a32c70fba1a4"
+    }
+  ],
+  "contactSheet": {
+    "path": "Dogfooding/Evidence/VF-022-cavalier-wall-shape-v2/shape-contact-sheet-v2.png",
+    "width": 3840,
+    "height": 720,
+    "sha256": "2407289c2c41475e7e792019109ff7d649b2236bb7414245de0bc994bd82c41b"
+  },
+  "technicalValidation": {
+    "targetedEditMode": {
+      "passed": 4,
+      "failed": 0
+    },
+    "targetedPlayMode": {
+      "passed": 1,
+      "failed": 0
+    },
+    "fullEditMode": {
+      "passed": 194,
+      "failed": 0
+    },
+    "fullPlayMode": {
+      "passed": 6,
+      "failed": 0
+    },
+    "consoleErrors": 0,
+    "consoleWarnings": 12
+  },
+  "humanReview": {
+    "reviewer": null,
+    "reviewedAtUtc": null,
+    "accepted": null,
+    "rejectionReason": null
+  },
+  "knownLimitation": "The grayscale gate proves topology and silhouette only; material and timing quality are not yet represented."
+}

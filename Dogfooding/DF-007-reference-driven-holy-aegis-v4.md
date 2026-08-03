@@ -275,3 +275,63 @@ VF-022 remains `in_progress` at `shape_review_required`. The evidence demonstrat
 implemented geometry and facing behavior, but does not self-approve its aesthetics.
 The project owner must accept or reject this grayscale shape before VF-023 can add
 energy, metal, contact Shader zones, or temporal choreography.
+
+## VF-022 grayscale shape revision V2
+
+The project owner judged that the first Unity translation needed both better modeling
+quality and substantially more polygon density. V1 remains immutable as comparison
+evidence. V2 was authored into a separate `ShapeV2` Asset set and changes exactly three
+major visual groups:
+
+1. The primary surface is now a 72x14 sculpted grid with front/back volume, UVs, a
+   raised upper silhouette, and a restrained horizontal bow.
+2. The flat band frame is replaced by a continuous 12-sided rectangular-bevel sweep,
+   including dedicated top, bottom, and tapered side rails.
+3. The repeated tooth-like braces are replaced by four connected chamfered block
+   anchors: two upper keystones and two lower root anchors.
+
+The first V2 render reached 8,344 triangles but its circular rail profile read as a
+rubber hose. The second reached 9,144 triangles but its cylindrical anchors read as
+loops. Neither was accepted as evidence. Both uncommitted outputs were moved to
+`/tmp/vf022-v2-firstpass` and `/tmp/vf022-v2-secondpass`; the repository contains only
+the corrected rectangular-bevel frame and block-anchor result.
+
+### Topology comparison
+
+- V1 rendered topology: 456 vertices, 876 triangles.
+- V2 rendered topology: 4,430 vertices, 8,824 triangles.
+- Triangle increase: 10.0731x.
+- V2 surface grid: 72 horizontal by 14 vertical segments.
+- V2 rail cross-section: 12 sides with a rectangular bevel profile.
+
+The counts sum every rendered `MeshFilter`, including four anchor instances, and are
+locked by `CavalierWallShapeV2ContractTests`. More polygons are not treated as quality
+by themselves; the extra topology exists to support curved surface response, beveled
+edge highlights, and non-cylindrical connected ornaments in the later Shader phase.
+
+### V2 assets and evidence
+
+- Shape Prefab:
+  `UnityCompatibilityProject/Assets/VFXForge/Dogfood/HolyAegisV4/Authoring/ShapeV2/CavalierWallShapeV2.prefab`
+- Gameplay review scene:
+  `UnityCompatibilityProject/Assets/VFXForge/Dogfood/HolyAegisV4/Demo/CavalierWallShapeV2Demo.unity`
+- Contact Sheet:
+  `Dogfooding/Evidence/VF-022-cavalier-wall-shape-v2/shape-contact-sheet-v2.png`
+- Review manifest:
+  `Dogfooding/Evidence/VF-022-cavalier-wall-shape-v2/shape-review-v2.json`
+
+The Mesh, Material, Prefab, and Scene outputs were generated through Unity Editor APIs;
+no serialized Unity Asset was text-edited or automatically overwritten.
+
+### V2 technical verification
+
+- Targeted V2 EditMode: 4 passed, 0 failed.
+- Targeted V2 PlayMode: 1 passed, 0 failed.
+- Full EditMode: 194 passed, 0 failed.
+- Full PlayMode: 6 passed, 0 failed.
+- Unity Console: 0 errors, 12 warnings.
+
+VF-022 remains `shape_review_required`. V2 is a technically verified modeling revision,
+not an automated aesthetic approval and not a production-ready VFX. Shader, emission,
+surface motion, deployment, sustain, and decay remain blocked until the project owner
+reviews the new grayscale Contact Sheet.
