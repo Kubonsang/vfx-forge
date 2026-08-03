@@ -1,0 +1,75 @@
+{
+  "schemaVersion": "shape-review-1.0",
+  "taskId": "VF-022",
+  "recordId": "DF-007",
+  "generatedAtUtc": "2026-08-03T08:38:36Z",
+  "status": "review_required",
+  "selectedCandidateId": "candidate_e",
+  "selectedCandidateName": "Cavalier Wall",
+  "conceptManifestSha256": "674b5e324cf9aa44a3094822203fe28659be410c421fd327e5512921352646d7",
+  "implementation": {
+    "prefab": "UnityCompatibilityProject/Assets/VFXForge/Dogfood/HolyAegisV4/Authoring/Shape/CavalierWallShape.prefab",
+    "prefabSha256": "1a8a937d778c8f4673a099f54c34e0b22afd59a30f48e9f9f7eed725e271897c",
+    "demoScene": "UnityCompatibilityProject/Assets/VFXForge/Dogfood/HolyAegisV4/Demo/CavalierWallShapeDemo.unity",
+    "demoSceneSha256": "8be86cb9f2c504eb9aa6d065b405da612b5111e1d64f66c83c3a909b7fac0467",
+    "facingBehavior": "caster_forward_or_flattened_world_aim_override",
+    "majorVisualGroups": 3,
+    "shaderFinishApplied": false
+  },
+  "captures": [
+    {
+      "id": "isolated",
+      "path": "Dogfooding/Evidence/VF-022-cavalier-wall-shape/isolated-grayscale.png",
+      "width": 1280,
+      "height": 720,
+      "sha256": "f8dbf31de615e356ecc1fa3f9b9547e16c31efcb28a72451c9fede9ac22632ed"
+    },
+    {
+      "id": "gameplay_forward",
+      "path": "Dogfooding/Evidence/VF-022-cavalier-wall-shape/gameplay-forward.png",
+      "width": 1280,
+      "height": 720,
+      "sha256": "094ea6a024d9360bcdc46004cd255575cb7f47ec366a5f13ca19fa378090a06a"
+    },
+    {
+      "id": "gameplay_facing_right",
+      "path": "Dogfooding/Evidence/VF-022-cavalier-wall-shape/gameplay-facing-right.png",
+      "width": 1280,
+      "height": 720,
+      "sha256": "ca84715862da881cafc2c9444c2e610f6b07232016153320ad64b3f57bfdd795"
+    }
+  ],
+  "contactSheet": {
+    "path": "Dogfooding/Evidence/VF-022-cavalier-wall-shape/shape-contact-sheet.png",
+    "width": 3840,
+    "height": 720,
+    "sha256": "fddc3ea113090b80b3b2fed0c0824852decf9dabef0534c378a0a5e775b3a478"
+  },
+  "technicalValidation": {
+    "targetedEditMode": {
+      "passed": 3,
+      "failed": 0
+    },
+    "targetedPlayMode": {
+      "passed": 1,
+      "failed": 0
+    },
+    "fullEditMode": {
+      "passed": 190,
+      "failed": 0
+    },
+    "fullPlayMode": {
+      "passed": 5,
+      "failed": 0
+    },
+    "consoleErrors": 0,
+    "consoleWarnings": 16
+  },
+  "humanReview": {
+    "reviewer": null,
+    "reviewedAtUtc": null,
+    "accepted": null,
+    "rejectionReason": null
+  },
+  "knownRisk": "The regular frame and heavy side roots may read as architecture instead of a temporally deployed skill."
+}

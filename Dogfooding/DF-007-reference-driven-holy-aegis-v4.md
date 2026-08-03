@@ -201,3 +201,77 @@ board SHA-256 matching, and `git diff --check`. A fresh targeted
 `VfxConceptReviewTests` run was attempted, but Unity 6000.3.8f1 again lost its Licensing
 Client channel before the test runner started; the process was stopped and the log is
 stored at `/tmp/vf021-approval-editmode.log`. No fresh test or Console result is claimed.
+
+## VF-022 grayscale Unity translation
+
+Candidate E was translated into a new Unity-owned shape without modifying VF-014,
+VF-019, their Templates, or their evidence. This first iteration deliberately changes
+only three major visual groups:
+
+1. one broad curved primary barrier surface,
+2. one continuous structural frame including the upper/lower rim and side roots,
+3. four braces that remain physically connected to the wall.
+
+The wall is an upright enemy-facing interception plane rather than an upward-facing
+disc. `CavalierWallFacing` rotates its dedicated pivot from the caster's flattened
+forward vector, or from an explicit flattened world-space aim override. The demo scene
+sweeps the caster toward a moving target so this behavior can be inspected in Play
+Mode.
+
+This is a shape gate, not a production VFX result. All authored materials are grayscale
+URP Lit placeholders. Shader Graph, VFX Graph, ParticleSystem, dynamic Light, final
+emission, timing, and deployment choreography remain absent. The regular frame and
+heavy side roots still carry the known risk of reading as architecture or a fence.
+
+### Generated Unity assets
+
+- Shape Prefab:
+  `UnityCompatibilityProject/Assets/VFXForge/Dogfood/HolyAegisV4/Authoring/Shape/CavalierWallShape.prefab`
+- Gameplay review scene:
+  `UnityCompatibilityProject/Assets/VFXForge/Dogfood/HolyAegisV4/Demo/CavalierWallShapeDemo.unity`
+- Editor builder:
+  `UnityCompatibilityProject/Assets/Editor/VfxForgeCavalierWallDogfood.cs`
+- Runtime facing contract:
+  `UnityCompatibilityProject/Assets/VFXForge/Dogfood/Runtime/Production/CavalierWallFacing.cs`
+
+The Mesh, Material, Prefab, and Scene assets were created and saved through Unity Editor
+APIs. No Unity serialized Asset was manually authored or text-edited.
+
+### Shape review evidence
+
+- Contact Sheet:
+  `Dogfooding/Evidence/VF-022-cavalier-wall-shape/shape-contact-sheet.png`
+- Isolated grayscale capture:
+  `Dogfooding/Evidence/VF-022-cavalier-wall-shape/isolated-grayscale.png`
+- Gameplay forward capture:
+  `Dogfooding/Evidence/VF-022-cavalier-wall-shape/gameplay-forward.png`
+- Gameplay right-facing capture:
+  `Dogfooding/Evidence/VF-022-cavalier-wall-shape/gameplay-facing-right.png`
+- Capture and hash record:
+  `Dogfooding/Evidence/VF-022-cavalier-wall-shape/shape-review.json`
+
+All three source frames are 1280x720 and have distinct SHA-256 hashes. The isolated
+frame exposes the shape hierarchy; the two gameplay frames show that orientation
+changes toward the target without tilting the wall upward. The initial capture attempt
+was discarded because its preview Camera was not assigned to the preview Scene and
+therefore repeated the active demo view. The fixed evidence was regenerated rather
+than accepting that invalid capture.
+
+### Technical verification
+
+- Targeted EditMode: 3 passed, 0 failed.
+- Targeted PlayMode: 1 passed, 0 failed.
+- Full EditMode with graphics: 190 passed, 0 failed.
+- Full PlayMode: 5 passed, 0 failed.
+- Unity Console: 0 errors, 16 warnings; counts are recorded in
+  `Dogfooding/Evidence/VF-022-cavalier-wall-shape/console-counts.json`.
+
+A discarded NullGfx full EditMode run produced 9 failures only in RenderTexture capture
+fixtures; it was rerun with graphics and is not used as the acceptance result.
+
+### Current gate
+
+VF-022 remains `in_progress` at `shape_review_required`. The evidence demonstrates the
+implemented geometry and facing behavior, but does not self-approve its aesthetics.
+The project owner must accept or reject this grayscale shape before VF-023 can add
+energy, metal, contact Shader zones, or temporal choreography.
