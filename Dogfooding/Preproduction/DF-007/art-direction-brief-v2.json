@@ -1,0 +1,102 @@
+{
+  "schemaVersion": "art-direction-brief-1.0",
+  "id": "holy_aegis_v4_enemy_facing_brief_v2",
+  "taskId": "VF-021",
+  "referenceBoardId": "holy_aegis_v4_references",
+  "referenceBoardSha256": "ad4f00bdec04dec423c3082a9aa623c9e1d1c508f81d74c6e4b2d8dfb35ab274",
+  "effectIntent": "A fantasy knight deploys a massive protective barrier between caster and target. Its surface normal follows the caster-to-target direction, so the shield faces the enemy instead of the sky and reads as a physical interception plane from a strict top-down action-RPG camera.",
+  "candidateCount": 4,
+  "camera": {
+    "view": "strict_top_down",
+    "resolutionWidth": 1920,
+    "resolutionHeight": 1080,
+    "effectFootprintPixels": 360
+  },
+  "silhouette": {
+    "primaryMass": "foreshortened convex mantlet or curved barrier with a clearly visible caster-facing root, target-facing leading edge, and readable thickness",
+    "primaryMassRatio": 0.72,
+    "secondaryMassRatio": 0.18,
+    "negativeSpaceRatio": 0.1,
+    "asymmetry": "the leading edge, compression, and side shoulders establish one enemy direction without splitting the barrier into mirrored lobes",
+    "connections": [
+      "four large ornaments or braces must grow from the barrier shoulders and rim instead of floating around it",
+      "the structural root visibly anchors the barrier on the caster side",
+      "all energy gaps terminate inside a continuous load-bearing frame"
+    ],
+    "motifs": [
+      "one broad knight-mantlet mass with a directional leading ridge",
+      "four integrated protective shoulders with stronger weight toward the target"
+    ]
+  },
+  "depthLayers": [
+    {
+      "id": "contact_wedge",
+      "role": "narrow grounding and caster-side seating cue, never a radial magic circle",
+      "order": 0
+    },
+    {
+      "id": "energy_barrier",
+      "role": "dominant curved enemy-facing protective surface with readable opacity and thickness",
+      "order": 1
+    },
+    {
+      "id": "structural_frame",
+      "role": "continuous gold root, shoulders, leading rim, and four connected braces",
+      "order": 2
+    },
+    {
+      "id": "directional_edge_charge",
+      "role": "restrained leading-edge highlight that reinforces the target direction",
+      "order": 3
+    }
+  ],
+  "materialZones": [
+    {
+      "id": "emerald_energy_body",
+      "role": "primary barrier plane",
+      "finish": "deep translucent emerald with broad dual-scale internal noise, slow directional flow, and nonuniform opacity"
+    },
+    {
+      "id": "aged_holy_gold",
+      "role": "root, shoulders, braces, and leading rim",
+      "finish": "warm solid metal response with narrow emissive seams and controlled moving highlights"
+    },
+    {
+      "id": "boundary_charge",
+      "role": "surface-edge separation",
+      "finish": "thin Fresnel-like response plus a directional dissolve band, never uniform emission across the body"
+    },
+    {
+      "id": "contact_occlusion",
+      "role": "ground and caster separation",
+      "finish": "soft dark-green occlusion and a short contact wedge without circles or glyphs"
+    }
+  ],
+  "forbiddenTraits": [
+    "shield face aimed upward at the sky",
+    "complete heraldic disc presented to the top-down camera",
+    "ground sigil or radial UI medallion silhouette",
+    "perfectly concentric ring stacks",
+    "small repeated runes, glyphs, or filigree",
+    "detached floating ornaments",
+    "mirrored split-lobe barrier",
+    "particles used to hide weak geometry",
+    "uniform surface alpha or emission",
+    "literal copying of GNF_ or third-party VFX assets"
+  ],
+  "acceptanceQuestions": [
+    "Without an arrow label, can a reviewer identify the caster side, target side, and shield normal?",
+    "Does the shield intercept the line between caster and target instead of lying on the ground or facing the sky?",
+    "At gameplay scale, does one dominant barrier mass read before the braces and highlight layers?",
+    "Are all four braces visibly load-bearing parts of the frame rather than detached glyphs?",
+    "Does the silhouette remain attractive and directional with all Shader color removed?",
+    "Do the proposed material zones separate body, edge, metal, and contact instead of using one flat glow?",
+    "Can the caster and target remain readable around or through the barrier?"
+  ],
+  "outputs": {
+    "grayscaleSilhouette": true,
+    "fullColorConcept": true,
+    "threeGroundComposite": true,
+    "labeledBreakdown": true
+  }
+}

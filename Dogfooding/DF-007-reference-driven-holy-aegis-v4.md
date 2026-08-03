@@ -4,7 +4,7 @@
 
 - Record ID: `DF-007`
 - Pipeline Tasks: `VF-020` through `VF-023`
-- Current phase: Reference Board and Art Direction Brief validated
+- Current phase: First concept set rejected; enemy-facing revision brief prepared
 - Production status: Not ready; no concept has been selected
 
 ## Why this iteration exists
@@ -94,6 +94,54 @@ automation.
 
 ## Next review gate
 
-The project owner must select or reject the candidate set. VF-022 cannot create any
-Unity Mesh, Shader Graph, or VFX Graph asset until the selection hashes match and all
-five concept-review criteria pass.
+The project owner rejected the entire A-D set. Candidate D was explicitly the closest
+direction because its barrier can face the enemy, but it was not selected or approved.
+The decisive failure was orientation: the other shields exposed their primary faces to
+the sky and therefore read as ground-facing emblems from the top-down camera.
+
+The rejection is stored in `concept-review.json` with an empty `selectedCandidateId`.
+The original candidate boards, manifest, prompt set, Board, and Brief remain unchanged
+as historical evidence.
+
+## GNF_ reference study and revision
+
+The project owner requested that the next Shader and effect language study the sibling
+GNF_ project. The inspection was read-only, and no third-party source Asset or screenshot
+was copied into this public repository.
+
+- PixPlays Water Shield contributed the production principle of separating a primary
+  Mesh surface, internal noise, boundary response, ground support, and sparse droplets.
+- Hovl Magic Shield Holy Loop confirmed the value of independently timed visual layers,
+  while its repeated rune and magic-circle language remains explicitly forbidden.
+- Existing GNF_ lab captures reinforced that dense glyph detail collapses into an icon
+  at gameplay scale and cannot compensate for a weak silhouette.
+
+Detailed evidence and transfer rules:
+`Dogfooding/Preproduction/DF-007/gnf-vfx-reference-study.md`
+
+The next candidate set must use:
+`Dogfooding/Preproduction/DF-007/art-direction-brief-v2.json`
+
+The second Brief changes the primary contract from a tilted disc to an enemy-facing
+interception plane. Candidate D contributes only that directional premise. Its exact
+outline, split lobes, and ornament layout are not approved.
+
+## Next review gate
+
+VF-021 remains in progress. A second camera-locked concept set must be generated from
+the V2 Brief and reviewed by the project owner. VF-022 still cannot create any Unity
+Mesh, Shader Graph, or VFX Graph Asset until one new candidate passes all five concept
+criteria with matching, non-stale hashes.
+
+## Rejection update verification
+
+- JSON parsing: passed for the review record, V2 Brief, and `feature_list.json`.
+- Historical manifest hash: unchanged at
+  `051a4723c053825bca58cb0c84207c6ebf321fb401bc46f364f7ac8ba71ea2d8`.
+- V2 Brief SHA-256:
+  `c34142035aae49d3fcb07f31a3074988ef438ab24e13dd0adb52dc80157c4feb`.
+- `git diff --check`: passed.
+- Targeted `VfxConceptReviewTests`: attempted, but the Unity 6000.3.8f1 batch process
+  could not reconnect to the local Licensing Client and was stopped. The last completed
+  VF-021 run remains 187 passed, 0 failed, with Console errors 0; this documentation-only
+  rejection update does not replace that historical result or claim a fresh Unity run.

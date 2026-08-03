@@ -1,10 +1,10 @@
 {
   "schemaVersion": "concept-review-1.0",
-  "status": "selection_required",
+  "status": "rejected",
   "candidateManifestSha256": "051a4723c053825bca58cb0c84207c6ebf321fb401bc46f364f7ac8ba71ea2d8",
   "selectedCandidateId": "",
-  "reviewer": "",
-  "reviewTimeUtc": "",
+  "reviewer": "Project owner",
+  "reviewTimeUtc": "2026-08-03T07:29:13Z",
   "criteria": {
     "shieldMeaning": false,
     "silhouetteQuality": false,
@@ -12,5 +12,5 @@
     "contemporaryFinishPotential": false,
     "gameplayReadability": false
   },
-  "decisionReason": ""
+  "decisionReason": "The entire A-D set is rejected. Candidate D is the closest directional foundation because its shield plane can face the enemy, but it is not selected or approved. The other candidates primarily present their shield faces toward the sky and read as ground-facing emblems from the gameplay camera. The next set must derive only the enemy-facing mantlet principle from D and must study GNF_ VFX for layered shader, edge, dissolve, and temporal treatment without copying third-party assets or rune motifs."
 }

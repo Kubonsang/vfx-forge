@@ -1046,7 +1046,7 @@
       "id": "VF-021",
       "title": "Top-Down VFX Concept Generation and Selection",
       "status": "in_progress",
-      "phase": "selection_required",
+      "phase": "concept_set_rejected",
       "scope": [
         "Generate three to six camera-locked concept candidates from a validated Brief",
         "Produce grayscale, full-color, three-ground, and labeled-breakdown evidence per candidate",
@@ -1070,8 +1070,14 @@
         "board_dimensions": "1536x1024",
         "camera_view": "strict_top_down",
         "effect_footprint_pixels": 360,
-        "selection_status": "selection_required",
+        "selection_status": "rejected",
         "selected_candidate": "",
+        "preferred_direction_candidate": "candidate_d",
+        "preferred_direction_only": "Enemy-facing mantlet orientation; no candidate was approved",
+        "rejection_reason": "All four candidates were rejected. A-C primarily face the sky; D is directionally closest but remains unapproved.",
+        "gnf_reference_study": "Dogfooding/Preproduction/DF-007/gnf-vfx-reference-study.md",
+        "revision_brief": "Dogfooding/Preproduction/DF-007/art-direction-brief-v2.json",
+        "revision_brief_sha256": "c34142035aae49d3fcb07f31a3074988ef438ab24e13dd0adb52dc80157c4feb",
         "selection_automated": false,
         "editmode_tests": {
           "passed": 187,
@@ -1083,7 +1089,13 @@
           "errors": 0,
           "artifact": "/tmp/vf021-concepts-editmode.log"
         },
-        "next_gate": "Project owner selects or rejects the concept set"
+        "rejection_update_verification": {
+          "json_parse": "passed",
+          "diff_check": "passed",
+          "targeted_editmode": "blocked_by_unity_licensing_client",
+          "artifact": "/tmp/vf021-rejection-editmode.log"
+        },
+        "next_gate": "Generate and review a second enemy-facing concept set from the V2 Brief"
       }
     },
     {
