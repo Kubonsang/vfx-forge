@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Added `reference-board-1.0` and `art-direction-brief-1.0` preproduction
+  contracts with provenance, usage, silhouette, depth, and material-zone rules.
+- Added a hash-bound `ready_for_concepts` gate and Editor Window validation UI.
+- Added DF-007 link-only reference research for the rejected Holy Aegis redesign.
+
 ## 0.2.0
 
 - Added mandatory hash-bound human visual approval with separate

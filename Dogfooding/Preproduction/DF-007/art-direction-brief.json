@@ -1,0 +1,94 @@
+{
+  "schemaVersion": "art-direction-brief-1.0",
+  "id": "holy_aegis_v4_concept_brief",
+  "taskId": "VF-021",
+  "referenceBoardId": "holy_aegis_v4_references",
+  "referenceBoardSha256": "ad4f00bdec04dec423c3082a9aa623c9e1d1c508f81d74c6e4b2d8dfb35ab274",
+  "effectIntent": "A fantasy knight deploys a massive holy aegis that reads instantly as a physical protective shield from a strict top-down action-RPG camera while retaining contemporary layered material depth.",
+  "candidateCount": 4,
+  "camera": {
+    "view": "strict_top_down",
+    "resolutionWidth": 1920,
+    "resolutionHeight": 1080,
+    "effectFootprintPixels": 360
+  },
+  "silhouette": {
+    "primaryMass": "forward-weighted faceted round shield plate with a broad upper crown and compressed lower point",
+    "primaryMassRatio": 0.68,
+    "secondaryMassRatio": 0.22,
+    "negativeSpaceRatio": 0.1,
+    "asymmetry": "slight forward bias and one broken outer arc prevent a static UI-medallion read",
+    "connections": [
+      "four large directional braces emerge from and overlap the structural rim",
+      "the central crest is embedded into the plate and never floats above it",
+      "all energy gaps terminate inside the metal frame"
+    ],
+    "motifs": [
+      "one original solar knight crest",
+      "four broad crown-like braces with unequal front and rear weight"
+    ]
+  },
+  "depthLayers": [
+    {
+      "id": "ground_contact",
+      "role": "thin contact shadow and energy seating cue",
+      "order": 0
+    },
+    {
+      "id": "emerald_volume",
+      "role": "recessed translucent protective plane with faceted depth",
+      "order": 1
+    },
+    {
+      "id": "structural_rim",
+      "role": "raised gold frame and four connected braces",
+      "order": 2
+    },
+    {
+      "id": "crest_highlight",
+      "role": "single restrained focal crest and directional leading highlight",
+      "order": 3
+    }
+  ],
+  "materialZones": [
+    {
+      "id": "emerald_energy",
+      "role": "primary shield plane",
+      "finish": "deep translucent emerald with slow internal refraction-like flow and nonuniform opacity"
+    },
+    {
+      "id": "aged_holy_gold",
+      "role": "rim, braces, and crest",
+      "finish": "warm metal body with narrow moving specular accents and restrained emissive seams"
+    },
+    {
+      "id": "contact_occlusion",
+      "role": "ground and layer separation",
+      "finish": "soft dark-green occlusion plus a narrow contact glow, never a full magic circle"
+    }
+  ],
+  "forbiddenTraits": [
+    "perfectly concentric ring stacks",
+    "flat yellow additive geometry",
+    "small repeated runes or filigree",
+    "detached floating ornaments",
+    "symmetrical UI badge silhouette",
+    "particles used to hide weak geometry",
+    "uniform surface emission",
+    "literal copying of any reference motif"
+  ],
+  "acceptanceQuestions": [
+    "At gameplay scale, does the primary shield plate read before the crest and braces?",
+    "From strict top view, do overlap, value, and negative space create physical depth rather than a flat icon?",
+    "Are all four braces visibly load-bearing parts of the rim rather than detached glyphs?",
+    "Does the silhouette remain authored and attractive with all Shader color removed?",
+    "Does the color concept feel current for a modern indie action RPG rather than an older handheld title?",
+    "Can the caster and target remain readable through the shield plane?"
+  ],
+  "outputs": {
+    "grayscaleSilhouette": true,
+    "fullColorConcept": true,
+    "threeGroundComposite": true,
+    "labeledBreakdown": true
+  }
+}

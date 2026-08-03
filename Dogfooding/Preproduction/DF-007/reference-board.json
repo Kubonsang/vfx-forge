@@ -1,0 +1,108 @@
+{
+  "schemaVersion": "reference-board-1.0",
+  "id": "holy_aegis_v4_references",
+  "taskId": "VF-021",
+  "title": "Holy Aegis V4 — contemporary top-down shield references",
+  "references": [
+    {
+      "id": "thomas_bernardet_energy_shield",
+      "title": "Energy Shield VFX",
+      "sourceType": "url",
+      "source": "https://www.artstation.com/artwork/zP8EwZ",
+      "creator": "Thomas Bernardet",
+      "license": "Copyright creator; linked for analysis only",
+      "usage": "inspiration_only",
+      "desiredElements": [
+        "one dominant protective volume before secondary detail",
+        "strong value hierarchy between body and edge accents"
+      ],
+      "avoidElements": [
+        "literal silhouette or motif copying",
+        "detached ornamental fragments"
+      ],
+      "frame": {
+        "cameraAngle": "gameplay three-quarter with readable overhead projection",
+        "cropFocus": "shield volume and character-scale readability"
+      },
+      "notes": "Use only the hierarchy and finish benchmark; create an unrelated knight-aegis silhouette."
+    },
+    {
+      "id": "ms_artworks_force_field",
+      "title": "Stylized Force Field Shader",
+      "sourceType": "url",
+      "source": "https://gokums06.artstation.com/projects/rlowNO",
+      "creator": "MS Artworks",
+      "license": "Copyright creator; linked for analysis only",
+      "usage": "inspiration_only",
+      "desiredElements": [
+        "separation of procedural surface motion and controlled edge light",
+        "reactive depth without filling the entire shape with flat emission"
+      ],
+      "avoidElements": [
+        "literal procedural pattern copying",
+        "generic spherical sci-fi force-field silhouette"
+      ],
+      "frame": {
+        "cameraAngle": "multi-angle material presentation",
+        "cropFocus": "surface depth and edge response"
+      },
+      "notes": "Material reference only; the target remains a fantasy shield plate rather than a bubble."
+    },
+    {
+      "id": "naked_singularity_dark_fantasy_shields",
+      "title": "Dark fantasy shield concept set",
+      "sourceType": "url",
+      "source": "https://www.artstation.com/artwork/zPZJmq",
+      "creator": "Naked Singularity Studio",
+      "license": "Copyright creator; linked for analysis only",
+      "usage": "inspiration_only",
+      "desiredElements": [
+        "clear primary mass with authored bevel and depth breaks",
+        "ornaments structurally connected to a believable shield body"
+      ],
+      "avoidElements": [
+        "copying any published shield design",
+        "dense gothic micro-detail or creature motifs"
+      ],
+      "frame": {
+        "cameraAngle": "orthographic and three-quarter prop presentation",
+        "cropFocus": "mass hierarchy, bevels, and connected structure"
+      },
+      "notes": "Shape-language benchmark only. Target motif is a simple original solar knight crest."
+    },
+    {
+      "id": "lucie_travaux_mizuchi_shield",
+      "title": "Mizuchi Shield VFX — concept versus in-game",
+      "sourceType": "url",
+      "source": "https://lixsh.artstation.com/projects/9EymGq",
+      "creator": "Lucie Travaux; original concept credited by creator to Jeanluc Kol",
+      "license": "Copyright respective creators; linked for analysis only",
+      "usage": "inspiration_only",
+      "desiredElements": [
+        "explicit concept-to-realtime layer breakdown",
+        "ground integration that supports rather than replaces the main shield"
+      ],
+      "avoidElements": [
+        "dragon, water, or wave motif copying",
+        "particle volume that obscures the primary silhouette"
+      ],
+      "frame": {
+        "cameraAngle": "gameplay and breakdown views",
+        "cropFocus": "concept translation into connected depth layers"
+      },
+      "notes": "Process reference: compare approved concept and realtime implementation before material polish."
+    }
+  ],
+  "styleGoals": [
+    "modern indie action-RPG finish with a sculpted readable primary shield mass",
+    "strict top-down readability through authored depth, overlap, and negative space",
+    "controlled gold material response over layered emerald energy instead of flat additive color"
+  ],
+  "globalAvoids": [
+    "mobile-era flat icon construction",
+    "concentric rings as the dominant motion idea",
+    "small repeated runes or filigree",
+    "detached UI-like ornaments",
+    "uniform alpha and emission across every surface"
+  ]
+}

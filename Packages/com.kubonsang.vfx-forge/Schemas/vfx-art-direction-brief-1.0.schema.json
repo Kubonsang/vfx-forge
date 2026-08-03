@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Kubonsang/vfx-forge/schemas/vfx-art-direction-brief-1.0.schema.json",
+  "title": "VFX Forge Art Direction Brief 1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "id", "taskId", "referenceBoardId", "referenceBoardSha256", "effectIntent", "candidateCount", "camera", "silhouette", "depthLayers", "materialZones", "forbiddenTraits", "acceptanceQuestions", "outputs"],
+  "properties": {
+    "schemaVersion": { "const": "art-direction-brief-1.0" },
+    "id": { "$ref": "#/$defs/id" },
+    "taskId": { "type": "string", "pattern": "^VF-[0-9]{3}$" },
+    "referenceBoardId": { "$ref": "#/$defs/id" },
+    "referenceBoardSha256": { "type": "string", "pattern": "^[a-fA-F0-9]{64}$" },
+    "effectIntent": { "type": "string", "minLength": 1 },
+    "candidateCount": { "type": "integer", "minimum": 3, "maximum": 6 },
+    "camera": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["view", "resolutionWidth", "resolutionHeight", "effectFootprintPixels"],
+      "properties": {
+        "view": { "enum": ["strict_top_down", "top_down_oblique"] },
+        "resolutionWidth": { "type": "integer", "minimum": 1 },
+        "resolutionHeight": { "type": "integer", "minimum": 1 },
+        "effectFootprintPixels": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "silhouette": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["primaryMass", "primaryMassRatio", "secondaryMassRatio", "negativeSpaceRatio", "asymmetry", "connections", "motifs"],
+      "properties": {
+        "primaryMass": { "type": "string", "minLength": 1 },
+        "primaryMassRatio": { "type": "number", "minimum": 0, "maximum": 1 },
+        "secondaryMassRatio": { "type": "number", "minimum": 0, "maximum": 1 },
+        "negativeSpaceRatio": { "type": "number", "minimum": 0, "maximum": 1 },
+        "asymmetry": { "type": "string", "minLength": 1 },
+        "connections": { "$ref": "#/$defs/nonEmptyStrings" },
+        "motifs": { "$ref": "#/$defs/nonEmptyStrings" }
+      }
+    },
+    "depthLayers": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "role", "order"],
+        "properties": {
+          "id": { "$ref": "#/$defs/id" },
+          "role": { "type": "string", "minLength": 1 },
+          "order": { "type": "integer" }
+        }
+      }
+    },
+    "materialZones": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "role", "finish"],
+        "properties": {
+          "id": { "$ref": "#/$defs/id" },
+          "role": { "type": "string", "minLength": 1 },
+          "finish": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "forbiddenTraits": { "$ref": "#/$defs/nonEmptyStrings" },
+    "acceptanceQuestions": {
+      "type": "array",
+      "minItems": 3,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "outputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["grayscaleSilhouette", "fullColorConcept", "threeGroundComposite", "labeledBreakdown"],
+      "properties": {
+        "grayscaleSilhouette": { "const": true },
+        "fullColorConcept": { "const": true },
+        "threeGroundComposite": { "const": true },
+        "labeledBreakdown": { "const": true }
+      }
+    }
+  },
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9_-]{2,63}$" },
+    "nonEmptyStrings": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  }
+}

@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "project": "VFX Forge",
-  "current_task": "VF-019",
+  "current_task": "VF-021",
   "status_values": [
     "done",
     "in_progress",
@@ -934,7 +934,7 @@
     {
       "id": "VF-019",
       "title": "Holy Aegis Shield V3 / DF-006",
-      "status": "in_progress",
+      "status": "blocked",
       "phase": "production_review_rejected",
       "scope": [
         "Preserve VF-013 and rejected VF-014 assets",
@@ -992,8 +992,102 @@
           "shader_pattern_finish",
           "timing_polish"
         ],
-        "production_ready": false
+        "production_ready": false,
+        "superseded_by": "VF-020 through VF-023 reference-driven redesign pipeline"
       }
+    },
+    {
+      "id": "VF-020",
+      "title": "Reference Board and Art Direction Contract",
+      "status": "done",
+      "scope": [
+        "Record reference origin, rights status, allowed usage, desired elements, and avoid elements",
+        "Convert reference observations into a structured top-down silhouette and material brief",
+        "Block concept generation when Board and Brief identity or hashes are stale",
+        "Expose the concept-input gate in the Editor Window without automating aesthetic approval"
+      ],
+      "acceptance": [
+        "Reference Board and Art Direction Brief 1.0 schemas are published",
+        "Unsafe project paths and incomplete provenance are rejected with stable rule IDs",
+        "The Brief requires three to six candidates and four evidence output types",
+        "Changing the Reference Board makes the Brief stale",
+        "DF-007 contains a link-only research board and matching art-direction brief",
+        "Existing and new EditMode tests pass with zero Unity Console errors"
+      ],
+      "verification": {
+        "unity": "6000.3.8f1",
+        "urp": "17.3.0",
+        "vfx_graph": "17.3.0",
+        "test_framework": "1.6.0",
+        "contracts": [
+          "reference-board-1.0",
+          "art-direction-brief-1.0"
+        ],
+        "gate_status": "ready_for_concepts",
+        "reference_board": "Dogfooding/Preproduction/DF-007/reference-board.json",
+        "art_direction_brief": "Dogfooding/Preproduction/DF-007/art-direction-brief.json",
+        "reference_images_redistributed": false,
+        "aesthetic_approval_automated": false,
+        "editmode_tests": {
+          "passed": 178,
+          "failed": 0,
+          "skipped": 0,
+          "artifact": "/tmp/vf020-editmode-graphics.xml"
+        },
+        "console": {
+          "errors": 0,
+          "artifact": "/tmp/vf020-editmode-graphics.log"
+        },
+        "dogfooding_record": "Dogfooding/DF-007-reference-driven-holy-aegis-v4.md",
+        "next_task_candidate": "VF-021 Top-Down VFX Concept Generation and Selection"
+      }
+    },
+    {
+      "id": "VF-021",
+      "title": "Top-Down VFX Concept Generation and Selection",
+      "status": "in_progress",
+      "scope": [
+        "Generate three to six camera-locked concept candidates from a validated Brief",
+        "Produce grayscale, full-color, three-ground, and labeled-breakdown evidence per candidate",
+        "Hash prompt, inputs, and outputs in a concept candidate manifest",
+        "Require a human concept selection before Unity asset authoring"
+      ],
+      "acceptance": [
+        "Concept generation is blocked unless VF-020 returns ready_for_concepts",
+        "All candidates use the same top-down camera and gameplay footprint",
+        "Concept selection stores reviewer, decision, reason, and candidate hashes",
+        "Automation does not select a production concept"
+      ]
+    },
+    {
+      "id": "VF-022",
+      "title": "Approved Concept to Layered Unity Shape",
+      "status": "todo",
+      "scope": [
+        "Translate only a human-selected concept into connected depth layers",
+        "Compare the Unity grayscale capture against the selected silhouette",
+        "Keep Shader and temporal polish out of the first shape iteration"
+      ],
+      "acceptance": [
+        "A matching non-stale concept selection is required",
+        "Primary mass, negative space, and connections are represented in Unity",
+        "User shape approval is required before material implementation"
+      ]
+    },
+    {
+      "id": "VF-023",
+      "title": "Modern Material and Temporal Choreography",
+      "status": "todo",
+      "scope": [
+        "Apply distinct energy, metal, and contact material zones to the approved shape",
+        "Author deployment, sustain, and decay choreography without hiding weak geometry",
+        "Run gameplay capture, automated validation, and mandatory human production review"
+      ],
+      "acceptance": [
+        "Material response preserves the approved grayscale hierarchy",
+        "Timing has no hard pop and does not rely on concentric ring stacks",
+        "Production readiness requires a matching human visual approval"
+      ]
     }
   ]
 }

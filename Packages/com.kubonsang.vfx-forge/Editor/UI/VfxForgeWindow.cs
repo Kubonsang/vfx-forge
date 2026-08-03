@@ -25,6 +25,10 @@ namespace Kubonsang.VfxForge.Editor
         private VfxVisualReviewCriteria visualCriteria =
             new VfxVisualReviewCriteria();
         private VfxVisualReviewRecord expectedVisualReview;
+        private TextAsset referenceBoardAsset;
+        private TextAsset artDirectionBriefAsset;
+        private string preproductionStatus =
+            VfxPreproductionStatus.Blocked;
 
         [MenuItem("Tools/VFX Forge/Open Window")]
         public static void Open()
@@ -38,6 +42,8 @@ namespace Kubonsang.VfxForge.Editor
             recipeAsset = (TextAsset)EditorGUILayout.ObjectField("Recipe JSON", recipeAsset, typeof(TextAsset), false);
             templateCatalog = (VfxTemplateCatalog)EditorGUILayout.ObjectField("Template Catalog", templateCatalog, typeof(VfxTemplateCatalog), false);
             artifactDirectory = EditorGUILayout.TextField("Artifact Directory", artifactDirectory);
+
+            DrawPreproductionGate();
 
             using (new EditorGUI.DisabledScope(pipelineRunning))
             {
@@ -127,6 +133,51 @@ namespace Kubonsang.VfxForge.Editor
                 EditorGUILayout.HelpBox($"[{result.ruleId}] {result.message}", type);
             }
             EditorGUILayout.EndScrollView();
+        }
+
+        private void DrawPreproductionGate()
+        {
+            EditorGUILayout.Space();
+            EditorGUILayout.LabelField(
+                "Reference-driven Preproduction",
+                EditorStyles.boldLabel);
+            referenceBoardAsset =
+                (TextAsset)EditorGUILayout.ObjectField(
+                    "Reference Board",
+                    referenceBoardAsset,
+                    typeof(TextAsset),
+                    false);
+            artDirectionBriefAsset =
+                (TextAsset)EditorGUILayout.ObjectField(
+                    "Art Direction Brief",
+                    artDirectionBriefAsset,
+                    typeof(TextAsset),
+                    false);
+            using (new EditorGUI.DisabledScope(pipelineRunning))
+            {
+                if (GUILayout.Button("Validate Concept Inputs"))
+                {
+                    ValidateConceptInputs();
+                }
+            }
+
+            EditorGUILayout.LabelField("Concept Gate", preproductionStatus);
+        }
+
+        private void ValidateConceptInputs()
+        {
+            results.Clear();
+            VfxPreproductionGateResult gate =
+                VfxPreproductionGate.EvaluateJson(
+                    referenceBoardAsset != null
+                        ? referenceBoardAsset.text
+                        : string.Empty,
+                    artDirectionBriefAsset != null
+                        ? artDirectionBriefAsset.text
+                        : string.Empty);
+            results.AddRange(gate.Results);
+            preproductionStatus = gate.Status;
+            Repaint();
         }
 
         private void OnDisable()

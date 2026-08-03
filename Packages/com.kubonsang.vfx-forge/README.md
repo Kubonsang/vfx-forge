@@ -25,6 +25,9 @@ The external command arguments, result JSON, Artifact layout, and exit codes are
 documented in [`Documentation~/batchmode.md`](Documentation~/batchmode.md).
 The five-Recipe end-to-end fixture and Template immutability checks are documented in
 [`Documentation~/integration-fixture.md`](Documentation~/integration-fixture.md).
+Reference provenance, art-direction inputs, and the preproduction concept gate are
+documented in
+[`Documentation~/reference-driven-preproduction.md`](Documentation~/reference-driven-preproduction.md).
 
 ## Current Capabilities
 
@@ -40,6 +43,7 @@ The five-Recipe end-to-end fixture and Template immutability checks are document
 - Editor Window with Run All, progress state, and result navigation
 - BatchMode entry point with stable arguments, JSON result, Artifact path, and exit codes
 - Five-Recipe Batch integration fixture with Template and VFX asset immutability checks
+- Reference Board and Art Direction Brief contracts with a stale-hash concept gate
 
 ## Not Yet Implemented
 
