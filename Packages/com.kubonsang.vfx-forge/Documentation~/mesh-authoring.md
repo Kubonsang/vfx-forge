@@ -8,7 +8,8 @@ intended for shape review before Shader Graph, VFX Graph, or temporal polish beg
 
 - `mesh-reference-1.0` binds the selected concept and model sheet to four locked views,
   explicit camera position/target, normalized landmarks, part roles, scale, and SHA-256
-  hashes.
+  hashes. It also fixes the center/edge surface depth and structural frame thickness so
+  the orthographic panels cannot be interpreted as unrelated flat silhouettes.
 - `mesh-authoring-1.0` records the editable source Prefab, runtime output, topology
   budget, dependency hashes, and material zones.
 - `mesh-review-1.0` stores a separate human decision for either the `model_sheet` or

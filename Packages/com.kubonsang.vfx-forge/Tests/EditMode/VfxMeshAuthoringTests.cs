@@ -165,6 +165,9 @@ namespace Kubonsang.VfxForge.Editor.Tests
                 candidateBoardSha256 = hash,
                 modelSheetPath = "Dogfooding/ModelSheet.png",
                 modelSheetSha256 = hash,
+                surfaceCenterDepthMeters = 0.42f,
+                surfaceEdgeDepthMeters = 0.18f,
+                frameThicknessMeters = 0.24f,
                 views = new[]
                 {
                     CreateView("front", "orthographic"),
@@ -209,7 +212,13 @@ namespace Kubonsang.VfxForge.Editor.Tests
                 target = Vector3.zero,
                 fieldOfView = projection == "perspective" ? 38f : 0f,
                 orthographicSize = projection == "orthographic" ? 4f : 0f,
-                normalizedImageRect = new Rect(0f, 0f, 0.5f, 0.5f)
+                normalizedImageRect = new VfxMeshNormalizedRect
+                {
+                    x = 0f,
+                    y = 0f,
+                    width = 0.5f,
+                    height = 0.5f
+                }
             };
         }
 

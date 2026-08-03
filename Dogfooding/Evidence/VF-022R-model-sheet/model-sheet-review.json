@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "mesh-review-1.0",
+  "taskId": "VF-022",
+  "stage": "model_sheet",
+  "status": "review_required",
+  "inputSha256": "e55ec3b8f67d902b71549329bc4bd5ad76a0734acce70ccba38c1abf1490a6c0",
+  "reviewer": "",
+  "reviewTimeUtc": "",
+  "accepted": false,
+  "criteria": {
+    "visibleShapeFidelity": false,
+    "structuralFrameReadability": false,
+    "connectedAnchors": false,
+    "depthConsistency": false,
+    "gameplayReadability": false
+  },
+  "rejectionReason": ""
+}

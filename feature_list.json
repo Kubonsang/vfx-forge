@@ -1124,7 +1124,7 @@
       "id": "VF-022",
       "title": "Approved Concept to Layered Unity Shape",
       "status": "in_progress",
-      "phase": "mesh_authoring_foundation_ready",
+      "phase": "model_sheet_review_required",
       "scope": [
         "Translate only a human-selected concept into connected depth layers",
         "Compare the Unity grayscale capture against the selected silhouette",
@@ -1304,7 +1304,48 @@
           },
           "console_errors": 0
         },
-        "next_gate": "Generate and review the Candidate E four-view model sheet before any ProBuilder blockout begins"
+        "model_sheet": {
+          "id": "VF-022R-B",
+          "status": "review_required",
+          "candidate_board": "Dogfooding/Evidence/VF-021-concepts-v2/candidate-e-cavalier-wall-board.png",
+          "candidate_board_sha256": "89354ac5613efbf26603d32c4b8755559a4a53f2abad2a95e198d686b482392e",
+          "model_sheet": "Dogfooding/Evidence/VF-022R-model-sheet/candidate-e-model-sheet-v1.png",
+          "model_sheet_sha256": "6296165605887f10d16d7b5324c816969147a444c8191c85ddd6d157384940da",
+          "reference_manifest": "Dogfooding/Evidence/VF-022R-model-sheet/mesh-reference.json",
+          "review_record": "Dogfooding/Evidence/VF-022R-model-sheet/model-sheet-review.json",
+          "input_sha256": "e55ec3b8f67d902b71549329bc4bd5ad76a0734acce70ccba38c1abf1490a6c0",
+          "views": [
+            "front",
+            "top",
+            "right_side",
+            "gameplay"
+          ],
+          "targeted_contract_tests": {
+            "passed": 5,
+            "failed": 0,
+            "artifact": "/tmp/vf022r-b-package-editmode.xml"
+          },
+          "targeted_dogfood_tests": {
+            "passed": 3,
+            "failed": 0,
+            "artifact": "/tmp/vf022r-b-dogfood-editmode.xml"
+          },
+          "full_editmode_tests": {
+            "passed": 206,
+            "failed": 0,
+            "artifact": "/tmp/vf022r-b-full-editmode-graphics.xml"
+          },
+          "full_playmode_tests": {
+            "passed": 7,
+            "failed": 0,
+            "artifact": "/tmp/vf022r-b-full-playmode.xml"
+          },
+          "console_errors": 0,
+          "shader_graph": 0,
+          "vfx_graph": 0,
+          "animation": 0
+        },
+        "next_gate": "A human must accept the non-stale Candidate E model sheet before any ProBuilder blockout begins"
       }
     },
     {

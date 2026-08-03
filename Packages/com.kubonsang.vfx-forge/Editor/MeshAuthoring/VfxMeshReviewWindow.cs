@@ -93,7 +93,7 @@ namespace Kubonsang.VfxForge.Editor
             GUI.DrawTextureWithTexCoords(
                 destination,
                 modelSheet,
-                view.normalizedImageRect,
+                view.normalizedImageRect.ToRect(),
                 true);
             GUI.color = previous;
         }

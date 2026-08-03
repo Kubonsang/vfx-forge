@@ -416,3 +416,47 @@ more topology-efficient and that bevel/anchor roles changed. It does not establi
 production quality or authorize Shader work. The broad barrier can still read as a
 static fortification until deployment motion proves otherwise, so project-owner shape
 review remains mandatory.
+
+## VF-022R concept-to-mesh reset and Candidate E model sheet
+
+The project owner rejected V3 because the procedural C# construction still collapsed
+Candidate E into generic sweeps and prisms. V1, V2, V3, and all of their evidence remain
+unchanged as failure history. The replacement workflow uses an editable ProBuilder
+Prefab as the future source of truth and exports a separate runtime Mesh without a
+ProBuilder component.
+
+VF-022R-A added the three separate contracts (`mesh-reference-1.0`,
+`mesh-authoring-1.0`, and `mesh-review-1.0`), deterministic runtime export, topology
+validation, and the `Tools > VFX Forge > Vfx Mesh Review` window. The Runtime assembly
+does not depend on ProBuilder. Foundation verification passed 5 targeted EditMode, 203
+full EditMode, and 7 full PlayMode tests with zero failures and zero Console errors.
+
+VF-022R-B used the approved Candidate E board as the authoritative image input. The AI
+was prohibited from redesigning visible silhouette, frame ratios, lower concave line,
+and anchor placement; it only inferred hidden depth and produced front, top, right-side,
+and locked gameplay panels. The resulting clay sheet and its correction contract are:
+
+- Model sheet:
+  `Dogfooding/Evidence/VF-022R-model-sheet/candidate-e-model-sheet-v1.png`
+- Reference manifest:
+  `Dogfooding/Evidence/VF-022R-model-sheet/mesh-reference.json`
+- Review record:
+  `Dogfooding/Evidence/VF-022R-model-sheet/model-sheet-review.json`
+- Reproducible prompt:
+  `Dogfooding/Preproduction/DF-007/model-sheet-prompt-v1.md`
+
+The model sheet fixes `1 Unity unit = 1 m`, a roughly 5.2 m by 4.0 m envelope, center
+and edge plate depth, frame thickness, explicit locked cameras, and normalized panel
+landmarks. The visible upper shoulder clamp is classified as part of the continuous
+frame; the four review anchors remain distinct contract parts.
+
+VF-022R-B verification passed 5 Package contract tests, 3 real Dogfooding fixture
+tests, 206 full EditMode tests on the graphics path, and 7 full PlayMode tests with zero
+failures. Unity logs contain no compiler or Console errors. A discarded NullGfx full
+EditMode run reproduced the nine known RenderTexture capture failures and is not used
+as acceptance evidence.
+
+Current product status is `model_sheet_review_required`. This is AI-generated modeling
+reference, not proof of geometric fidelity. Shader, VFX Graph, animation, and ProBuilder
+blockout remain prohibited until the project owner records a matching non-stale human
+approval.

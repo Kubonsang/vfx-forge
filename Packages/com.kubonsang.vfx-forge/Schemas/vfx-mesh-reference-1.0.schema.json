@@ -13,6 +13,9 @@
     "modelSheetPath",
     "modelSheetSha256",
     "unityUnitsPerMeter",
+    "surfaceCenterDepthMeters",
+    "surfaceEdgeDepthMeters",
+    "frameThicknessMeters",
     "views",
     "landmarks",
     "parts"
@@ -26,6 +29,9 @@
     "modelSheetPath": { "type": "string" },
     "modelSheetSha256": { "$ref": "#/$defs/sha256" },
     "unityUnitsPerMeter": { "type": "number", "exclusiveMinimum": 0 },
+    "surfaceCenterDepthMeters": { "type": "number", "exclusiveMinimum": 0 },
+    "surfaceEdgeDepthMeters": { "type": "number", "exclusiveMinimum": 0 },
+    "frameThicknessMeters": { "type": "number", "exclusiveMinimum": 0 },
     "views": {
       "type": "array",
       "minItems": 4,

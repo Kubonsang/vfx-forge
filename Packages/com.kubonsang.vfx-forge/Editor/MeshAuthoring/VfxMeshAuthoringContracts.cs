@@ -20,6 +20,9 @@ namespace Kubonsang.VfxForge.Editor
         public string modelSheetPath = string.Empty;
         public string modelSheetSha256 = string.Empty;
         public float unityUnitsPerMeter = 1f;
+        public float surfaceCenterDepthMeters;
+        public float surfaceEdgeDepthMeters;
+        public float frameThicknessMeters;
         public VfxMeshReferenceView[] views =
             Array.Empty<VfxMeshReferenceView>();
         public VfxMeshLandmark[] landmarks =
@@ -40,7 +43,22 @@ namespace Kubonsang.VfxForge.Editor
         public Vector3 rotationEuler;
         public float fieldOfView;
         public float orthographicSize;
-        public Rect normalizedImageRect;
+        public VfxMeshNormalizedRect normalizedImageRect =
+            new VfxMeshNormalizedRect();
+    }
+
+    [Serializable]
+    public sealed class VfxMeshNormalizedRect
+    {
+        public float x;
+        public float y;
+        public float width;
+        public float height;
+
+        public Rect ToRect()
+        {
+            return new Rect(x, y, width, height);
+        }
     }
 
     [Serializable]
@@ -198,6 +216,16 @@ namespace Kubonsang.VfxForge.Editor
                     && manifest.unityUnitsPerMeter > 0f,
                 "MESH-REF-SCALE",
                 "Unity units per meter must be finite and positive.");
+            Require(
+                validation,
+                IsFinite(manifest.surfaceCenterDepthMeters)
+                    && manifest.surfaceCenterDepthMeters > 0f
+                    && IsFinite(manifest.surfaceEdgeDepthMeters)
+                    && manifest.surfaceEdgeDepthMeters > 0f
+                    && IsFinite(manifest.frameThicknessMeters)
+                    && manifest.frameThicknessMeters > 0f,
+                "MESH-REF-DEPTH",
+                "Surface depth and frame thickness must be finite and positive.");
             ValidateViews(validation, manifest.views);
             ValidateParts(validation, manifest.parts);
             ValidateLandmarks(validation, manifest.landmarks, manifest.views);
@@ -299,7 +327,9 @@ namespace Kubonsang.VfxForge.Editor
                             && view.fieldOfView < 180f),
                     "MESH-REF-CAMERA",
                     $"View {view.id} camera settings are invalid.");
-                Rect rect = view.normalizedImageRect;
+                Rect rect = view.normalizedImageRect != null
+                    ? view.normalizedImageRect.ToRect()
+                    : default;
                 Require(
                     validation,
                     rect.width > 0f
