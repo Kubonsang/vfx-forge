@@ -1,16 +1,16 @@
 {
   "schemaVersion": "concept-review-1.0",
-  "status": "selection_required",
+  "status": "selected",
   "candidateManifestSha256": "674b5e324cf9aa44a3094822203fe28659be410c421fd327e5512921352646d7",
-  "selectedCandidateId": "",
-  "reviewer": "",
-  "reviewTimeUtc": "",
+  "selectedCandidateId": "candidate_e",
+  "reviewer": "Project owner",
+  "reviewTimeUtc": "2026-08-03T08:04:02Z",
   "criteria": {
-    "shieldMeaning": false,
-    "silhouetteQuality": false,
-    "connectedStructure": false,
-    "contemporaryFinishPotential": false,
-    "gameplayReadability": false
+    "shieldMeaning": true,
+    "silhouetteQuality": true,
+    "connectedStructure": true,
+    "contemporaryFinishPotential": true,
+    "gameplayReadability": true
   },
-  "decisionReason": ""
+  "decisionReason": "Candidate E — Cavalier Wall is approved as the Unity shape source. Implementation requirement: the barrier's forward normal must follow the player's current facing or aim direction so its wall surface always faces the intended enemy direction instead of remaining fixed in world space."
 }

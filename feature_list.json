@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "project": "VFX Forge",
-  "current_task": "VF-021",
+  "current_task": "VF-022",
   "status_values": [
     "done",
     "in_progress",
@@ -1045,8 +1045,8 @@
     {
       "id": "VF-021",
       "title": "Top-Down VFX Concept Generation and Selection",
-      "status": "in_progress",
-      "phase": "selection_required_v2",
+      "status": "done",
+      "phase": "candidate_e_selected",
       "scope": [
         "Generate three to six camera-locked concept candidates from a validated Brief",
         "Produce grayscale, full-color, three-ground, and labeled-breakdown evidence per candidate",
@@ -1072,8 +1072,13 @@
         "board_dimensions": "1536x1024",
         "camera_view": "strict_top_down",
         "effect_footprint_pixels": 360,
-        "selection_status": "selection_required",
-        "selected_candidate": "",
+        "selection_status": "selected",
+        "selected_candidate": "candidate_e",
+        "selected_candidate_title": "Cavalier Wall",
+        "selected_board_sha256": "89354ac5613efbf26603d32c4b8755559a4a53f2abad2a95e198d686b482392e",
+        "reviewer": "Project owner",
+        "review_time_utc": "2026-08-03T08:04:02Z",
+        "direction_contract": "Barrier forward normal follows the player's current facing or aim direction and faces the intended enemy",
         "preferred_direction_candidate": "candidate_d",
         "preferred_direction_only": "Enemy-facing mantlet orientation; no candidate was approved",
         "rejection_reason": "All four candidates were rejected. A-C primarily face the sky; D is directionally closest but remains unapproved.",
@@ -1104,21 +1109,32 @@
           "targeted_editmode": "blocked_by_unity_licensing_client",
           "artifact": "/tmp/vf021-rejection-editmode.log"
         },
-        "next_gate": "Project owner selects or rejects the second enemy-facing concept set"
+        "approval_record_verification": {
+          "json_parse": "passed",
+          "manifest_hash_match": "passed",
+          "selected_board_hash_match": "passed",
+          "diff_check": "passed",
+          "targeted_editmode": "blocked_by_unity_licensing_client_before_test_runner",
+          "artifact": "/tmp/vf021-approval-editmode.log"
+        },
+        "next_gate": "VF-022 translates only Candidate E into a grayscale Unity shape"
       }
     },
     {
       "id": "VF-022",
       "title": "Approved Concept to Layered Unity Shape",
-      "status": "todo",
+      "status": "in_progress",
+      "phase": "grayscale_translation",
       "scope": [
         "Translate only a human-selected concept into connected depth layers",
         "Compare the Unity grayscale capture against the selected silhouette",
-        "Keep Shader and temporal polish out of the first shape iteration"
+        "Keep Shader and temporal polish out of the first shape iteration",
+        "Bind barrier orientation to the player's current facing or aim direction"
       ],
       "acceptance": [
         "A matching non-stale concept selection is required",
         "Primary mass, negative space, and connections are represented in Unity",
+        "Barrier forward normal follows player facing without changing the approved silhouette",
         "User shape approval is required before material implementation"
       ]
     },

@@ -177,3 +177,27 @@ or approved a candidate.
 The next review must first judge whether any candidate avoids the new common risk:
 enemy-facing orientation is now readable, but a large framed plane can become a piece
 of architecture instead of a temporally deployed VFX skill.
+
+## Human concept approval
+
+The project owner approved Candidate E — Cavalier Wall on 2026-08-03. All five concept
+criteria passed, and the selected evidence remains bound to candidate manifest SHA-256
+`674b5e324cf9aa44a3094822203fe28659be410c421fd327e5512921352646d7`.
+
+The approval adds one mandatory implementation behavior:
+
+- The barrier forward normal follows the player's current facing or aim direction.
+- The wall surface therefore faces the intended enemy direction and must not stay fixed
+  in world space after deployment.
+- Rotation changes orientation only; it must not distort the approved E silhouette or
+  turn the wall into an upward-facing plate.
+
+This closes VF-021 and unlocks VF-022 grayscale Unity translation. It does not approve
+the future Unity Mesh, Shader, timing, or production VFX result; those retain their own
+shape and production review gates.
+
+Approval record verification passed JSON parsing, manifest SHA-256 matching, selected
+board SHA-256 matching, and `git diff --check`. A fresh targeted
+`VfxConceptReviewTests` run was attempted, but Unity 6000.3.8f1 again lost its Licensing
+Client channel before the test runner started; the process was stopped and the log is
+stored at `/tmp/vf021-approval-editmode.log`. No fresh test or Console result is claimed.
