@@ -4,7 +4,8 @@
   "references": [
     "VFXForge.Runtime",
     "VFXForge.Editor",
-    "Unity.VisualEffectGraph.Runtime"
+    "Unity.VisualEffectGraph.Runtime",
+    "Unity.ProBuilder"
   ],
   "includePlatforms": [
     "Editor"

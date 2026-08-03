@@ -196,6 +196,20 @@ This closes VF-021 and unlocks VF-022 grayscale Unity translation. It does not a
 the future Unity Mesh, Shader, timing, or production VFX result; those retain their own
 shape and production review gates.
 
+## VF-022R concept-to-mesh reset
+
+The project owner rejected the third grayscale mesh revision. Increasing topology from
+876 to 8,824 triangles and then redistributing it to 4,384 triangles did not recover the
+approved Candidate E shape. The procedural authoring representation remained a uniform
+surface grid, one swept rail profile, and scaled extruded anchor prisms. Contract tests
+verified counts and hierarchy but did not measure concept fidelity.
+
+VF-022 therefore remains in progress and VF-023 material work stays blocked. The new
+authoring foundation uses ProBuilder 6.0.8, keeps an editable ProBuilder Prefab as source,
+exports a stripped runtime Prefab, and introduces separate `mesh-reference-1.0`,
+`mesh-authoring-1.0`, and `mesh-review-1.0` contracts. A four-view Candidate E model
+sheet must receive human approval before a new blockout is created.
+
 Approval record verification passed JSON parsing, manifest SHA-256 matching, selected
 board SHA-256 matching, and `git diff --check`. A fresh targeted
 `VfxConceptReviewTests` run was attempted, but Unity 6000.3.8f1 again lost its Licensing

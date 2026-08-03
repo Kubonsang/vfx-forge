@@ -4,6 +4,9 @@
   "displayName": "VFX Forge",
   "description": "Template-first VFX authoring, validation, and agent workflow starter for Unity 6.",
   "unity": "6000.0",
+  "dependencies": {
+    "com.unity.probuilder": "6.0.8"
+  },
   "author": {
     "name": "Kubonsang"
   },

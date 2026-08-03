@@ -4,7 +4,7 @@
   "recordId": "DF-007",
   "revision": "v3",
   "generatedAtUtc": "2026-08-03T11:52:50Z",
-  "status": "review_required",
+  "status": "rejected",
   "reason": "Redistribute topology from uniform tessellation to silhouette, bevel, and anchor structure.",
   "selectedCandidateId": "candidate_e",
   "conceptManifestSha256": "674b5e324cf9aa44a3094822203fe28659be410c421fd327e5512921352646d7",
@@ -81,10 +81,10 @@
     "consoleWarnings": 12
   },
   "humanReview": {
-    "reviewer": null,
-    "reviewedAtUtc": null,
-    "accepted": null,
-    "rejectionReason": null
+    "reviewer": "Project owner",
+    "reviewedAtUtc": "2026-08-03T14:59:52Z",
+    "accepted": false,
+    "rejectionReason": "The mesh quality is far below the approved Candidate E concept. More polygons did not restore its authored frame, depth, or anchor forms."
   },
   "knownLimitation": "The grayscale shape cannot prove that a deployed temporal effect will avoid reading as a static fortification."
 }

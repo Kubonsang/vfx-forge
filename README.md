@@ -277,6 +277,7 @@ SHA-256, dependency hash, 참조 VFX Asset hash, Catalog JSON도 실행 전후 �
 | [BatchMode Contract](Packages/com.kubonsang.vfx-forge/Documentation~/batchmode.md) | CLI 인수, JSON 결과, 종료 코드 |
 | [Integration Fixture](Packages/com.kubonsang.vfx-forge/Documentation~/integration-fixture.md) | 5개 Recipe 종단 간 검증 |
 | [Unity 6 Compatibility](Packages/com.kubonsang.vfx-forge/Documentation~/unity-6-compatibility.md) | 검증 버전과 호스트 프로젝트 |
+| [ProBuilder Mesh Authoring](Packages/com.kubonsang.vfx-forge/Documentation~/mesh-authoring.md) | 편집 가능한 메시 소스, Runtime export, 형상 검토 계약 |
 
 ## 현재 제한사항
 

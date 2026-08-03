@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Kubonsang/vfx-forge/schemas/vfx-mesh-review-1.0.schema.json",
+  "title": "VFX Forge Mesh Review 1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "taskId",
+    "stage",
+    "status",
+    "inputSha256",
+    "reviewer",
+    "reviewTimeUtc",
+    "accepted",
+    "criteria",
+    "rejectionReason"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "mesh-review-1.0" },
+    "taskId": { "type": "string", "pattern": "^VF-[0-9]{3}$" },
+    "stage": { "enum": ["model_sheet", "blockout"] },
+    "status": { "enum": ["review_required", "accepted", "rejected", "review_stale"] },
+    "inputSha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+    "reviewer": { "type": "string" },
+    "reviewTimeUtc": { "type": "string" },
+    "accepted": { "type": "boolean" },
+    "criteria": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "visibleShapeFidelity",
+        "structuralFrameReadability",
+        "connectedAnchors",
+        "depthConsistency",
+        "gameplayReadability"
+      ],
+      "properties": {
+        "visibleShapeFidelity": { "type": "boolean" },
+        "structuralFrameReadability": { "type": "boolean" },
+        "connectedAnchors": { "type": "boolean" },
+        "depthConsistency": { "type": "boolean" },
+        "gameplayReadability": { "type": "boolean" }
+      }
+    },
+    "rejectionReason": { "type": "string" }
+  }
+}

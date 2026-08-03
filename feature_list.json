@@ -1124,7 +1124,7 @@
       "id": "VF-022",
       "title": "Approved Concept to Layered Unity Shape",
       "status": "in_progress",
-      "phase": "shape_review_required",
+      "phase": "mesh_authoring_foundation_ready",
       "scope": [
         "Translate only a human-selected concept into connected depth layers",
         "Compare the Unity grayscale capture against the selected silhouette",
@@ -1273,9 +1273,38 @@
           },
           "review_manifest": "Dogfooding/Evidence/VF-022-cavalier-wall-shape-v3/shape-review-v3.json"
         },
-        "human_shape_review": "review_required",
-        "known_risk": "V3 improves topology efficiency and structural hierarchy, but the broad wall may still read as a static fortification until deployment timing is authored",
-        "next_gate": "Project owner accepts or rejects the Unity grayscale shape before VF-023 begins"
+        "human_shape_review": "rejected",
+        "shape_rejection_reason": "The V3 mesh remains far below Candidate E: generic swept rails and extruded anchor blocks lose the approved frame, depth, and authored landmark structure.",
+        "concept_to_mesh_bottleneck": "Hand-authored procedural C# collapses the concept into a uniform grid, swept profile, and scaled prism while tests reward exact topology counts instead of visual fidelity.",
+        "mesh_authoring_reset": {
+          "id": "VF-022R-A",
+          "status": "done",
+          "probuilder_version": "6.0.8",
+          "contracts": [
+            "mesh-reference-1.0",
+            "mesh-authoring-1.0",
+            "mesh-review-1.0"
+          ],
+          "source_policy": "Editable ProBuilder Prefab is the source of truth; runtime export contains regular Unity Mesh assets and preserves the source dependency hash.",
+          "review_window": "Tools/VFX Forge/Vfx Mesh Review",
+          "targeted_editmode_tests": {
+            "passed": 5,
+            "failed": 0,
+            "artifact": "/tmp/vf022r-a-editmode.xml"
+          },
+          "full_editmode_tests": {
+            "passed": 203,
+            "failed": 0,
+            "artifact": "/tmp/vf022r-a-full-editmode.xml"
+          },
+          "full_playmode_tests": {
+            "passed": 7,
+            "failed": 0,
+            "artifact": "/tmp/vf022r-a-full-playmode.xml"
+          },
+          "console_errors": 0
+        },
+        "next_gate": "Generate and review the Candidate E four-view model sheet before any ProBuilder blockout begins"
       }
     },
     {
