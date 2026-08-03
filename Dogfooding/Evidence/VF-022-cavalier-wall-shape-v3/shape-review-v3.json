@@ -1,0 +1,90 @@
+{
+  "schemaVersion": "shape-review-1.0",
+  "taskId": "VF-022",
+  "recordId": "DF-007",
+  "revision": "v3",
+  "generatedAtUtc": "2026-08-03T11:52:50Z",
+  "status": "review_required",
+  "reason": "Redistribute topology from uniform tessellation to silhouette, bevel, and anchor structure.",
+  "selectedCandidateId": "candidate_e",
+  "conceptManifestSha256": "674b5e324cf9aa44a3094822203fe28659be410c421fd327e5512921352646d7",
+  "implementation": {
+    "prefab": "UnityCompatibilityProject/Assets/VFXForge/Dogfood/HolyAegisV4/Authoring/ShapeV3/CavalierWallShapeV3.prefab",
+    "prefabSha256": "b4b272e6ab0b937a57d379edcbf0eb9c7b5668ddf24d48d11ba211f05997d633",
+    "demoScene": "UnityCompatibilityProject/Assets/VFXForge/Dogfood/HolyAegisV4/Demo/CavalierWallShapeV3Demo.unity",
+    "demoSceneSha256": "e55fd67a52ea7961afe75f4888f099e18a7fa2827e17277f325fcf66c16ec9e8",
+    "facingBehavior": "caster_forward_or_flattened_world_aim_override",
+    "majorVisualGroups": 3,
+    "shaderFinishApplied": false
+  },
+  "topology": {
+    "v2RenderedVertices": 4430,
+    "v2RenderedTriangles": 8824,
+    "v3RenderedVertices": 3234,
+    "v3RenderedTriangles": 4384,
+    "triangleReductionRatio": 0.5032,
+    "surfaceTriangles": 2152,
+    "frameTriangles": 1920,
+    "anchorTriangles": 312,
+    "surfaceHorizontalSegments": 48,
+    "surfaceVerticalSegments": 10,
+    "railCrossSectionSides": 8,
+    "hardBevelFacesSplit": true
+  },
+  "captures": [
+    {
+      "id": "isolated",
+      "path": "Dogfooding/Evidence/VF-022-cavalier-wall-shape-v3/isolated-grayscale-v3.png",
+      "width": 1280,
+      "height": 720,
+      "sha256": "7547645c02bd8970eca2cd5d099504f51c8567f0bcbdf3678958318fa5d974bd"
+    },
+    {
+      "id": "gameplay_forward",
+      "path": "Dogfooding/Evidence/VF-022-cavalier-wall-shape-v3/gameplay-forward-v3.png",
+      "width": 1280,
+      "height": 720,
+      "sha256": "f4383ba011e225a4696718520150b0c4a9766c1fb567ec5dccb6273a25f4051d"
+    },
+    {
+      "id": "gameplay_facing_right",
+      "path": "Dogfooding/Evidence/VF-022-cavalier-wall-shape-v3/gameplay-facing-right-v3.png",
+      "width": 1280,
+      "height": 720,
+      "sha256": "fca88c9d080f5f7a015b7c87627ea6fbc201a4240a45c29e2e93546abdd4b34c"
+    }
+  ],
+  "contactSheet": {
+    "path": "Dogfooding/Evidence/VF-022-cavalier-wall-shape-v3/shape-contact-sheet-v3.png",
+    "width": 3840,
+    "height": 720,
+    "sha256": "ca58c1ede245ffd3d8c9bdb0afa0e4b48ce67e4d928c1e3e12850ff55d052aba"
+  },
+  "technicalValidation": {
+    "targetedEditMode": {
+      "passed": 4,
+      "failed": 0
+    },
+    "targetedPlayMode": {
+      "passed": 1,
+      "failed": 0
+    },
+    "fullEditMode": {
+      "passed": 198,
+      "failed": 0
+    },
+    "fullPlayMode": {
+      "passed": 7,
+      "failed": 0
+    },
+    "consoleErrors": 0,
+    "consoleWarnings": 12
+  },
+  "humanReview": {
+    "reviewer": null,
+    "reviewedAtUtc": null,
+    "accepted": null,
+    "rejectionReason": null
+  },
+  "knownLimitation": "The grayscale shape cannot prove that a deployed temporal effect will avoid reading as a static fortification."
+}

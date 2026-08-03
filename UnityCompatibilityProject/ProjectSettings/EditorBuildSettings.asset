@@ -29,5 +29,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/VFXForge/Dogfood/HolyAegisV4/Demo/CavalierWallShapeV2Demo.unity
     guid: 56c79b3f1909c45eaa2a21368e8b97da
+  - enabled: 1
+    path: Assets/VFXForge/Dogfood/HolyAegisV4/Demo/CavalierWallShapeV3Demo.unity
+    guid: 71e7fc359ab1e446da14c11f19048114
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

@@ -335,3 +335,70 @@ VF-022 remains `shape_review_required`. V2 is a technically verified modeling re
 not an automated aesthetic approval and not a production-ready VFX. Shader, emission,
 surface motion, deployment, sustain, and decay remain blocked until the project owner
 reviews the new grayscale Contact Sheet.
+
+## VF-022 topology audit and shape revision V3
+
+The V2 follow-up audit compared rendered custom Mesh topology rather than assuming that
+more triangles implied a better shape:
+
+- Production Crescent Slash: 244 triangles across three custom Mesh renderers.
+- Giant Shield: 1,920 triangles across ten custom Mesh renderers.
+- Ornate Giant Shield: 2,128 triangles across fifteen custom Mesh renderers.
+- Holy Aegis V3 production: 582 triangles across fourteen custom Mesh renderers.
+- Cavalier Wall V1: 876 triangles across nine custom Mesh renderers.
+- Cavalier Wall V2: 8,824 triangles across nine custom Mesh renderers.
+
+The GNF_ references are not directly comparable by static Mesh count. PixPlays Water
+Shield combines one primary MeshRenderer with four ParticleSystems; Hovl Holy Loop uses
+fourteen ParticleSystems and no standalone MeshRenderer. Their density comes from
+Shader response, billboard/mesh particles, trails, and independently timed layers.
+
+The audit found that V2 spent 49.6% of its triangles on a uniformly sampled surface and
+39.6% on uniformly sampled top/bottom rails. Only 2.7% contributed to the four anchors
+that most affected the silhouette. Shared vertices followed by averaged normal
+recalculation also softened intended bevel breaks. V2 therefore remained technically
+valid but visually inefficient: a simple shape had been sampled densely instead of
+being modeled with better authored mass and edge language.
+
+V3 preserves V1 and V2 and changes only three major groups:
+
+1. The primary surface drops from 72x14 to 48x10 while retaining UVs, front/back depth,
+   a broader middle, narrower roots/crown, and controlled curvature.
+2. The frame drops from twelve to eight cross-section sides, varies thickness along
+   each rail, and splits vertices between bevel faces so the intended hard edges survive
+   normal recalculation.
+3. The repeated generic blocks become distinct upper keystones and lower root bastions,
+   increasing the topology share spent on silhouette-defining structure.
+
+### V3 topology and evidence
+
+- Rendered vertices: 3,234.
+- Rendered triangles: 4,384, a 50.3% reduction from V2.
+- Surface: 2,152 triangles, 49.1%.
+- Full frame: 1,920 triangles, 43.8%.
+- Four authored anchors: 312 triangles, 7.1%.
+- Shape Prefab:
+  `UnityCompatibilityProject/Assets/VFXForge/Dogfood/HolyAegisV4/Authoring/ShapeV3/CavalierWallShapeV3.prefab`
+- Gameplay review scene:
+  `UnityCompatibilityProject/Assets/VFXForge/Dogfood/HolyAegisV4/Demo/CavalierWallShapeV3Demo.unity`
+- Contact Sheet:
+  `Dogfooding/Evidence/VF-022-cavalier-wall-shape-v3/shape-contact-sheet-v3.png`
+- Review manifest:
+  `Dogfooding/Evidence/VF-022-cavalier-wall-shape-v3/shape-review-v3.json`
+
+The Mesh, Material, Prefab, and Scene outputs were generated through Unity Editor APIs.
+No V1/V2 Asset or other serialized Unity Asset was text-edited or overwritten.
+
+### V3 technical verification
+
+- Targeted V3 EditMode: 4 passed, 0 failed.
+- Targeted V3 PlayMode: 1 passed, 0 failed.
+- Full EditMode: 198 passed, 0 failed.
+- Full PlayMode: 7 passed, 0 failed.
+- Unity Console: 0 errors, 12 warnings.
+
+VF-022 remains `shape_review_required`. The new evidence supports the claim that V3 is
+more topology-efficient and that bevel/anchor roles changed. It does not establish
+production quality or authorize Shader work. The broad barrier can still read as a
+static fortification until deployment motion proves otherwise, so project-owner shape
+review remains mandatory.

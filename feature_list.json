@@ -1181,7 +1181,7 @@
           "artifact": "Dogfooding/Evidence/VF-022-cavalier-wall-shape/console-counts.json"
         },
         "capture_manifest": "Dogfooding/Evidence/VF-022-cavalier-wall-shape/shape-review.json",
-        "contact_sheet": "Dogfooding/Evidence/VF-022-cavalier-wall-shape-v2/shape-contact-sheet-v2.png",
+        "contact_sheet": "Dogfooding/Evidence/VF-022-cavalier-wall-shape-v3/shape-contact-sheet-v3.png",
         "shape_revision_v2": {
           "reason": "Project owner requested higher shape quality and denser modeling topology",
           "previous_prefab_preserved": "UnityCompatibilityProject/Assets/VFXForge/Dogfood/HolyAegisV4/Authoring/Shape/CavalierWallShape.prefab",
@@ -1226,8 +1226,55 @@
           },
           "review_manifest": "Dogfooding/Evidence/VF-022-cavalier-wall-shape-v2/shape-review-v2.json"
         },
+        "shape_revision_v3": {
+          "reason": "Topology audit found V2 over-tessellated simple curves while under-investing in silhouette-defining anchors and hard edges",
+          "previous_prefabs_preserved": [
+            "UnityCompatibilityProject/Assets/VFXForge/Dogfood/HolyAegisV4/Authoring/Shape/CavalierWallShape.prefab",
+            "UnityCompatibilityProject/Assets/VFXForge/Dogfood/HolyAegisV4/Authoring/ShapeV2/CavalierWallShapeV2.prefab"
+          ],
+          "prefab": "UnityCompatibilityProject/Assets/VFXForge/Dogfood/HolyAegisV4/Authoring/ShapeV3/CavalierWallShapeV3.prefab",
+          "prefab_sha256": "b4b272e6ab0b937a57d379edcbf0eb9c7b5668ddf24d48d11ba211f05997d633",
+          "demo_scene": "UnityCompatibilityProject/Assets/VFXForge/Dogfood/HolyAegisV4/Demo/CavalierWallShapeV3Demo.unity",
+          "surface_grid": "48x10",
+          "rail_cross_section_sides": 8,
+          "rendered_vertices": 3234,
+          "rendered_triangles": 4384,
+          "v2_rendered_triangles": 8824,
+          "triangle_reduction_ratio": 0.5032,
+          "major_changes": [
+            "tapered primary surface with retained front-back depth",
+            "variable-width hard-bevel frame with split face vertices",
+            "distinct upper keystones and lower root bastions"
+          ],
+          "targeted_editmode_tests": {
+            "passed": 4,
+            "failed": 0,
+            "artifact": "/tmp/vf022-v3-editmode.xml"
+          },
+          "targeted_playmode_tests": {
+            "passed": 1,
+            "failed": 0,
+            "artifact": "/tmp/vf022-v3-playmode.xml"
+          },
+          "full_editmode_tests": {
+            "passed": 198,
+            "failed": 0,
+            "artifact": "/tmp/vf022-v3-full-editmode.xml"
+          },
+          "full_playmode_tests": {
+            "passed": 7,
+            "failed": 0,
+            "artifact": "/tmp/vf022-v3-full-playmode.xml"
+          },
+          "console": {
+            "errors": 0,
+            "warnings": 12,
+            "artifact": "Dogfooding/Evidence/VF-022-cavalier-wall-shape-v3/console-counts-v3.json"
+          },
+          "review_manifest": "Dogfooding/Evidence/VF-022-cavalier-wall-shape-v3/shape-review-v3.json"
+        },
         "human_shape_review": "review_required",
-        "known_risk": "Higher topology now supports curved highlights, but final shield identity and ornament balance still require human shape review",
+        "known_risk": "V3 improves topology efficiency and structural hierarchy, but the broad wall may still read as a static fortification until deployment timing is authored",
         "next_gate": "Project owner accepts or rejects the Unity grayscale shape before VF-023 begins"
       }
     },
