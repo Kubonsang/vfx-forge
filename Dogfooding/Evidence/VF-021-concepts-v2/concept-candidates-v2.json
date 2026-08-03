@@ -1,0 +1,95 @@
+{
+  "schemaVersion": "concept-candidates-1.0",
+  "taskId": "VF-021",
+  "referenceBoardSha256": "ad4f00bdec04dec423c3082a9aa623c9e1d1c508f81d74c6e4b2d8dfb35ab274",
+  "artDirectionBriefSha256": "c34142035aae49d3fcb07f31a3074988ef438ab24e13dd0adb52dc80157c4feb",
+  "promptSetPath": "Dogfooding/Preproduction/DF-007/concept-prompts-v2.md",
+  "promptSetSha256": "fa9d21509360aae892b99aa6a20f8428a5ac3ff3c536628d9103be143bffc50d",
+  "generator": "OpenAI built-in image generation; stylized-concept; candidate D used only as an orientation and board-layout reference",
+  "candidates": [
+    {
+      "id": "candidate_e",
+      "title": "Cavalier Wall",
+      "boardPath": "Dogfooding/Evidence/VF-021-concepts-v2/candidate-e-cavalier-wall-board.png",
+      "boardSha256": "89354ac5613efbf26603d32c4b8755559a4a53f2abad2a95e198d686b482392e",
+      "cameraView": "strict_top_down",
+      "width": 1536,
+      "height": 1024,
+      "effectFootprintPixels": 360,
+      "evidence": [
+        "grayscale_silhouette",
+        "full_color_concept",
+        "three_ground_composite",
+        "labeled_breakdown"
+      ],
+      "shapeSummary": "One continuous convex enemy-facing barrier with a broad crown, visible thickness, and four compact frame braces.",
+      "knownRisks": [
+        "The heavy root blocks and regular frame can read as a permanent architectural wall.",
+        "Its broad rectangular proportion is protective but less magical than the other candidates."
+      ]
+    },
+    {
+      "id": "candidate_f",
+      "title": "Winged Bulwark",
+      "boardPath": "Dogfooding/Evidence/VF-021-concepts-v2/candidate-f-winged-bulwark-board.png",
+      "boardSha256": "9dc5326525f45097b4020ba010aaa90fd5cf1ba65e5967541bd8249abddcb9e3",
+      "cameraView": "strict_top_down",
+      "width": 1536,
+      "height": 1024,
+      "effectFootprintPixels": 360,
+      "evidence": [
+        "grayscale_silhouette",
+        "full_color_concept",
+        "three_ground_composite",
+        "labeled_breakdown"
+      ],
+      "shapeSummary": "A wide shallow-V interception plane with a target-facing center ridge and four integrated wing-like braces.",
+      "knownRisks": [
+        "The deep center valley may still read as two energy wings instead of one barrier.",
+        "The width may consume too much lateral gameplay space."
+      ]
+    },
+    {
+      "id": "candidate_g",
+      "title": "Lanceguard Prow",
+      "boardPath": "Dogfooding/Evidence/VF-021-concepts-v2/candidate-g-lanceguard-prow-board.png",
+      "boardSha256": "dcd2d31bf785bbe2ec622fa52c4346b5465630fb119becba147a284acc184792",
+      "cameraView": "strict_top_down",
+      "width": 1536,
+      "height": 1024,
+      "effectFootprintPixels": 360,
+      "evidence": [
+        "grayscale_silhouette",
+        "full_color_concept",
+        "three_ground_composite",
+        "labeled_breakdown"
+      ],
+      "shapeSummary": "A restrained asymmetric curved barrier with one advanced target-side corner, a continuous energy plate, and four unequal braces.",
+      "knownRisks": [
+        "The tall end supports can resemble a portal or doorway when viewed without gameplay context.",
+        "The asymmetric advance is subtle at thumbnail scale."
+      ]
+    },
+    {
+      "id": "candidate_h",
+      "title": "Citadel Arc",
+      "boardPath": "Dogfooding/Evidence/VF-021-concepts-v2/candidate-h-citadel-arc-board.png",
+      "boardSha256": "bbe9f73c319453dfe4423449265cc7f2b40fc68784603f9d2070ccdf398f585f",
+      "cameraView": "strict_top_down",
+      "width": 1536,
+      "height": 1024,
+      "effectFootprintPixels": 360,
+      "evidence": [
+        "grayscale_silhouette",
+        "full_color_concept",
+        "three_ground_composite",
+        "labeled_breakdown"
+      ],
+      "shapeSummary": "A sweeping enemy-facing fortress arc with a continuous emerald body and four crown-like structural braces.",
+      "knownRisks": [
+        "The crown posts push the concept toward a fantasy gate rather than a deployed spell.",
+        "Gold structure competes with the primary energy mass at gameplay scale."
+      ]
+    }
+  ]
+}

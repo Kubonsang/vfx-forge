@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "concept-review-1.0",
+  "status": "selection_required",
+  "candidateManifestSha256": "674b5e324cf9aa44a3094822203fe28659be410c421fd327e5512921352646d7",
+  "selectedCandidateId": "",
+  "reviewer": "",
+  "reviewTimeUtc": "",
+  "criteria": {
+    "shieldMeaning": false,
+    "silhouetteQuality": false,
+    "connectedStructure": false,
+    "contemporaryFinishPotential": false,
+    "gameplayReadability": false
+  },
+  "decisionReason": ""
+}

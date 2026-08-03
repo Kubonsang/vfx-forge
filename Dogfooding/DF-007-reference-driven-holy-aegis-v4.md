@@ -145,3 +145,35 @@ criteria with matching, non-stale hashes.
   could not reconnect to the local Licensing Client and was stopped. The last completed
   VF-021 run remains 187 passed, 0 failed, with Console errors 0; this documentation-only
   rejection update does not replace that historical result or claim a fresh Unity run.
+
+## VF-021 candidate set V2
+
+Four new 1536×1024 boards were generated from the V2 Brief. Candidate D was supplied to
+the image generator only as an orientation and board-layout reference. No first-set
+candidate was promoted or edited into an approved concept.
+
+- E — Cavalier Wall:
+  `Dogfooding/Evidence/VF-021-concepts-v2/candidate-e-cavalier-wall-board.png`
+  - Strength: clearest single continuous barrier and layer separation.
+  - Risk: heavy roots and regular frame can read as permanent architecture.
+- F — Winged Bulwark:
+  `Dogfooding/Evidence/VF-021-concepts-v2/candidate-f-winged-bulwark-board.png`
+  - Strength: strongest directional energy and most dynamic silhouette.
+  - Risk: the center valley can still separate into two visual lobes.
+- G — Lanceguard Prow:
+  `Dogfooding/Evidence/VF-021-concepts-v2/candidate-g-lanceguard-prow-board.png`
+  - Strength: restrained asymmetry and a clean continuous surface.
+  - Risk: tall supports can read as a portal; the advance is subtle at thumbnail scale.
+- H — Citadel Arc:
+  `Dogfooding/Evidence/VF-021-concepts-v2/candidate-h-citadel-arc-board.png`
+  - Strength: broad protective sweep and explicit enemy-facing curvature.
+  - Risk: crown posts and gold mass push the design toward a fantasy gate.
+
+The prompt and every board hash are stored in
+`Dogfooding/Evidence/VF-021-concepts-v2/concept-candidates-v2.json`. The new review record
+is `concept-review-v2.json` with status `selection_required`; automation has not selected
+or approved a candidate.
+
+The next review must first judge whether any candidate avoids the new common risk:
+enemy-facing orientation is now readable, but a large framed plane can become a piece
+of architecture instead of a temporally deployed VFX skill.
