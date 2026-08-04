@@ -1124,7 +1124,7 @@
       "id": "VF-022",
       "title": "Approved Concept to Layered Unity Shape",
       "status": "in_progress",
-      "phase": "model_sheet_rejected",
+      "phase": "model_sheet_review_required",
       "scope": [
         "Translate only a human-selected concept into connected depth layers",
         "Compare the Unity grayscale capture against the selected silhouette",
@@ -1304,7 +1304,7 @@
           },
           "console_errors": 0
         },
-        "model_sheet": {
+        "model_sheet_v1": {
           "id": "VF-022R-B",
           "status": "rejected",
           "candidate_board": "Dogfooding/Evidence/VF-021-concepts-v2/candidate-e-cavalier-wall-board.png",
@@ -1351,7 +1351,34 @@
           "vfx_graph": 0,
           "animation": 0
         },
-        "next_gate": "Regenerate only the Candidate E model sheet with the original slanted wedge silhouette locked; ProBuilder blockout remains prohibited"
+        "model_sheet_v2": {
+          "id": "VF-022R-B2",
+          "status": "review_required",
+          "change_limit": "silhouette fidelity only",
+          "candidate_board": "Dogfooding/Evidence/VF-021-concepts-v2/candidate-e-cavalier-wall-board.png",
+          "candidate_board_sha256": "89354ac5613efbf26603d32c4b8755559a4a53f2abad2a95e198d686b482392e",
+          "model_sheet": "Dogfooding/Evidence/VF-022R-model-sheet/candidate-e-model-sheet-v2.png",
+          "model_sheet_sha256": "36b4b5ede3711d662ef83cee5446af0e9360c92893bdbc669a7b0aa7fbffad6f",
+          "reference_manifest": "Dogfooding/Evidence/VF-022R-model-sheet/mesh-reference-v2.json",
+          "review_record": "Dogfooding/Evidence/VF-022R-model-sheet/model-sheet-review-v2.json",
+          "input_sha256": "97ff189594a4cfcf2e640f8692e49179d81abd937325224d5a41b9bd968f5c77",
+          "shape_corrections": [
+            "landscape slanted wedge instead of upright arch",
+            "raised caster-side lower root",
+            "concave lower return descending toward the heavy enemy-side footing",
+            "no horizontal floor rail or bilateral doorway symmetry"
+          ],
+          "targeted_dogfood_tests": {
+            "passed": 4,
+            "failed": 0,
+            "artifact": "/tmp/vf022r-b2-editmode.xml"
+          },
+          "console_errors": 0,
+          "shader_graph": 0,
+          "vfx_graph": 0,
+          "animation": 0
+        },
+        "next_gate": "A human must accept the non-stale Candidate E model sheet V2 before any ProBuilder blockout begins"
       }
     },
     {

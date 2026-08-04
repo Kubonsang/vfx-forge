@@ -11,11 +11,11 @@ namespace VfxForge.Dogfood.Tests
             "Dogfooding/Evidence/VF-022R-model-sheet";
 
         [Test]
-        public void CandidateEModelSheet_MatchesHashesAndReferenceContract()
+        public void CandidateEModelSheetV2_MatchesHashesAndReferenceContract()
         {
             string repository = RepositoryRoot();
             VfxMeshReferenceManifest manifest = ReadJson<VfxMeshReferenceManifest>(
-                Path.Combine(repository, EvidenceDirectory, "mesh-reference.json"));
+                Path.Combine(repository, EvidenceDirectory, "mesh-reference-v2.json"));
 
             VfxMeshContractValidation validation =
                 VfxMeshContractValidator.Validate(manifest);
@@ -33,9 +33,10 @@ namespace VfxForge.Dogfood.Tests
         }
 
         [Test]
-        public void CandidateEModelSheet_CamerasAimAtLockedTargets()
+        public void CandidateEModelSheetV2_CamerasAimAtLockedTargets()
         {
-            VfxMeshReferenceManifest manifest = ReadReferenceManifest();
+            VfxMeshReferenceManifest manifest = ReadReferenceManifest(
+                "mesh-reference-v2.json");
             foreach (VfxMeshReferenceView view in manifest.views)
             {
                 Vector3 expected = (view.target - view.position).normalized;
@@ -49,9 +50,10 @@ namespace VfxForge.Dogfood.Tests
         }
 
         [Test]
-        public void CandidateEModelSheet_RecordsRejectionAndStalesOnInputChange()
+        public void CandidateEModelSheetV1_RecordsRejectionAndStalesOnInputChange()
         {
-            VfxMeshReferenceManifest manifest = ReadReferenceManifest();
+            VfxMeshReferenceManifest manifest = ReadReferenceManifest(
+                "mesh-reference.json");
             string reviewPath = Path.Combine(
                 RepositoryRoot(),
                 EvidenceDirectory,
@@ -77,12 +79,43 @@ namespace VfxForge.Dogfood.Tests
                 Is.EqualTo(VfxMeshReviewStatus.ReviewStale));
         }
 
-        private static VfxMeshReferenceManifest ReadReferenceManifest()
+        [Test]
+        public void CandidateEModelSheetV2_RequiresNewHumanReview()
+        {
+            VfxMeshReferenceManifest manifest = ReadReferenceManifest(
+                "mesh-reference-v2.json");
+            VfxMeshReviewRecord submitted = ReadJson<VfxMeshReviewRecord>(
+                Path.Combine(
+                    RepositoryRoot(),
+                    EvidenceDirectory,
+                    "model-sheet-review-v2.json"));
+            string inputHash = VfxMeshReviewStore.ComputeCombinedSha256(
+                manifest.candidateBoardSha256,
+                manifest.modelSheetSha256);
+            VfxMeshReviewRecord expected = VfxMeshReviewStore.CreateExpected(
+                "VF-022",
+                VfxMeshReviewStage.ModelSheet,
+                inputHash);
+
+            Assert.That(submitted.inputSha256, Is.EqualTo(inputHash));
+            Assert.That(
+                VfxMeshReviewStore.Evaluate(expected, submitted),
+                Is.EqualTo(VfxMeshReviewStatus.ReviewRequired));
+            Assert.That(
+                submitted.inputSha256,
+                Is.Not.EqualTo(ReadJson<VfxMeshReviewRecord>(Path.Combine(
+                    RepositoryRoot(),
+                    EvidenceDirectory,
+                    "model-sheet-review.json")).inputSha256));
+        }
+
+        private static VfxMeshReferenceManifest ReadReferenceManifest(
+            string filename)
         {
             return ReadJson<VfxMeshReferenceManifest>(Path.Combine(
                 RepositoryRoot(),
                 EvidenceDirectory,
-                "mesh-reference.json"));
+                filename));
         }
 
         private static T ReadJson<T>(string path)

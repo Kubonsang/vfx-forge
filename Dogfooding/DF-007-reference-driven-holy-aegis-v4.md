@@ -473,3 +473,26 @@ V1 and its matching rejection record remain immutable evidence. The next iterati
 regenerate only the model sheet, with the original Candidate E silhouette and gameplay
 lean treated as hard constraints. ProBuilder blockout, Shader, VFX Graph, and animation
 remain blocked.
+
+### Model sheet V2 silhouette correction
+
+V2 changes one visual group only: the primary silhouette. It preserves V1's clay
+rendering and inferred thickness while replacing the upright arch with a landscape,
+directional wedge. The caster-side lower root is raised, the heavy enemy-side footing
+remains low, and the concave lower return descends between them instead of forming a
+horizontal architectural base.
+
+- V2 model sheet:
+  `Dogfooding/Evidence/VF-022R-model-sheet/candidate-e-model-sheet-v2.png`
+- V2 reference manifest:
+  `Dogfooding/Evidence/VF-022R-model-sheet/mesh-reference-v2.json`
+- V2 review record:
+  `Dogfooding/Evidence/VF-022R-model-sheet/model-sheet-review-v2.json`
+- V2 prompt and locked landmarks:
+  `Dogfooding/Preproduction/DF-007/model-sheet-prompt-v2.md`
+
+V2 is `model_sheet_review_required`; it is not an approved mesh. No ProBuilder source,
+runtime Mesh, Shader, VFX Graph, or animation was produced during this correction.
+The focused EditMode suite passed 4 of 4 tests, covering both the preserved V1 rejection
+and the new V2 hashes, locked cameras, and non-stale review-required state. The Unity log
+contains no compiler or Console errors.
