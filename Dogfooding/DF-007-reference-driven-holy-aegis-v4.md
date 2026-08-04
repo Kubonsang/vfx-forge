@@ -539,3 +539,59 @@ the symmetric shield interpretation. The matching input hash is recorded in
 `model-sheet-review-v3.json`, and all five model-sheet criteria are accepted. This
 approval unlocks only the ProBuilder clay blockout. Shader, VFX Graph, and animation
 remain prohibited until the blockout receives a separate human review.
+
+## VF-022R-C symmetric shield ProBuilder blockout
+
+The approved V3 model sheet was translated into a new editable ProBuilder source
+Prefab and a separate runtime export. The previous procedural V1/V2/V3 assets remain
+unchanged as failure evidence. The new source contains six editable ProBuilder meshes:
+one convex plate, one continuous rim, and two mirrored pairs of authored guard sweeps.
+The runtime Prefab contains six regular Unity Mesh assets and no ProBuilder component.
+
+Four internal blockout revisions were evaluated during this work unit. The first
+capture failed silhouette IoU at `0.2972`: it presented a circular plate, hid the
+guards, and also exposed that gray-reference luminance was not a valid silhouette
+mask. V2 passed the corrected outline mask but failed landmark error at mean `4.71%`
+and maximum `6.98%`. V3 corrected the front/back coordinate convention and exposed the
+convex keel, but its point-fan guard topology read as four rounded protrusions. V4
+replaced those protrusions with connected beveled ribbon cages and moved the upper
+guard mass toward the approved landmarks. V5 corrected the gameplay lean from `-18°`
+to `+18°` so the top-down camera sees the shield face instead of a grazing side view;
+the first enlarged V5 framing was also rejected for `2.65%` border clipping before the
+locked camera margin was restored. Failed intermediate captures were not used as
+acceptance evidence.
+
+Final technical evidence:
+
+- ProBuilder source:
+  `UnityCompatibilityProject/Assets/VFXForge/Dogfood/HolyAegisV4/Authoring/ProBuilder/SymmetricShieldBlockoutV1.prefab`
+- Runtime Prefab:
+  `UnityCompatibilityProject/Assets/VFXForge/Dogfood/HolyAegisV4/Runtime/SymmetricShieldBlockoutV1.prefab`
+- Mesh authoring manifest:
+  `Dogfooding/Evidence/VF-022R-symmetric-shield-blockout-v1/mesh-authoring.json`
+- Capture manifest:
+  `Dogfooding/Evidence/VF-022R-symmetric-shield-blockout-v1/capture-manifest.json`
+- Contact sheet:
+  `Dogfooding/Evidence/VF-022R-symmetric-shield-blockout-v1/blockout-contact-sheet.png`
+- Human review record:
+  `Dogfooding/Evidence/VF-022R-symmetric-shield-blockout-v1/blockout-review.json`
+
+The final export contains `1,452` rendered triangles, below the `12,000` blockout
+ceiling without using an exact-count acceptance test. All six runtime meshes report
+zero invalid vertices, degenerate triangles, and non-manifold edges. Repeated export
+preserves source hash `0e2d8d64391c8dba0cb75eb734a54de7` and repeats runtime hash
+`e2079bfad4167e4fd6e59f7655bb35a5`.
+
+The locked front capture reports silhouette IoU `0.8787` against the approved
+normalized shield outline (`0.85` minimum). Four guard landmarks report mean error
+`0.0252` and maximum error `0.0385`, below limits `0.03` and `0.06`. Front, top,
+right-side, gameplay, wireframe, and normal captures have non-empty foreground and no
+border clipping. Six targeted EditMode tests, one targeted PlayMode test, 214 full
+EditMode tests, and eight full PlayMode tests passed with zero failures. The capture
+batch recorded zero Console errors.
+
+Product status remains `blockout_review_required`. These technical gates do not approve
+the silhouette, frame readability, connected guards, depth consistency, or gameplay
+readability on behalf of the project owner. No Shader Graph, VFX Graph, animation,
+particles, or lights were added. VF-023 remains blocked until the project owner accepts
+all five mesh-review criteria.

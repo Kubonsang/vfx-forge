@@ -1,0 +1,17 @@
+{
+    "schemaVersion": "mesh-authoring-1.0",
+    "taskId": "VF-022",
+    "meshReferenceSha256": "1f5c883b2bc5f2bef2dcf2d706851177ad77eb2bb42ada198fedf118c16c2d56",
+    "sourcePrefabPath": "Assets/VFXForge/Dogfood/HolyAegisV4/Authoring/ProBuilder/SymmetricShieldBlockoutV1.prefab",
+    "sourceDependencyHash": "0e2d8d64391c8dba0cb75eb734a54de7",
+    "runtimePrefabPath": "Assets/VFXForge/Dogfood/HolyAegisV4/Runtime/SymmetricShieldBlockoutV1.prefab",
+    "runtimeDependencyHash": "e2079bfad4167e4fd6e59f7655bb35a5",
+    "runtimeMeshFolder": "Assets/VFXForge/Dogfood/HolyAegisV4/Runtime/Meshes",
+    "renderedTriangles": 1452,
+    "maximumRenderedTriangles": 12000,
+    "materialZones": [
+        "surface",
+        "frame",
+        "anchor"
+    ]
+}

@@ -1124,7 +1124,7 @@
       "id": "VF-022",
       "title": "Approved Concept to Layered Unity Shape",
       "status": "in_progress",
-      "phase": "probuilder_blockout_authoring",
+      "phase": "blockout_review_required",
       "scope": [
         "Translate only a human-selected concept into connected depth layers",
         "Compare the Unity grayscale capture against the selected silhouette",
@@ -1416,7 +1416,65 @@
           "vfx_graph": 0,
           "animation": 0
         },
-        "next_gate": "Author, export, validate, and capture the ProBuilder symmetric shield blockout"
+        "probuilder_blockout_v1": {
+          "id": "VF-022R-C",
+          "status": "review_required",
+          "authoring_revision": "symmetric-shield-blockout-v5",
+          "source_prefab": "UnityCompatibilityProject/Assets/VFXForge/Dogfood/HolyAegisV4/Authoring/ProBuilder/SymmetricShieldBlockoutV1.prefab",
+          "runtime_prefab": "UnityCompatibilityProject/Assets/VFXForge/Dogfood/HolyAegisV4/Runtime/SymmetricShieldBlockoutV1.prefab",
+          "source_dependency_hash": "0e2d8d64391c8dba0cb75eb734a54de7",
+          "runtime_dependency_hash": "e2079bfad4167e4fd6e59f7655bb35a5",
+          "rendered_triangles": 1452,
+          "maximum_rendered_triangles": 12000,
+          "source_probuilder_meshes": 6,
+          "runtime_probuilder_meshes": 0,
+          "shape_elements": [
+            "bilaterally symmetric convex heater-shield plate",
+            "continuous multi-band perimeter rim",
+            "mirrored upper and lower beveled guard sweeps",
+            "centered crown and lower keel"
+          ],
+          "automatic_shape_gate": {
+            "silhouette_iou": 0.8787,
+            "minimum_silhouette_iou": 0.85,
+            "landmark_mean_error": 0.0252,
+            "maximum_landmark_mean_error": 0.03,
+            "landmark_maximum_error": 0.0385,
+            "maximum_landmark_error": 0.06
+          },
+          "capture_manifest": "Dogfooding/Evidence/VF-022R-symmetric-shield-blockout-v1/capture-manifest.json",
+          "contact_sheet": "Dogfooding/Evidence/VF-022R-symmetric-shield-blockout-v1/blockout-contact-sheet.png",
+          "review_record": "Dogfooding/Evidence/VF-022R-symmetric-shield-blockout-v1/blockout-review.json",
+          "targeted_editmode_tests": {
+            "passed": 6,
+            "failed": 0,
+            "artifact": "/tmp/vf022r-blockout-v5-targeted-editmode.xml"
+          },
+          "targeted_playmode_tests": {
+            "passed": 1,
+            "failed": 0,
+            "artifact": "/tmp/vf022r-blockout-v5-targeted-playmode.xml"
+          },
+          "full_editmode_tests": {
+            "passed": 214,
+            "failed": 0,
+            "artifact": "/tmp/vf022r-blockout-v5-full-editmode.xml"
+          },
+          "full_playmode_tests": {
+            "passed": 8,
+            "failed": 0,
+            "artifact": "/tmp/vf022r-blockout-v5-full-playmode.xml"
+          },
+          "console": {
+            "errors": 0,
+            "artifact": "Dogfooding/Evidence/VF-022R-symmetric-shield-blockout-v1/console-counts.json"
+          },
+          "shader_graph": 0,
+          "vfx_graph": 0,
+          "animation": 0,
+          "human_review": "pending"
+        },
+        "next_gate": "Project owner reviews the VF-022R-C ProBuilder blockout contact sheet; VF-023 remains blocked until acceptance"
       }
     },
     {

@@ -1,0 +1,120 @@
+{
+    "schemaVersion": "mesh-capture-1.0",
+    "taskId": "VF-022",
+    "sourceDependencyHash": "0e2d8d64391c8dba0cb75eb734a54de7",
+    "runtimeDependencyHash": "e2079bfad4167e4fd6e59f7655bb35a5",
+    "boundsCenter": {
+        "x": 0.0,
+        "y": 3.0656001567840578,
+        "z": 2.5400002002716066
+    },
+    "boundsSize": {
+        "x": 5.636895656585693,
+        "y": 5.8968000411987309,
+        "z": 0.5
+    },
+    "silhouetteIou": 0.8787394762039185,
+    "landmarkMeanError": 0.025175239890813829,
+    "landmarkMaximumError": 0.03854518383741379,
+    "frames": [
+        {
+            "id": "front-clay",
+            "path": "Dogfooding/Evidence/VF-022R-symmetric-shield-blockout-v1/front-clay.png",
+            "sha256": "819b9e59f372d5afa09bf65ae29753b645888938fe05dc2650b9f1facbd429f6",
+            "width": 1280,
+            "height": 720,
+            "foregroundRatio": 0.2721332609653473,
+            "borderForegroundRatio": 0.0
+        },
+        {
+            "id": "front-wireframe",
+            "path": "Dogfooding/Evidence/VF-022R-symmetric-shield-blockout-v1/front-wireframe.png",
+            "sha256": "90a343573b113f45b1fba6eb4bf80c7ea08c22e8edd956a45986cd70e8b38792",
+            "width": 1280,
+            "height": 720,
+            "foregroundRatio": 0.032006293535232547,
+            "borderForegroundRatio": 0.0
+        },
+        {
+            "id": "front-normal",
+            "path": "Dogfooding/Evidence/VF-022R-symmetric-shield-blockout-v1/front-normal.png",
+            "sha256": "3950d6bf1f4fad87472e425340f3cd176515896d4765daac43cd1ae1d2f7d8da",
+            "width": 1280,
+            "height": 720,
+            "foregroundRatio": 0.2721332609653473,
+            "borderForegroundRatio": 0.0
+        },
+        {
+            "id": "top-clay",
+            "path": "Dogfooding/Evidence/VF-022R-symmetric-shield-blockout-v1/top-clay.png",
+            "sha256": "865813506a1f4f79f163fbeeeb912d2ce834b077462a7efa54080209d41102ca",
+            "width": 1280,
+            "height": 720,
+            "foregroundRatio": 0.09920790046453476,
+            "borderForegroundRatio": 0.0
+        },
+        {
+            "id": "top-wireframe",
+            "path": "Dogfooding/Evidence/VF-022R-symmetric-shield-blockout-v1/top-wireframe.png",
+            "sha256": "7e73b71a653500fcd7b8fa56c1fb26d2e88d110920592b25bc4b8c4799a7c708",
+            "width": 1280,
+            "height": 720,
+            "foregroundRatio": 0.031593967229127887,
+            "borderForegroundRatio": 0.0
+        },
+        {
+            "id": "right-side-clay",
+            "path": "Dogfooding/Evidence/VF-022R-symmetric-shield-blockout-v1/right-side-clay.png",
+            "sha256": "b3a0195b5e2a6b62b0a86ed8f04e605f4d0d17f65c61c916b5f6575d644a9c1f",
+            "width": 1280,
+            "height": 720,
+            "foregroundRatio": 0.03390733525156975,
+            "borderForegroundRatio": 0.0
+        },
+        {
+            "id": "right-side-wireframe",
+            "path": "Dogfooding/Evidence/VF-022R-symmetric-shield-blockout-v1/right-side-wireframe.png",
+            "sha256": "469ff85cf257538f80ded3b0177cacd6f7f7e864c231072a2317b0894854f8ac",
+            "width": 1280,
+            "height": 720,
+            "foregroundRatio": 0.01721462607383728,
+            "borderForegroundRatio": 0.0
+        },
+        {
+            "id": "gameplay-clay",
+            "path": "Dogfooding/Evidence/VF-022R-symmetric-shield-blockout-v1/gameplay-clay.png",
+            "sha256": "e9ff64bff5f8d611e084776e0495eab4628fe7bb23400836e813a4675413cd00",
+            "width": 1280,
+            "height": 720,
+            "foregroundRatio": 0.16293510794639588,
+            "borderForegroundRatio": 0.0
+        },
+        {
+            "id": "reference-front",
+            "path": "Dogfooding/Evidence/VF-022R-symmetric-shield-blockout-v1/reference-front.png",
+            "sha256": "7a50c60780123e63fae52f8bd932f157bddbce44b7b6ab5bc02f76c4fd632ba9",
+            "width": 627,
+            "height": 627,
+            "foregroundRatio": 0.2541201412677765,
+            "borderForegroundRatio": 0.09931721538305283
+        },
+        {
+            "id": "target-silhouette",
+            "path": "Dogfooding/Evidence/VF-022R-symmetric-shield-blockout-v1/target-silhouette.png",
+            "sha256": "9a6d798b722078ab0d7a40b146bc9dbe84d9b8d18405972314680d73e12424a8",
+            "width": 627,
+            "height": 627,
+            "foregroundRatio": 0.4080238342285156,
+            "borderForegroundRatio": 0.0
+        },
+        {
+            "id": "front-overlay",
+            "path": "Dogfooding/Evidence/VF-022R-symmetric-shield-blockout-v1/front-overlay.png",
+            "sha256": "b5f68109c73537627dec075b9aedcceab4716ff803471d67d3276659c94064a9",
+            "width": 1280,
+            "height": 720,
+            "foregroundRatio": 0.5481011271476746,
+            "borderForegroundRatio": 0.3651115596294403
+        }
+    ]
+}
