@@ -1124,7 +1124,7 @@
       "id": "VF-022",
       "title": "Approved Concept to Layered Unity Shape",
       "status": "in_progress",
-      "phase": "model_sheet_review_required",
+      "phase": "model_sheet_rejected",
       "scope": [
         "Translate only a human-selected concept into connected depth layers",
         "Compare the Unity grayscale capture against the selected silhouette",
@@ -1306,7 +1306,7 @@
         },
         "model_sheet": {
           "id": "VF-022R-B",
-          "status": "review_required",
+          "status": "rejected",
           "candidate_board": "Dogfooding/Evidence/VF-021-concepts-v2/candidate-e-cavalier-wall-board.png",
           "candidate_board_sha256": "89354ac5613efbf26603d32c4b8755559a4a53f2abad2a95e198d686b482392e",
           "model_sheet": "Dogfooding/Evidence/VF-022R-model-sheet/candidate-e-model-sheet-v1.png",
@@ -1341,11 +1341,17 @@
             "artifact": "/tmp/vf022r-b-full-playmode.xml"
           },
           "console_errors": 0,
+          "human_review": {
+            "reviewer": "project_owner",
+            "review_time_utc": "2026-08-04T00:54:13Z",
+            "accepted": false,
+            "reason": "Modeling quality improved, but the intended Candidate E shape was not preserved; the slanted wedge barrier became an upright arch-like gate."
+          },
           "shader_graph": 0,
           "vfx_graph": 0,
           "animation": 0
         },
-        "next_gate": "A human must accept the non-stale Candidate E model sheet before any ProBuilder blockout begins"
+        "next_gate": "Regenerate only the Candidate E model sheet with the original slanted wedge silhouette locked; ProBuilder blockout remains prohibited"
       }
     },
     {

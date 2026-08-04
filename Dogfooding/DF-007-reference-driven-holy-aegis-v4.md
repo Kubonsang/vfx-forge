@@ -460,3 +460,16 @@ Current product status is `model_sheet_review_required`. This is AI-generated mo
 reference, not proof of geometric fidelity. Shader, VFX Graph, animation, and ProBuilder
 blockout remain prohibited until the project owner records a matching non-stale human
 approval.
+
+### Model sheet V1 human rejection
+
+The project owner rejected V1 on 2026-08-04. The modeling and depth quality was visibly
+higher than the previous procedural meshes, but the intended shape was not preserved.
+V1 converted Candidate E's slanted, asymmetric wedge barrier into an upright arch-like
+gate. This fails `visibleShapeFidelity` even though the individual bevels and panel
+consistency improved.
+
+V1 and its matching rejection record remain immutable evidence. The next iteration may
+regenerate only the model sheet, with the original Candidate E silhouette and gameplay
+lean treated as hard constraints. ProBuilder blockout, Shader, VFX Graph, and animation
+remain blocked.

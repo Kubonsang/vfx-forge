@@ -2,10 +2,10 @@
   "schemaVersion": "mesh-review-1.0",
   "taskId": "VF-022",
   "stage": "model_sheet",
-  "status": "review_required",
+  "status": "rejected",
   "inputSha256": "e55ec3b8f67d902b71549329bc4bd5ad76a0734acce70ccba38c1abf1490a6c0",
-  "reviewer": "",
-  "reviewTimeUtc": "",
+  "reviewer": "project_owner",
+  "reviewTimeUtc": "2026-08-04T00:54:13Z",
   "accepted": false,
   "criteria": {
     "visibleShapeFidelity": false,
@@ -14,5 +14,5 @@
     "depthConsistency": false,
     "gameplayReadability": false
   },
-  "rejectionReason": ""
+  "rejectionReason": "Modeling quality is visibly higher, but the sheet changes Candidate E's intended slanted wedge-shaped barrier into an upright arch-like gate, so the intended shape is not preserved."
 }

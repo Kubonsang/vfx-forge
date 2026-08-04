@@ -49,7 +49,7 @@ namespace VfxForge.Dogfood.Tests
         }
 
         [Test]
-        public void CandidateEModelSheet_RemainsReviewRequiredAndStalesOnInputChange()
+        public void CandidateEModelSheet_RecordsRejectionAndStalesOnInputChange()
         {
             VfxMeshReferenceManifest manifest = ReadReferenceManifest();
             string reviewPath = Path.Combine(
@@ -69,7 +69,7 @@ namespace VfxForge.Dogfood.Tests
             Assert.That(submitted.inputSha256, Is.EqualTo(inputHash));
             Assert.That(
                 VfxMeshReviewStore.Evaluate(expected, submitted),
-                Is.EqualTo(VfxMeshReviewStatus.ReviewRequired));
+                Is.EqualTo(VfxMeshReviewStatus.Rejected));
 
             expected.inputSha256 = new string('f', 64);
             Assert.That(
