@@ -531,3 +531,11 @@ caster, with only a restrained backward lean for top-down readability. V3 is
 The focused EditMode suite passed 5 of 5 tests, covering preserved V1/V2 rejection,
 V3 file hashes, locked cameras, shield part role, and the non-stale review-required
 state. The Unity log contains no compiler or Console errors.
+
+### Model sheet V3 human approval
+
+The project owner approved V3 on 2026-08-04 with the instruction to build the Mesh from
+the symmetric shield interpretation. The matching input hash is recorded in
+`model-sheet-review-v3.json`, and all five model-sheet criteria are accepted. This
+approval unlocks only the ProBuilder clay blockout. Shader, VFX Graph, and animation
+remain prohibited until the blockout receives a separate human review.

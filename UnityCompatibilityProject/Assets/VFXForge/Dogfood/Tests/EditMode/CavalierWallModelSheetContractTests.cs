@@ -110,7 +110,7 @@ namespace VfxForge.Dogfood.Tests
         }
 
         [Test]
-        public void SymmetricShieldModelSheetV3_RequiresNewHumanReview()
+        public void SymmetricShieldModelSheetV3_RecordsHumanApproval()
         {
             VfxMeshReferenceManifest manifest = ReadReferenceManifest(
                 "mesh-reference-v3.json");
@@ -130,7 +130,7 @@ namespace VfxForge.Dogfood.Tests
             Assert.That(submitted.inputSha256, Is.EqualTo(inputHash));
             Assert.That(
                 VfxMeshReviewStore.Evaluate(expected, submitted),
-                Is.EqualTo(VfxMeshReviewStatus.ReviewRequired));
+                Is.EqualTo(VfxMeshReviewStatus.Accepted));
             Assert.That(
                 manifest.parts[0].role,
                 Is.EqualTo("convex_symmetric_shield_plate"));

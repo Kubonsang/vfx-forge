@@ -1124,7 +1124,7 @@
       "id": "VF-022",
       "title": "Approved Concept to Layered Unity Shape",
       "status": "in_progress",
-      "phase": "model_sheet_review_required",
+      "phase": "probuilder_blockout_authoring",
       "scope": [
         "Translate only a human-selected concept into connected depth layers",
         "Compare the Unity grayscale capture against the selected silhouette",
@@ -1386,7 +1386,7 @@
         },
         "model_sheet_v3": {
           "id": "VF-022R-B3",
-          "status": "review_required",
+          "status": "accepted",
           "change_limit": "bilateral symmetry and shield identity",
           "source_direction": "Project-owner direction supersedes Candidate E's asymmetric silhouette while retaining enemy-facing deployment.",
           "model_sheet": "Dogfooding/Evidence/VF-022R-model-sheet/candidate-e-model-sheet-v3.png",
@@ -1406,11 +1406,17 @@
             "artifact": "/tmp/vf022r-b3-editmode.xml"
           },
           "console_errors": 0,
+          "human_review": {
+            "reviewer": "project_owner",
+            "review_time_utc": "2026-08-04T02:17:15Z",
+            "accepted": true,
+            "instruction": "Build the mesh from the symmetric shield interpretation."
+          },
           "shader_graph": 0,
           "vfx_graph": 0,
           "animation": 0
         },
-        "next_gate": "A human must accept the non-stale symmetric shield model sheet V3 before any ProBuilder blockout begins"
+        "next_gate": "Author, export, validate, and capture the ProBuilder symmetric shield blockout"
       }
     },
     {
