@@ -507,3 +507,27 @@ enemy-facing deployment behavior and the requirement for a coherent four-view mo
 
 V2 and its rejection record remain immutable. Only the model sheet may be regenerated;
 ProBuilder blockout and all finish work remain blocked.
+
+### Model sheet V3 symmetric shield reinterpretation
+
+V3 follows the project owner's new shape direction rather than Candidate E's asymmetric
+outline. The front view is bilaterally symmetric and uses a solid convex heater-shield
+plate, centered crown and lower keel, continuous perimeter rim, and two mirrored pairs
+of connected shoulder/flank guards. It has no ground feet, horizontal base, columns, or
+open architectural frame.
+
+- V3 model sheet:
+  `Dogfooding/Evidence/VF-022R-model-sheet/candidate-e-model-sheet-v3.png`
+- V3 reference manifest:
+  `Dogfooding/Evidence/VF-022R-model-sheet/mesh-reference-v3.json`
+- V3 review record:
+  `Dogfooding/Evidence/VF-022R-model-sheet/model-sheet-review-v3.json`
+- V3 prompt and dimensions:
+  `Dogfooding/Preproduction/DF-007/model-sheet-prompt-v3.md`
+
+The gameplay interpretation remains an enemy-facing shield deployed in front of the
+caster, with only a restrained backward lean for top-down readability. V3 is
+`model_sheet_review_required`; no ProBuilder blockout or finish work has started.
+The focused EditMode suite passed 5 of 5 tests, covering preserved V1/V2 rejection,
+V3 file hashes, locked cameras, shield part role, and the non-stale review-required
+state. The Unity log contains no compiler or Console errors.

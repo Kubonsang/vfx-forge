@@ -1124,7 +1124,7 @@
       "id": "VF-022",
       "title": "Approved Concept to Layered Unity Shape",
       "status": "in_progress",
-      "phase": "model_sheet_rejected",
+      "phase": "model_sheet_review_required",
       "scope": [
         "Translate only a human-selected concept into connected depth layers",
         "Compare the Unity grayscale capture against the selected silhouette",
@@ -1384,7 +1384,33 @@
           "vfx_graph": 0,
           "animation": 0
         },
-        "next_gate": "Regenerate only the model sheet as a bilaterally symmetric giant shield; ProBuilder blockout remains prohibited"
+        "model_sheet_v3": {
+          "id": "VF-022R-B3",
+          "status": "review_required",
+          "change_limit": "bilateral symmetry and shield identity",
+          "source_direction": "Project-owner direction supersedes Candidate E's asymmetric silhouette while retaining enemy-facing deployment.",
+          "model_sheet": "Dogfooding/Evidence/VF-022R-model-sheet/candidate-e-model-sheet-v3.png",
+          "model_sheet_sha256": "ff61ba884c8a94252ccb4a3eecbdc451668dd612f86936ae82a19609f4a36173",
+          "reference_manifest": "Dogfooding/Evidence/VF-022R-model-sheet/mesh-reference-v3.json",
+          "review_record": "Dogfooding/Evidence/VF-022R-model-sheet/model-sheet-review-v3.json",
+          "input_sha256": "98ed8012c64fa0f71fe346b5fb1cf1decb165081923293bfff6f33681b5059ae",
+          "shape_corrections": [
+            "perfect bilateral front-view symmetry",
+            "solid convex heater-shield plate with centered keel",
+            "continuous authored rim without ground feet or horizontal base",
+            "mirrored upper and lower connected guard pairs"
+          ],
+          "targeted_dogfood_tests": {
+            "passed": 5,
+            "failed": 0,
+            "artifact": "/tmp/vf022r-b3-editmode.xml"
+          },
+          "console_errors": 0,
+          "shader_graph": 0,
+          "vfx_graph": 0,
+          "animation": 0
+        },
+        "next_gate": "A human must accept the non-stale symmetric shield model sheet V3 before any ProBuilder blockout begins"
       }
     },
     {

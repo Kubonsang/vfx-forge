@@ -11,11 +11,11 @@ namespace VfxForge.Dogfood.Tests
             "Dogfooding/Evidence/VF-022R-model-sheet";
 
         [Test]
-        public void CandidateEModelSheetV2_MatchesHashesAndReferenceContract()
+        public void SymmetricShieldModelSheetV3_MatchesHashesAndReferenceContract()
         {
             string repository = RepositoryRoot();
             VfxMeshReferenceManifest manifest = ReadJson<VfxMeshReferenceManifest>(
-                Path.Combine(repository, EvidenceDirectory, "mesh-reference-v2.json"));
+                Path.Combine(repository, EvidenceDirectory, "mesh-reference-v3.json"));
 
             VfxMeshContractValidation validation =
                 VfxMeshContractValidator.Validate(manifest);
@@ -33,10 +33,10 @@ namespace VfxForge.Dogfood.Tests
         }
 
         [Test]
-        public void CandidateEModelSheetV2_CamerasAimAtLockedTargets()
+        public void SymmetricShieldModelSheetV3_CamerasAimAtLockedTargets()
         {
             VfxMeshReferenceManifest manifest = ReadReferenceManifest(
-                "mesh-reference-v2.json");
+                "mesh-reference-v3.json");
             foreach (VfxMeshReferenceView view in manifest.views)
             {
                 Vector3 expected = (view.target - view.position).normalized;
@@ -107,6 +107,33 @@ namespace VfxForge.Dogfood.Tests
                     RepositoryRoot(),
                     EvidenceDirectory,
                     "model-sheet-review.json")).inputSha256));
+        }
+
+        [Test]
+        public void SymmetricShieldModelSheetV3_RequiresNewHumanReview()
+        {
+            VfxMeshReferenceManifest manifest = ReadReferenceManifest(
+                "mesh-reference-v3.json");
+            VfxMeshReviewRecord submitted = ReadJson<VfxMeshReviewRecord>(
+                Path.Combine(
+                    RepositoryRoot(),
+                    EvidenceDirectory,
+                    "model-sheet-review-v3.json"));
+            string inputHash = VfxMeshReviewStore.ComputeCombinedSha256(
+                manifest.candidateBoardSha256,
+                manifest.modelSheetSha256);
+            VfxMeshReviewRecord expected = VfxMeshReviewStore.CreateExpected(
+                "VF-022",
+                VfxMeshReviewStage.ModelSheet,
+                inputHash);
+
+            Assert.That(submitted.inputSha256, Is.EqualTo(inputHash));
+            Assert.That(
+                VfxMeshReviewStore.Evaluate(expected, submitted),
+                Is.EqualTo(VfxMeshReviewStatus.ReviewRequired));
+            Assert.That(
+                manifest.parts[0].role,
+                Is.EqualTo("convex_symmetric_shield_plate"));
         }
 
         private static VfxMeshReferenceManifest ReadReferenceManifest(
