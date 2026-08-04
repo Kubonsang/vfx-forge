@@ -2,10 +2,10 @@
   "schemaVersion": "mesh-review-1.0",
   "taskId": "VF-022",
   "stage": "model_sheet",
-  "status": "review_required",
+  "status": "rejected",
   "inputSha256": "97ff189594a4cfcf2e640f8692e49179d81abd937325224d5a41b9bd968f5c77",
-  "reviewer": "",
-  "reviewTimeUtc": "",
+  "reviewer": "project_owner",
+  "reviewTimeUtc": "2026-08-04T01:23:25Z",
   "accepted": false,
   "criteria": {
     "visibleShapeFidelity": false,
@@ -14,5 +14,5 @@
     "depthConsistency": false,
     "gameplayReadability": false
   },
-  "rejectionReason": ""
+  "rejectionReason": "The left-high/right-low asymmetric silhouette is not desirable. Reinterpret the form with bilateral symmetry and make the primary mass read as a giant shield rather than an architectural barrier."
 }

@@ -80,7 +80,7 @@ namespace VfxForge.Dogfood.Tests
         }
 
         [Test]
-        public void CandidateEModelSheetV2_RequiresNewHumanReview()
+        public void CandidateEModelSheetV2_RecordsRejection()
         {
             VfxMeshReferenceManifest manifest = ReadReferenceManifest(
                 "mesh-reference-v2.json");
@@ -100,7 +100,7 @@ namespace VfxForge.Dogfood.Tests
             Assert.That(submitted.inputSha256, Is.EqualTo(inputHash));
             Assert.That(
                 VfxMeshReviewStore.Evaluate(expected, submitted),
-                Is.EqualTo(VfxMeshReviewStatus.ReviewRequired));
+                Is.EqualTo(VfxMeshReviewStatus.Rejected));
             Assert.That(
                 submitted.inputSha256,
                 Is.Not.EqualTo(ReadJson<VfxMeshReviewRecord>(Path.Combine(

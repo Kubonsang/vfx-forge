@@ -1124,7 +1124,7 @@
       "id": "VF-022",
       "title": "Approved Concept to Layered Unity Shape",
       "status": "in_progress",
-      "phase": "model_sheet_review_required",
+      "phase": "model_sheet_rejected",
       "scope": [
         "Translate only a human-selected concept into connected depth layers",
         "Compare the Unity grayscale capture against the selected silhouette",
@@ -1353,7 +1353,7 @@
         },
         "model_sheet_v2": {
           "id": "VF-022R-B2",
-          "status": "review_required",
+          "status": "rejected",
           "change_limit": "silhouette fidelity only",
           "candidate_board": "Dogfooding/Evidence/VF-021-concepts-v2/candidate-e-cavalier-wall-board.png",
           "candidate_board_sha256": "89354ac5613efbf26603d32c4b8755559a4a53f2abad2a95e198d686b482392e",
@@ -1374,11 +1374,17 @@
             "artifact": "/tmp/vf022r-b2-editmode.xml"
           },
           "console_errors": 0,
+          "human_review": {
+            "reviewer": "project_owner",
+            "review_time_utc": "2026-08-04T01:23:25Z",
+            "accepted": false,
+            "reason": "The left-high/right-low asymmetry is undesirable; the next interpretation must use bilateral symmetry and read as a giant shield instead of a barrier."
+          },
           "shader_graph": 0,
           "vfx_graph": 0,
           "animation": 0
         },
-        "next_gate": "A human must accept the non-stale Candidate E model sheet V2 before any ProBuilder blockout begins"
+        "next_gate": "Regenerate only the model sheet as a bilaterally symmetric giant shield; ProBuilder blockout remains prohibited"
       }
     },
     {

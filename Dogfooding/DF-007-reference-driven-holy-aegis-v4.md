@@ -496,3 +496,14 @@ runtime Mesh, Shader, VFX Graph, or animation was produced during this correctio
 The focused EditMode suite passed 4 of 4 tests, covering both the preserved V1 rejection
 and the new V2 hashes, locked cameras, and non-stale review-required state. The Unity log
 contains no compiler or Console errors.
+
+### Model sheet V2 human rejection
+
+The project owner rejected V2 on 2026-08-04. The left-high/right-low directional wedge
+was judged undesirable. The next interpretation must restore bilateral symmetry and
+make the primary mass read as a giant knight shield rather than an architectural
+barrier. This direction supersedes Candidate E's asymmetric outline while retaining the
+enemy-facing deployment behavior and the requirement for a coherent four-view model.
+
+V2 and its rejection record remain immutable. Only the model sheet may be regenerated;
+ProBuilder blockout and all finish work remain blocked.
